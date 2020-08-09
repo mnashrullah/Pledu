@@ -35,8 +35,7 @@ struct PhaseView: View {
                 
                 Spacer()
                 .sheet(isPresented: $mCamera) {
-                        Mtest2()
-                }
+                        CameraView()                }
             }
             
             .padding(.horizontal, 12)
