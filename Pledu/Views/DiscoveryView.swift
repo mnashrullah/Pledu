@@ -29,282 +29,288 @@ struct DiscoveryView: View {
     var body: some View {
         NavigationView{
 //            VStack(alignment: .leading,spacing: 12){
-            ScrollView(showsIndicators: false){
+            VStack {
+                //search
                 VStack(alignment: .leading, spacing: 5){
-                    Text("Ingin Menanam?").fontWeight(.heavy)
-                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                                    Text("Ingin Menanam?").fontWeight(.heavy)
+                                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                                    
+                //
+                                    // Search view
+                                    HStack {
+                                        HStack() {
+                                            Image(systemName: "magnifyingglass")
+                                            
+                                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                                                self.showCancelButton = true
+                                            }, onCommit: {
+                                                print("onCommit")
+                                            }).foregroundColor(.primary)
+                                            
+                                            Button(action: {
+                                                self.searchText = ""
+                                            }) {
+                                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                                            }
+                                        }
+                                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                                        .foregroundColor(.secondary)
+                                        .background(Color(.secondarySystemBackground))
+                                        .cornerRadius(10.0)
+                                        
+                                        if showCancelButton  {
+                                            Button("Cancel") {
+                                                self.searchText = ""
+                                                self.showCancelButton = false
+                                            }
+                                            .foregroundColor(Color(.systemBlue))
+                                        }
+                                    }
+                                    
+                                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+                }.padding(.horizontal, 16)
+                
+                //content
+                ScrollView(showsIndicators: false){
                     
-//
-                    // Search view
-                    HStack {
-                        HStack() {
-                            Image(systemName: "magnifyingglass")
+                    VStack{
+                        HStack{
                             
-                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
-                                self.showCancelButton = true
-                            }, onCommit: {
-                                print("onCommit")
-                            }).foregroundColor(.primary)
+                            Text("Bunga").fontWeight(.heavy)
+                            
+                            Spacer()
                             
                             Button(action: {
-                                self.searchText = ""
+                                
+                                
                             }) {
-                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                                
+                                Text("View all").foregroundColor(.gray)
                             }
-                        }
-                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                        .foregroundColor(.secondary)
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(10.0)
+                            
+                        }.padding([.top], 15)
+                        //end hstack bunga
                         
-                        if showCancelButton  {
-                            Button("Cancel") {
-                                self.searchText = ""
-                                self.showCancelButton = false
-                            }
-                            .foregroundColor(Color(.systemBlue))
-                        }
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            
+                            
+                            HStack(spacing: 20){
+                                
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        self.show.toggle()
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }.sheet(isPresented: $show){
+                                    Detail()
+                                }
+                                
+                                
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }//end vstack
+                            }//end hstack
+                        }//end scrollview
                     }
-                    
-                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
-                }
-                VStack{
-                    HStack{
-                        
-                        Text("Bunga").fontWeight(.heavy)
-                        
-                        Spacer()
-                        
-                        Button(action: {
+                    VStack{
+                        HStack{
                             
+                            Text("Bunga").fontWeight(.heavy)
                             
-                        }) {
+                            Spacer()
                             
-                            Text("View all").foregroundColor(.gray)
-                        }
-                        
-                    }.padding([.top], 15)
-                    //end hstack bunga
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        
-                        
-                        HStack(spacing: 20){
-                            
-                            VStack(alignment: .leading,spacing: 5){
+                            Button(action: {
                                 
-                                Button(action: {
-                                    self.show.toggle()
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
+                            }) {
                                 
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }.sheet(isPresented: $show){
-                                Detail()
+                                Text("View all").foregroundColor(.gray)
                             }
                             
+                        }.padding([.top], 15)
+                        //end hstack bunga
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
                             
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }//end vstack
-                        }//end hstack
-                    }//end scrollview
-                }
-                VStack{
-                    HStack{
-                        
-                        Text("Bunga").fontWeight(.heavy)
-                        
-                        Spacer()
-                        
-                        Button(action: {
                             
-                        }) {
+                            HStack(spacing: 20){
+                                
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }
+                                
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }
+                                VStack(alignment: .leading,spacing: 5){
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }//end vstack
+                            }//end hstack
+                        }//end scrollview
+                    }
+                    VStack{
+                        HStack{
                             
-                            Text("View all").foregroundColor(.gray)
-                        }
-                        
-                    }.padding([.top], 15)
-                    //end hstack bunga
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        
-                        
-                        HStack(spacing: 20){
+                            Text("Bunga").fontWeight(.heavy)
                             
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }
+                            Spacer()
                             
-                            VStack(alignment: .leading,spacing: 5){
+                            Button(action: {
                                 
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
+                            }) {
                                 
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }//end vstack
-                        }//end hstack
-                    }//end scrollview
-                }
-                VStack{
-                    HStack{
-                        
-                        Text("Bunga").fontWeight(.heavy)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            
-                        }) {
-                            
-                            Text("View all").foregroundColor(.gray)
-                        }
-                        
-                    }.padding([.top], 15)
-                    //end hstack bunga
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        
-                        
-                        HStack(spacing: 20){
-                            
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
-                                    
-                                }) {
-                                    
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
-                                    
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
+                                Text("View all").foregroundColor(.gray)
                             }
                             
-                            VStack(alignment: .leading,spacing: 5){
+                        }.padding([.top], 15)
+                        //end hstack bunga
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            
+                            
+                            HStack(spacing: 20){
                                 
-                                Button(action: {
+                                VStack(alignment: .leading,spacing: 5){
                                     
-                                }) {
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
                                     
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
                                 }
                                 
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
+                                VStack(alignment: .leading,spacing: 5){
                                     
-                                    Text("Rosella").foregroundColor(.gray)
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
+                                    
+                                    Text("Mawar").fontWeight(.heavy)
+                                    
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
                                 }
-                            }
-                            VStack(alignment: .leading,spacing: 5){
-                                
-                                Button(action: {
+                                VStack(alignment: .leading,spacing: 5){
                                     
-                                }) {
+                                    Button(action: {
+                                        
+                                    }) {
+                                        
+                                        Image("scale").renderingMode(.original).cornerRadius(10)
+                                    }
                                     
-                                    Image("scale").renderingMode(.original).cornerRadius(10)
-                                }
-                                
-                                Text("Mawar").fontWeight(.heavy)
-                                
-                                HStack(spacing: 5){
+                                    Text("Mawar").fontWeight(.heavy)
                                     
-                                    Text("Rosella").foregroundColor(.gray)
-                                }
-                            }//end vstack
-                        }//end hstack
-                    }//end scrollview
-                }
-                Spacer()
+                                    HStack(spacing: 5){
+                                        
+                                        Text("Rosella").foregroundColor(.gray)
+                                    }
+                                }//end vstack
+                            }//end hstack
+                        }//end scrollview
+                    }
+                    Spacer()
 
-                
-                
-            }.padding()
-                .navigationBarTitle(Text("Names"))
-                .navigationBarTitle(Text("Menjelajah"))
-                .navigationBarItems(trailing: settingButton)
-                .sheet(isPresented: $showingSetting) {
-                    SettingView()
-                    //                    .environmentObject(self.userData)
+                    
+                    
+                }.padding()
+                    .navigationBarTitle(Text("Names"))
+                    .navigationBarTitle(Text("Menjelajah"))
+                    .navigationBarItems(trailing: settingButton)
+                    .sheet(isPresented: $showingSetting) {
+                        SettingView()
+                        //                    .environmentObject(self.userData)
+                }
             }
         }
     }

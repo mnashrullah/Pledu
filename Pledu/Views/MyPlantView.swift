@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct MyPlantView: View {
+    @ObservedObject var data = getData()
     init(){
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorStyle = .none
@@ -18,95 +19,14 @@ struct MyPlantView: View {
             
             List(){
                 VStack(alignment: .leading){
-                    
                     Text("Tanaman yang kamu tanam akan tampil disini").foregroundColor(.gray)
-                    
                 }
-                
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: MyPlantDetailView()
-                            .navigationBarTitle("Mawar")
-                            .navigationBarHidden(true)
-                            .navigationBarBackButtonHidden(false)                        ){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
+                ForEach(0..<self.data.dataMyPlant.count){i in
+                    cardMyPlant(data: self.data.dataMyPlant[i])
                 }
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: Detail()){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: Detail()){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: Detail()){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: Detail()){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-                HStack(){
-                    Image("scale").renderingMode(.original).cornerRadius(10)
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        NavigationLink(destination: Detail()){
-                            Text("Mawar").fontWeight(.heavy)}
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    Spacer()
-                }
-                HStack(){
-                    
-                    Button(action: {
-                        
-                    }) {
-                        
-                        Image("scale").renderingMode(.original).cornerRadius(10)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        Text("Mawar").fontWeight(.heavy)
-                        Text("Ditambahkan pada: 20/20/2020 ").foregroundColor(.gray)
-                    }
-                    
-                    
-                    Spacer()
-                    
-                    
-                    
-                }
-            }.navigationBarTitle(Text("Tanamanku"))
+            }
+            .navigationBarTitle(Text("Tanamanku"))
+            
         }
     }
 }
@@ -116,3 +36,81 @@ struct MyPlantView_Previews: PreviewProvider {
         MyPlantView()
     }
 }
+func getDate(time: String)->String{
+    let mtime = "2020-08-08T17:00:00.000Z"
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY-MM-DD hh:mm:ss A Z"
+    let oldDate = dateFormatter.date(from: mtime)
+    print("oldate",oldDate)
+    
+    let dateFormatterSimple = DateFormatter()
+    dateFormatterSimple.dateFormat = "dd MMM, YYYY"
+    let newDate = dateFormatterSimple.string(from: oldDate!)
+    print("newdate",newDate)
+    return newDate
+    
+    
+}
+
+struct MyPlant: Decodable{
+    var idPlant: Int
+    var name: String
+    var description: String
+    var img: String
+    var idMyPlant: Int
+    var idUser: Int
+    var date_created: String
+}
+
+class getData: ObservableObject{
+    //    @Published var data: MyPlant!
+    @Published var dataMyPlant = [MyPlant]()
+    init (){
+        updateData()
+    }
+    func updateData(){
+        let url = Constants.Api.viewMyPlant
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: URL(string: url)!){(data,_,err) in
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+            //            https://www.avanderlee.com/swift/json-parsing-decoding/
+            let json: [MyPlant] = try! JSONDecoder().decode([MyPlant].self, from: data!)
+            DispatchQueue.main.async {self.dataMyPlant = json}
+            DispatchQueue.main.sync {self.dataMyPlant = json}
+//            print(self.dataMyPlant)
+        }.resume()
+    }
+    
+}
+struct cardMyPlant: View{
+    var data: MyPlant
+    
+    
+    var body: some View{
+        HStack(){
+            AsyncImage(url:
+                URL(string: data.img)!,
+                       placeholder: Text("Loading ...")
+            ).aspectRatio(contentMode: .fit).cornerRadius(10)
+            
+            VStack(alignment: .leading, spacing: 10){
+                NavigationLink(destination: MyPlantDetailView()
+                    .navigationBarTitle(data.name)
+                    .navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(false)                        ){
+                        Text(data.name).fontWeight(.heavy)}
+                Text("Ditambahkan pada").foregroundColor(.gray)
+//                Text(getDate(time: data.date_created)).foregroundColor(.gray)
+            }
+            Spacer()
+        }
+        
+    }
+    
+}
+
+
