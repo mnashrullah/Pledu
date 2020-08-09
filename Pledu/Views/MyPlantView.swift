@@ -10,6 +10,8 @@ import SwiftUI
 
 struct MyPlantView: View {
     @ObservedObject var data = getData()
+    
+    
     init(){
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorStyle = .none
@@ -37,17 +39,17 @@ struct MyPlantView_Previews: PreviewProvider {
     }
 }
 func getDate(time: String)->String{
-    let mtime = "2020-08-08T17:00:00.000Z"
+    //    let mtime = "2020-08-08T17:00:00.000Z"
     
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "YYYY-MM-DD hh:mm:ss A Z"
-    let oldDate = dateFormatter.date(from: mtime)
-    print("oldate",oldDate)
+    dateFormatter.dateFormat = "YYYY-MM-DD"
+    let oldDate = dateFormatter.date(from: time)
+    //    print("oldate",oldDate)
     
     let dateFormatterSimple = DateFormatter()
     dateFormatterSimple.dateFormat = "dd MMM, YYYY"
     let newDate = dateFormatterSimple.string(from: oldDate!)
-    print("newdate",newDate)
+    //    print("newdate",newDate)
     return newDate
     
     
@@ -81,30 +83,32 @@ class getData: ObservableObject{
             let json: [MyPlant] = try! JSONDecoder().decode([MyPlant].self, from: data!)
             DispatchQueue.main.async {self.dataMyPlant = json}
             DispatchQueue.main.sync {self.dataMyPlant = json}
-//            print(self.dataMyPlant)
+            //            print(self.dataMyPlant)
         }.resume()
     }
     
 }
 struct cardMyPlant: View{
+    @Environment(\.imageCache) var cache: ImageCache
     var data: MyPlant
     
     
     var body: some View{
         HStack(){
-            AsyncImage(url:
-                URL(string: data.img)!,
-                       placeholder: Text("Loading ...")
-            ).aspectRatio(contentMode: .fit).cornerRadius(10)
+            AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                .frame(width: 120, height: 120)
+                .cornerRadius(10)
             
-            VStack(alignment: .leading, spacing: 10){
-                NavigationLink(destination: MyPlantDetailView()
-                    .navigationBarTitle(data.name)
-                    .navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(false)                        ){
-                        Text(data.name).fontWeight(.heavy)}
-                Text("Ditambahkan pada").foregroundColor(.gray)
-//                Text(getDate(time: data.date_created)).foregroundColor(.gray)
+            NavigationLink(destination: MyPlantDetailView()
+                .navigationBarTitle(data.name)
+                .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(false)
+            ){
+                VStack(alignment: .leading, spacing: 10){
+                    Text(data.name).fontWeight(.heavy)
+                    Text("Ditambahkan pada").foregroundColor(.gray)
+                    Text(getDate(time: data.date_created)).foregroundColor(.gray)
+                }
             }
             Spacer()
         }
