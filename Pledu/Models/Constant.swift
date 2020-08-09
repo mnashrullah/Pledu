@@ -19,4 +19,11 @@ struct Constants {
     struct Api{
         static let viewMyPlant = "http://localhost:8081/api/myplant"
     }
+    struct Phase{
+        static let tahapan1 = "Penyemaian"
+        static let tahapan2 = "Penanaman"
+        static let tahapan3 = "Perawatan"
+        static let tahapan4 = "Lanjutan"
+    }
+    static let tahapan = ["Penyemaian","Penanaman","Perawatan","Lanjutan"]
 }

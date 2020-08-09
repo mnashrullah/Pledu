@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MyPlantDetailView: View {
     @State var showCamera = false
+    var data: MyPlant
     
     var cameraButton: some View {
         Button(action: { self.showCamera.toggle() }) {
@@ -33,80 +34,68 @@ struct MyPlantDetailView: View {
                 
                 
                 HStack(spacing: 20){
-                    VStack(alignment: .leading,spacing: 5){
-                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-                            VStack(alignment: .center, spacing: 5){
-                                HStack{
-                                    Image(systemName: "lock.open.fill").foregroundColor(.white)
-                                    Text("Pemilihan Biji")
-                                        .font(.subheadline)
-                                        .foregroundColor(.white)
-                                        .fontWeight(.heavy)
-                                }
-                                
-                            }
-                            
-                            
-                        )
-                            .frame(width: 200, height: 150)
+                    
+                    ForEach(0..<4){i in
+                        cardPhase(i: i)
                     }
                     
-                    VStack(alignment: .leading,spacing: 5){
-                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-                            VStack(alignment: .center, spacing: 5){
-                                HStack{
-                                    Image(systemName: "lock.fill").foregroundColor(.white)
-                                    Text("Pemilihan Biji")
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.heavy)
-                                    
-                                }
-                                
-                            }
-                            
-                            
-                        )
-                            .frame(width: 200, height: 150)
-                    }
-                    
-                    VStack(alignment: .leading,spacing: 5){
-                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-                            VStack(alignment: .center, spacing: 5){
-                                HStack{
-                                    Image(systemName: "lock.fill").foregroundColor(.white)
-                                    Text("Pemilihan Biji")
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.heavy)
-                                    
-                                }
-                                
-                            }
-                            
-                            
-                        )
-                            .frame(width: 200, height: 150)
-                    }
-                    
-                    VStack(alignment: .leading,spacing: 5){
-                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-                            VStack(alignment: .center, spacing: 5){
-                                HStack{
-                                    Image(systemName: "lock.fill").foregroundColor(.white)
-                                    Text("Pemilihan Biji")
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.heavy)
-                                }
-                                
-                            }
-                            
-                            
-                        )
-                            .frame(width: 200, height: 150)
-                    }
-                    
+               
+//                    VStack(alignment: .leading,spacing: 5){
+//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
+//                            VStack(alignment: .center, spacing: 5){
+//                                HStack{
+//                                    Image(systemName: "lock.fill").foregroundColor(.white)
+//                                    Text(Constants.Phase.tahapan2)
+//                                        .font(.subheadline)
+//                                        .foregroundColor(.white)
+//                                        .fontWeight(.heavy)
+//
+//                                }
+//
+//                            }
+//
+//
+//                        )
+//                            .frame(width: 200, height: 150)
+//                    }
+//
+//                    VStack(alignment: .leading,spacing: 5){
+//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
+//                            VStack(alignment: .center, spacing: 5){
+//                                HStack{
+//                                    Image(systemName: "lock.fill").foregroundColor(.white)
+//                                    Text(Constants.Phase.tahapan3)
+//                                        .font(.subheadline)
+//                                        .foregroundColor(.white)
+//                                        .fontWeight(.heavy)
+//
+//                                }
+//
+//                            }
+//
+//
+//                        )
+//                            .frame(width: 200, height: 150)
+//                    }
+//
+//                    VStack(alignment: .leading,spacing: 5){
+//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
+//                            VStack(alignment: .center, spacing: 5){
+//                                HStack{
+//                                    Image(systemName: "lock.fill").foregroundColor(.white)
+//                                    Text(Constants.Phase.tahapan4)
+//                                        .font(.subheadline)
+//                                        .foregroundColor(.white)
+//                                        .fontWeight(.heavy)
+//                                }
+//
+//                            }
+//
+//
+//                        )
+//                            .frame(width: 200, height: 150)
+//                    }
+//
                 }//end hstack
             }//end scrollview
             
@@ -141,7 +130,7 @@ struct MyPlantDetailView: View {
                             Image("scale").renderingMode(.original).cornerRadius(10)
                         }
                         
-                        Text("Mawar").fontWeight(.heavy)
+                        Text(data.name).fontWeight(.heavy)
                         
                         HStack(spacing: 5){
                             
@@ -187,7 +176,7 @@ struct MyPlantDetailView: View {
                 
                 
                 
-                .navigationBarTitle(Text("Mawar"))
+                .navigationBarTitle(Text(data.name))
                 .navigationBarItems(trailing: cameraButton)
                 .sheet(isPresented: $showCamera) {
                     Detail()
@@ -199,8 +188,24 @@ struct MyPlantDetailView: View {
 
 
 
-struct MyPlantDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPlantDetailView()
+struct cardPhase: View{
+    var i: Int
+    var body: some View{
+        NavigationLink(destination:PhaseView(i: i)){
+           Image("onboarding2").resizable().cornerRadius(10)
+               .overlay(
+                   VStack(alignment: .center, spacing: 5){
+                       HStack{
+                           Image(systemName: "lock.open.fill").foregroundColor(.white)
+                        Text(Constants.tahapan[i])
+                               .font(.subheadline)
+                               .foregroundColor(.white)
+                               .fontWeight(.heavy)
+                       }
+                   }
+                   
+           )
+               .frame(width: 200, height: 150)
+       }.buttonStyle(PlainButtonStyle())  /*Here, is what you need*/
     }
 }

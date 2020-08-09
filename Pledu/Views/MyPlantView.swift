@@ -99,8 +99,7 @@ struct cardMyPlant: View{
                 .frame(width: 120, height: 120)
                 .cornerRadius(10)
             
-            NavigationLink(destination: MyPlantDetailView()
-                .navigationBarTitle(data.name)
+            NavigationLink(destination: MyPlantDetailView(data:data)
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(false)
             ){

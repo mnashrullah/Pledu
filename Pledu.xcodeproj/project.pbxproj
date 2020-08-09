@@ -30,6 +30,8 @@
 		D7CAAAAE24E04E3F0069DF69 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAAD24E04E3F0069DF69 /* ImageCache.swift */; };
 		D7CAAAB024E04E7E0069DF69 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAAF24E04E7E0069DF69 /* AsyncImage.swift */; };
 		D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB124E04EA00069DF69 /* EnvironmentValues+ImageCache.swift */; };
+		D7CAAAB424E062CC0069DF69 /* PhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB324E062CC0069DF69 /* PhaseView.swift */; };
+		D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB524E06FDF0069DF69 /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		D7CAAAAD24E04E3F0069DF69 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D7CAAAAF24E04E7E0069DF69 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		D7CAAAB124E04EA00069DF69 /* EnvironmentValues+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+ImageCache.swift"; sourceTree = "<group>"; };
+		D7CAAAB324E062CC0069DF69 /* PhaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseView.swift; sourceTree = "<group>"; };
+		D7CAAAB524E06FDF0069DF69 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 				D7C58A2224D9B9A3003D648F /* DiscoveryView.swift */,
 				D7C58A2624D9E0E5003D648F /* MyPlantView.swift */,
 				D774833124DD6828009126E7 /* MyPlantDetailView.swift */,
+				D7CAAAB324E062CC0069DF69 /* PhaseView.swift */,
+				D7CAAAB524E06FDF0069DF69 /* CameraView.swift */,
 				D7C58A2C24DA940D003D648F /* SettingView.swift */,
 			);
 			path = Views;
@@ -228,11 +234,13 @@
 				D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */,
 				D7C58A1924D9B7A7003D648F /* PageView.swift in Sources */,
 				D7C58A1724D9B79B003D648F /* PageViewContainer.swift in Sources */,
+				D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */,
 				D7C58A2D24DA940D003D648F /* SettingView.swift in Sources */,
 				D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */,
 				D7C58A2924D9E120003D648F /* Constant.swift in Sources */,
 				D7C58A1524D9B77C003D648F /* Page.swift in Sources */,
 				D7C58A0024D9B543003D648F /* ContentView.swift in Sources */,
+				D7CAAAB424E062CC0069DF69 /* PhaseView.swift in Sources */,
 				D7CAAAAA24DFE4140069DF69 /* ImageLoader.swift in Sources */,
 				D7CAAAAE24E04E3F0069DF69 /* ImageCache.swift in Sources */,
 				D7C58A1F24D9B964003D648F /* ColorExt.swift in Sources */,

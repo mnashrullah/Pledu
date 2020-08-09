@@ -304,7 +304,6 @@ struct DiscoveryView: View {
                     
                     
                 }.padding()
-                    .navigationBarTitle(Text("Names"))
                     .navigationBarTitle(Text("Menjelajah"))
                     .navigationBarItems(trailing: settingButton)
                     .sheet(isPresented: $showingSetting) {
@@ -361,7 +360,9 @@ struct detailTop : View {
             HStack{
                 
                 VStack(alignment: .leading){
-                    Text("Tutorial").fontWeight(.heavy).font(.subheadline)
+                    NavigationLink(destination: CameraView()){
+                        Text("Tutorial").fontWeight(.heavy).font(.subheadline)
+                    }
                     Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
                 }
                 Spacer()
