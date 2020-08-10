@@ -32,6 +32,8 @@
 		D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB124E04EA00069DF69 /* EnvironmentValues+ImageCache.swift */; };
 		D7CAAAB424E062CC0069DF69 /* PhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB324E062CC0069DF69 /* PhaseView.swift */; };
 		D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB524E06FDF0069DF69 /* CameraView.swift */; };
+		D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */; };
+		D7CAAAC024E08DB70069DF69 /* MyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABF24E08DB70069DF69 /* MyProgress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		D7CAAAB124E04EA00069DF69 /* EnvironmentValues+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+ImageCache.swift"; sourceTree = "<group>"; };
 		D7CAAAB324E062CC0069DF69 /* PhaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseView.swift; sourceTree = "<group>"; };
 		D7CAAAB524E06FDF0069DF69 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlant.swift; sourceTree = "<group>"; };
+		D7CAAABF24E08DB70069DF69 /* MyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgress.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,8 @@
 			children = (
 				D7C58A1424D9B77C003D648F /* Page.swift */,
 				D7C58A2824D9E120003D648F /* Constant.swift */,
+				D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */,
+				D7CAAABF24E08DB70069DF69 /* MyProgress.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -233,6 +239,7 @@
 				D7C58A1D24D9B821003D648F /* PageViewController.swift in Sources */,
 				D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */,
 				D7C58A1924D9B7A7003D648F /* PageView.swift in Sources */,
+				D7CAAAC024E08DB70069DF69 /* MyProgress.swift in Sources */,
 				D7C58A1724D9B79B003D648F /* PageViewContainer.swift in Sources */,
 				D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */,
 				D7C58A2D24DA940D003D648F /* SettingView.swift in Sources */,
@@ -246,6 +253,7 @@
 				D7C58A1F24D9B964003D648F /* ColorExt.swift in Sources */,
 				D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */,
 				D7CAAAB024E04E7E0069DF69 /* AsyncImage.swift in Sources */,
+				D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */,
 				D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */,
 				D7C58A1B24D9B7B6003D648F /* PageIndicator.swift in Sources */,
 				D7C58A1324D9B75D003D648F /* UIApplicationExt.swift in Sources */,

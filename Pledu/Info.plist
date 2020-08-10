@@ -61,5 +61,7 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Need to access your camera to capture a picture for progress  planting</string>
 </dict>
 </plist>

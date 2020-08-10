@@ -11,59 +11,59 @@ import SwiftUI
 struct MyPlantView: View {
     @ObservedObject var data = getData()
     
-    
     init(){
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorStyle = .none
     }
+
+    
     var body: some View {
         NavigationView{
-            
-            List(){
-                VStack(alignment: .leading){
-                    Text("Tanaman yang kamu tanam akan tampil disini").foregroundColor(.gray)
-                }
-                ForEach(0..<self.data.dataMyPlant.count){i in
-                    cardMyPlant(data: self.data.dataMyPlant[i])
+            VStack{
+                if self.data.dataMyPlant.count != 0{
+                    List(){
+                        VStack(alignment: .leading){
+                            Text("Tanaman yang kamu tanam akan tampil disini").foregroundColor(.gray)
+                        }
+                        
+                        ForEach(0..<self.data.dataMyPlant.count){i in
+                            cardMyPlant(data: self.data.dataMyPlant[i])
+                        }
+                    }
+                }else{
+                    VStack{
+                        Text("No plants yet?")
+                        Text("Go to discovery tab to discover plants you want to plant, or plant you need to plant.")
+                       
+                    }
                 }
             }
-            .navigationBarTitle(Text("Tanamanku"))
             
+            .navigationBarTitle(Text("Tanamanku"))
         }
     }
 }
 
-struct MyPlantView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPlantView()
-    }
-}
+//struct MyPlantView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MyPlantView()
+//    }
+//}
 func getDate(time: String)->String{
     //    let mtime = "2020-08-08T17:00:00.000Z"
-    
+    //string to date, then to string again, change format
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "YYYY-MM-DD"
     let oldDate = dateFormatter.date(from: time)
-    //    print("oldate",oldDate)
     
     let dateFormatterSimple = DateFormatter()
     dateFormatterSimple.dateFormat = "dd MMM, YYYY"
     let newDate = dateFormatterSimple.string(from: oldDate!)
-    //    print("newdate",newDate)
     return newDate
     
     
 }
 
-struct MyPlant: Decodable{
-    var idPlant: Int
-    var name: String
-    var description: String
-    var img: String
-    var idMyPlant: Int
-    var idUser: Int
-    var date_created: String
-}
 
 class getData: ObservableObject{
     //    @Published var data: MyPlant!
@@ -106,7 +106,7 @@ struct cardMyPlant: View{
                 VStack(alignment: .leading, spacing: 10){
                     Text(data.name).fontWeight(.heavy)
                     Text("Ditambahkan pada").foregroundColor(.gray)
-                    Text(getDate(time: data.date_created)).foregroundColor(.gray)
+                    Text(getDate(time: data.dateCreated)).foregroundColor(.gray)
                 }
             }
             Spacer()

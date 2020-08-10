@@ -17,7 +17,10 @@ struct Constants {
         static let tabBar1 = "Tanamanku"
     }
     struct Api{
-        static let viewMyPlant = "http://localhost:8081/api/myplant"
+//        static let viewMyPlant = "http://localhost:8081/api/myplant"
+//        static let viewProgress = "http://localhost:8081/api/progress"
+        static let viewMyPlant = "http://pledu.aplikasibmn.com/api/myplant"
+        static let viewProgress = "http://pledu.aplikasibmn.com/api/progress"
     }
     struct Phase{
         static let tahapan1 = "Penyemaian"
