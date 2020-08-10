@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A5D46C224DEF9EF00D42229 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D46C124DEF9EF00D42229 /* constant.swift */; };
 		D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D774833124DD6828009126E7 /* MyPlantDetailView.swift */; };
 		D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589F824D9B543003D648F /* AppDelegate.swift */; };
 		D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FA24D9B543003D648F /* SceneDelegate.swift */; };
@@ -24,11 +25,11 @@
 		D7C58A1F24D9B964003D648F /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C58A1E24D9B964003D648F /* ColorExt.swift */; };
 		D7C58A2324D9B9A3003D648F /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C58A2224D9B9A3003D648F /* DiscoveryView.swift */; };
 		D7C58A2724D9E0E5003D648F /* MyPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C58A2624D9E0E5003D648F /* MyPlantView.swift */; };
-		D7C58A2924D9E120003D648F /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C58A2824D9E120003D648F /* Constant.swift */; };
 		D7C58A2D24DA940D003D648F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C58A2C24DA940D003D648F /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A5D46C124DEF9EF00D42229 /* constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
 		D774833124DD6828009126E7 /* MyPlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantDetailView.swift; sourceTree = "<group>"; };
 		D7C589F524D9B543003D648F /* Pledu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pledu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C589F824D9B543003D648F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +49,6 @@
 		D7C58A1E24D9B964003D648F /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		D7C58A2224D9B9A3003D648F /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		D7C58A2624D9E0E5003D648F /* MyPlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantView.swift; sourceTree = "<group>"; };
-		D7C58A2824D9E120003D648F /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		D7C58A2C24DA940D003D648F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C58A1424D9B77C003D648F /* Page.swift */,
-				D7C58A2824D9E120003D648F /* Constant.swift */,
+				0A5D46C124DEF9EF00D42229 /* constant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,12 +212,12 @@
 				D7C58A2724D9E0E5003D648F /* MyPlantView.swift in Sources */,
 				D7C589FE24D9B543003D648F /* Pledu.xcdatamodeld in Sources */,
 				D7C58A2324D9B9A3003D648F /* DiscoveryView.swift in Sources */,
+				0A5D46C224DEF9EF00D42229 /* constant.swift in Sources */,
 				D7C58A1D24D9B821003D648F /* PageViewController.swift in Sources */,
 				D7C58A1924D9B7A7003D648F /* PageView.swift in Sources */,
 				D7C58A1724D9B79B003D648F /* PageViewContainer.swift in Sources */,
 				D7C58A2D24DA940D003D648F /* SettingView.swift in Sources */,
 				D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */,
-				D7C58A2924D9E120003D648F /* Constant.swift in Sources */,
 				D7C58A1524D9B77C003D648F /* Page.swift in Sources */,
 				D7C58A0024D9B543003D648F /* ContentView.swift in Sources */,
 				D7C58A1F24D9B964003D648F /* ColorExt.swift in Sources */,

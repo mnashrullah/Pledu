@@ -20,7 +20,7 @@ struct ContentView: View {
     
                 TabView (selection: $selected) {
                         DiscoveryView().tabItem({
-                            Image(systemName: Constants.TabBarImageName.tabBar0)
+                            Image(systemName: Constants.TabBarImageName.tabBar1)
                                 .font(.body)
                             Text("\(Constants.TabBarText.tabBar0)")
                         }).tag(0)

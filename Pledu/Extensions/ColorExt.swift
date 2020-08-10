@@ -20,4 +20,5 @@ extension Color {
     static var purple = Color("purple")
     static var shallowOrange = Color("shallowOrange")
     static var teal = Color("teal")
+    static var clearColor = Color("clearColor")
 }
