@@ -305,6 +305,7 @@ struct DiscoveryView: View {
                     
                     
                 }.padding()
+                    .navigationBarTitle(Text("Names"))
                     .navigationBarTitle(Text("Menjelajah"))
                     .navigationBarItems(trailing: settingButton)
                     .sheet(isPresented: $showingSetting) {
