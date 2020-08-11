@@ -34,6 +34,7 @@
 		D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAAB524E06FDF0069DF69 /* CameraView.swift */; };
 		D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */; };
 		D7CAAAC024E08DB70069DF69 /* MyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABF24E08DB70069DF69 /* MyProgress.swift */; };
+		D7EB16ED24E2D31900C60A5F /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EB16EC24E2D31900C60A5F /* Discover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		D7CAAAB524E06FDF0069DF69 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlant.swift; sourceTree = "<group>"; };
 		D7CAAABF24E08DB70069DF69 /* MyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgress.swift; sourceTree = "<group>"; };
+		D7EB16EC24E2D31900C60A5F /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				D7C58A2824D9E120003D648F /* Constant.swift */,
 				D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */,
 				D7CAAABF24E08DB70069DF69 /* MyProgress.swift */,
+				D7EB16EC24E2D31900C60A5F /* Discover.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */,
 				D7CAAAB024E04E7E0069DF69 /* AsyncImage.swift in Sources */,
 				D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */,
+				D7EB16ED24E2D31900C60A5F /* Discover.swift in Sources */,
 				D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */,
 				D7C58A1B24D9B7B6003D648F /* PageIndicator.swift in Sources */,
 				D7C58A1324D9B75D003D648F /* UIApplicationExt.swift in Sources */,

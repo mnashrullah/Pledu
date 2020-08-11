@@ -21,6 +21,12 @@ struct Constants {
 //        static let viewProgress = "http://localhost:8081/api/progress"
         static let viewMyPlant = "http://pledu.aplikasibmn.com/api/myplant"
         static let viewProgress = "http://pledu.aplikasibmn.com/api/progress"
+//        static let addProgress = "http://pledu.aplikasibmn.com/api/progress/add"
+        static let addProgress = "http://localhost:8081/api/progress/add"
+//        static let uploadProgress = "http://localhost:8081/api/progress/upload"
+        static let uploadProgress = "http://localhost:3000/contact/upload"
+        static let discoverPlant = "http://inventariscdn.xyz/api/api/pledu/read"
+        
     }
     struct Phase{
         static let tahapan1 = "Penyemaian"

@@ -38,6 +38,10 @@ struct MyPlantView: View {
                     }
                 }
             }
+            .onAppear(){
+                print(self.data)
+                
+            }
             
             .navigationBarTitle(Text("Tanamanku"))
         }
