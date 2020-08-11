@@ -9,10 +9,9 @@
 import SwiftUI
 
 struct DiscoveryView: View {
+    @ObservedObject var mData = getDataDiscover()
     
     @State var showingSetting = false
-    
-    @State var show = false
     
     //search
     @State private var searchText = ""
@@ -28,302 +27,93 @@ struct DiscoveryView: View {
     }
     var body: some View {
         NavigationView{
-//            VStack(alignment: .leading,spacing: 12){
-            VStack {
-                //search
-                VStack(alignment: .leading, spacing: 5){
-                    Text("Ingin Menanam?").fontWeight(.heavy)
-                        .background(Color("white"))
-                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
-                    
-    //
-                    // Search view
-                    HStack {
-                        HStack() {
-                            Image(systemName: "magnifyingglass")
-                            
-                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
-                                self.showCancelButton = true
-                            }, onCommit: {
-                                print("onCommit")
-                            }).foregroundColor(.primary)
-                            
-                            Button(action: {
-                                self.searchText = ""
-                            }) {
-                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
-                            }
-                        }
-                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                        .foregroundColor(.secondary)
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(10.0)
-                        
-                        if showCancelButton  {
-                            Button("Cancel") {
-                                UIApplication.shared.endEditing(true)
-                                self.searchText = ""
-                                self.showCancelButton = false
-                            }
-                            .foregroundColor(Color(.systemBlue))
-                        }
-                    }.animation(.default)
-                }
-                .padding(.horizontal, 16)
-                .resignKeyboardOnDragGesture()
-            
-                ScrollView(showsIndicators: false){
-                    
-                    VStack{
-                        HStack{
-                            
-                            Text("Bunga").fontWeight(.heavy)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                                
-                            }) {
-                                
-                                Text("View all").foregroundColor(.gray)
-                            }
-                            
-                        }.padding([.top], 15)
-                        //end hstack bunga
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            
-                            
-                            HStack(spacing: 20){
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        self.show.toggle()
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }.sheet(isPresented: $show){
-                                    Detail()
-                                }
-                                
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }//end vstack
-                            }//end hstack
-                        }//end scrollview
-                    }
-                    VStack{
-                        HStack{
-                            
-                            Text("Bunga").fontWeight(.heavy)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                            }) {
-                                
-                                Text("View all").foregroundColor(.gray)
-                            }
-                            
-                        }.padding([.top], 15)
-                        //end hstack bunga
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            
-                            
-                            HStack(spacing: 20){
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }//end vstack
-                            }//end hstack
-                        }//end scrollview
-                    }
-                    VStack{
-                        HStack{
-                            
-                            Text("Bunga").fontWeight(.heavy)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                            }) {
-                                
-                                Text("View all").foregroundColor(.gray)
-                            }
-                            
-                        }.padding([.top], 15)
-                        //end hstack bunga
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            
-                            
-                            HStack(spacing: 20){
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }
-                                VStack(alignment: .leading,spacing: 5){
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        
-                                        Image("mawar").renderingMode(.original).cornerRadius(10)
-                                    }
-                                    
-                                    Text("Mawar").fontWeight(.heavy)
-                                    
-                                    HStack(spacing: 5){
-                                        
-                                        Text("Rosella").foregroundColor(.gray)
-                                    }
-                                }//end vstack
-                            }//end hstack
-                        }//end scrollview
-                    }
-                    Spacer()
-
-                    
-                    
-                }.padding()
-                    .navigationBarTitle(Text("Names"))
-                    .navigationBarTitle(Text("Menjelajah"))
-                    .navigationBarItems(trailing: settingButton)
-                    .sheet(isPresented: $showingSetting) {
-                        SettingView()
-                        //                    .environmentObject(self.userData)
+            List{
+                ForEach(0..<self.mData.dataMyPlants.count, id: \.self){i in
+                    cardMyPlantDiscover(data: self.mData.dataMyPlants[i])
                 }
             }
         }
+//        NavigationView{
+////            VStack(alignment: .leading,spacing: 12){
+//            VStack {
+//                //search
+//                VStack(alignment: .leading, spacing: 5){
+//                    Text("Ingin Menanam?").fontWeight(.heavy)
+//                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+//
+//    //
+//                    // Search view
+//                    HStack {
+//                        HStack() {
+//                            Image(systemName: "magnifyingglass")
+//
+//                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
+//                                self.showCancelButton = true
+//                            }, onCommit: {
+//                                print("onCommit")
+//                            }).foregroundColor(.primary)
+//
+//                            Button(action: {
+//                                self.searchText = ""
+//                            }) {
+//                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+//                            }
+//                        }
+//                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+//                        .foregroundColor(.secondary)
+//                        .background(Color(.secondarySystemBackground))
+//                        .cornerRadius(10.0)
+//
+//                        if showCancelButton  {
+//                            Button("Cancel") {
+//                                UIApplication.shared.endEditing(true)
+//                                self.searchText = ""
+//                                self.showCancelButton = false
+//                            }
+//                            .foregroundColor(Color(.systemBlue))
+//                        }
+//                    }.animation(.default)
+//                }
+//                .padding(.horizontal, 16)
+//                .resignKeyboardOnDragGesture()
+//
+//                ScrollView(showsIndicators: false){
+//                    VStack{
+//                        HStack{
+//                            Text("Bunga").fontWeight(.heavy)
+//
+//                            Spacer()
+//
+//                            Button(action: {
+//                            }) {
+//
+//                                Text("View all").foregroundColor(.gray)
+//                            }
+//
+//                        }.padding([.top], 15)
+//                        //end hstack bunga
+//                        List(){
+//                            ForEach(0..<self.data.dataMyPlants.count){i in
+//                                cardMyPlantDiscover(data: self.data.dataMyPlants[i])
+//                            Text("hello")
+//                            }
+//                        }
+//                    }
+//                    Spacer()
+//                }.padding()
+//                    .navigationBarTitle(Text("Menjelajah"))
+//                    .navigationBarItems(trailing: settingButton)
+//                    .sheet(isPresented: $showingSetting) {
+//                        SettingView()
+//                        //                    .environmentObject(self.userData)
+//                }
+//            }.onAppear(){
+//                print("test ke dua",self.data)
+//        }
+//        }
     }
 }
 
-
-struct DiscoveryView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        DiscoveryView()
-    }
-}
 
 extension UIApplication {
     func endEditing(_ force: Bool) {
@@ -367,7 +157,7 @@ struct Detail: View {
                         detailBottom()
                     }
                     
-                }.background(Color.white)
+                }.background(Color("clearColor"))
                 .clipShape(Rounded())
                 .padding(.top, -75)
             }
@@ -453,4 +243,81 @@ struct Rounded : Shape {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 5, height: 5))
         return Path(path.cgPath)
     }
+}
+
+func getDateDiscover(time: String)->String{
+    //    let mtime = "2020-08-08T17:00:00.000Z"
+    //string to date, then to string again, change format
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY-MM-DD"
+    let oldDate = dateFormatter.date(from: time)
+    
+    let dateFormatterSimple = DateFormatter()
+    dateFormatterSimple.dateFormat = "dd MMM, YYYY"
+    let newDate = dateFormatterSimple.string(from: oldDate!)
+    return newDate
+    
+    
+}
+class getDataDiscover: ObservableObject{
+    //    @Published var data: MyPlant!
+    @Published var dataMyPlants = [PlantDiscovery]()
+    init (){
+        updateData()
+    }
+    func updateData(){
+        let url = Constants.Api.viewPlant
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: URL(string: url)!){(data,_,err) in
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+            //            https://www.avanderlee.com/swift/json-parsing-decoding/
+            let json: [PlantDiscovery] = try! JSONDecoder().decode([PlantDiscovery].self, from: data!)
+            DispatchQueue.main.async {self.dataMyPlants = json}
+            //DispatchQueue.main.sync {self.dataMyPlants = json}
+                print("test",self.dataMyPlants)
+        }.resume()
+    }
+    
+}
+
+struct cardMyPlantDiscover: View{
+    @Environment(\.imageCache) var cache: ImageCache
+    var data: PlantDiscovery
+    @State var show = false
+    
+    var body: some View{
+        
+        ScrollView(.horizontal, showsIndicators: false) {
+            
+            HStack(){
+                List(){
+                    VStack(alignment: .leading,spacing: 5){
+                        
+//                        Button(action: {
+//                            self.show.toggle()
+//                        }) {
+//
+//                            AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+//                            .frame(width: 113, height: 113)
+//                            .cornerRadius(10)
+//                        }
+                        
+                        Text(data.deskripsi).fontWeight(.heavy)
+                        
+//                        HStack(spacing: 5){
+//
+//                            Text(data.jenis).foregroundColor(.gray)
+//                        }
+                    }.sheet(isPresented: self.$show){
+                        Detail()
+                    }
+                }//end Hstack
+                Spacer()
+            }
+        }
+    }
+    
 }
