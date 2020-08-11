@@ -9,12 +9,15 @@
 import SwiftUI
 
 struct MyPlantDetailView: View {
+    @State var data: MyPlant
+    
+    @ObservedObject var dataProgress = getProgress()
+    
     @State var showCamera = false
-    var data: MyPlant
     
     var cameraButton: some View {
         Button(action: { self.showCamera.toggle() }) {
-            Image(systemName: "info.circle")
+            Image(systemName: "camera")
                 .imageScale(.large)
                 .accessibility(label: Text("Camera"))
                 .padding()
@@ -22,190 +25,126 @@ struct MyPlantDetailView: View {
     }
     var body: some View {
         List(){
-            
-            
             VStack(alignment: .leading, spacing: 0){
                 Text("Tahapan").fontWeight(.heavy)
                 Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
-                
             }
-            
             ScrollView(.horizontal, showsIndicators: false) {
-                
-                
                 HStack(spacing: 20){
-                    
                     ForEach(0..<4){i in
                         cardPhase(i: i)
                     }
-                    
-               
-//                    VStack(alignment: .leading,spacing: 5){
-//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-//                            VStack(alignment: .center, spacing: 5){
-//                                HStack{
-//                                    Image(systemName: "lock.fill").foregroundColor(.white)
-//                                    Text(Constants.Phase.tahapan2)
-//                                        .font(.subheadline)
-//                                        .foregroundColor(.white)
-//                                        .fontWeight(.heavy)
-//
-//                                }
-//
-//                            }
-//
-//
-//                        )
-//                            .frame(width: 200, height: 150)
-//                    }
-//
-//                    VStack(alignment: .leading,spacing: 5){
-//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-//                            VStack(alignment: .center, spacing: 5){
-//                                HStack{
-//                                    Image(systemName: "lock.fill").foregroundColor(.white)
-//                                    Text(Constants.Phase.tahapan3)
-//                                        .font(.subheadline)
-//                                        .foregroundColor(.white)
-//                                        .fontWeight(.heavy)
-//
-//                                }
-//
-//                            }
-//
-//
-//                        )
-//                            .frame(width: 200, height: 150)
-//                    }
-//
-//                    VStack(alignment: .leading,spacing: 5){
-//                        Image("onboarding2").resizable().cornerRadius(10).overlay(
-//                            VStack(alignment: .center, spacing: 5){
-//                                HStack{
-//                                    Image(systemName: "lock.fill").foregroundColor(.white)
-//                                    Text(Constants.Phase.tahapan4)
-//                                        .font(.subheadline)
-//                                        .foregroundColor(.white)
-//                                        .fontWeight(.heavy)
-//                                }
-//
-//                            }
-//
-//
-//                        )
-//                            .frame(width: 200, height: 150)
-//                    }
-//
-                }//end hstack
-            }//end scrollview
-            
-            HStack{
-                
-                Text("Progress").fontWeight(.heavy)
-                
-                Spacer()
-                
-                Button(action: {
-                    
-                    
-                }) {
-                    
-                    Text("View all").foregroundColor(.gray)
                 }
-                
-            }.padding([.top], 15)
-            //end hstack bunga
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                
-                
-                HStack(spacing: 20){
-                    
-                    VStack(alignment: .leading,spacing: 5){
+            }
+            VStack{
+                HStack{
+                    Text("Progress").fontWeight(.heavy)
+                    Spacer()
+                    Button(action: {
+                    }) {
                         
-                        Button(action: {
+                        Text("View all").foregroundColor(.gray)
+                    }
+                }.padding([.top], 15)
+                if self.dataProgress.dataProgress.count != 0{
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20){
+                            ForEach(0..<self.dataProgress.dataProgress.count){i in
+                                cardProgress(data: self.dataProgress.dataProgress[i])
+                            }
                             
-                        }) {
-                            
-                            Image("scale").renderingMode(.original).cornerRadius(10)
-                        }
-                        
-                        Text(data.name).fontWeight(.heavy)
-                        
-                        HStack(spacing: 5){
-                            
-                            Text("Rosella").foregroundColor(.gray)
                         }
                     }
-                    
-                    
-                    VStack(alignment: .leading,spacing: 5){
-                        
-                        Button(action: {
-                            
-                        }) {
-                            
-                            Image("scale").renderingMode(.original).cornerRadius(10)
-                        }
-                        
-                        Text("Mawar").fontWeight(.heavy)
-                        
-                        HStack(spacing: 5){
-                            
-                            Text("Rosella").foregroundColor(.gray)
+                }else{
+                    Text("Kamu belum berikan progress")
+                        .padding(.top, 20)
+                }
+            }
+                
+                
+                
+            .navigationBarTitle(Text(data.name))
+            .navigationBarItems(trailing: cameraButton)
+            .sheet(isPresented: $showCamera) {
+                CameraView()
+            }
+        }
+        
+    }
+}
+
+struct cardPhase: View{
+    var i: Int
+    var body: some View{
+        NavigationLink(destination:PhaseView(i: i)){
+            Image("onboarding2").resizable().cornerRadius(10)
+                .overlay(
+                    VStack(alignment: .center, spacing: 5){
+                        HStack{
+                            Image(systemName: "lock.open.fill").foregroundColor(.white)
+                            Text(Constants.tahapan[i])
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
                         }
                     }
-                    VStack(alignment: .leading,spacing: 5){
-                        
-                        Button(action: {
-                            
-                        }) {
-                            
-                            Image("scale").renderingMode(.original).cornerRadius(10)
-                        }
-                        
-                        Text("Mawar").fontWeight(.heavy)
-                        
-                        HStack(spacing: 5){
-                            
-                            Text("Rosella").foregroundColor(.gray)
-                        }
-                    }//end vstack
-                }//end hstack
-            }//end scrollview
-                
-                
-                
-                .navigationBarTitle(Text(data.name))
-                .navigationBarItems(trailing: cameraButton)
-                .sheet(isPresented: $showCamera) {
-                    Detail()
+            )
+                .frame(width: 200, height: 150)
+        }.buttonStyle(PlainButtonStyle())  /*Here, is what you need*/
+    }
+}
+
+
+struct cardProgress: View{
+    @Environment(\.imageCache) var cache: ImageCache
+    var data: MyProgress
+    
+    var body: some View{
+        VStack(alignment: .leading,spacing: 5){
+            Button(action: {}) {
+                Image(data.img).renderingMode(.original).cornerRadius(10)
+                AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                    .frame(width: 120, height: 120)
+                    .cornerRadius(10)
+            }.buttonStyle(PlainButtonStyle()) 
+            Text("Hari ke - ").fontWeight(.heavy) +
+            Text(String(data.dayDifferent)).fontWeight(.heavy)
+            HStack(spacing: 5){
+                Text(Constants.tahapan[data.phase]).foregroundColor(.gray)
             }
         }
     }
 }
 
 
+class getProgress: ObservableObject{
+    //    @Published var data: MyPlant!
+    @Published var dataProgress = [MyProgress]()
+    init (){
+        updateData()
+    }
+    func updateData(){
+        let url = Constants.Api.viewProgress
+        let parameters = [
+            "idUser": 1,
+            "idPlant": 1]
 
-
-struct cardPhase: View{
-    var i: Int
-    var body: some View{
-        NavigationLink(destination:PhaseView(i: i)){
-           Image("onboarding2").resizable().cornerRadius(10)
-               .overlay(
-                   VStack(alignment: .center, spacing: 5){
-                       HStack{
-                           Image(systemName: "lock.open.fill").foregroundColor(.white)
-                        Text(Constants.tahapan[i])
-                               .font(.subheadline)
-                               .foregroundColor(.white)
-                               .fontWeight(.heavy)
-                       }
-                   }
-                   
-           )
-               .frame(width: 200, height: 150)
-       }.buttonStyle(PlainButtonStyle())  /*Here, is what you need*/
+        var urlRequest = URLRequest(url: URL(string: url)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = try? JSONEncoder().encode(parameters)
+        
+        URLSession.shared.dataTask(with: urlRequest)
+        {(data,response,err) in
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+            let json: [MyProgress] = try! JSONDecoder().decode([MyProgress].self, from: data!)
+            DispatchQueue.main.async {self.dataProgress = json}
+            print("json ",self.dataProgress)
+        }.resume()
     }
 }
+
+

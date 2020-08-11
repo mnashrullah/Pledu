@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MyPlantView: View {
     @ObservedObject var data = getData()
-
     
     init(){
         UITableView.appearance().tableFooterView = UIView()
@@ -38,6 +37,12 @@ struct MyPlantView: View {
                     }
                 }
             }
+
+            .onAppear(){
+                print(self.data)
+                
+            }
+    
             
             .navigationBarTitle(Text("Tanamanku"))
         }
