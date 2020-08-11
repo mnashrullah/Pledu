@@ -5,7 +5,6 @@
 //  Created by Muhammad Nashrullah on 05/08/20.
 //  Copyright © 2020 Kepiting Bakau. All rights reserved.
 //
-
 import SwiftUI
 
 struct MyPlantView: View {
@@ -38,10 +37,12 @@ struct MyPlantView: View {
                     }
                 }
             }
+
             .onAppear(){
                 print(self.data)
                 
             }
+    
             
             .navigationBarTitle(Text("Tanamanku"))
         }
@@ -95,8 +96,6 @@ class getData: ObservableObject{
 struct cardMyPlant: View{
     @Environment(\.imageCache) var cache: ImageCache
     var data: MyPlant
-    
-    
     var body: some View{
         HStack(){
             AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
@@ -119,5 +118,3 @@ struct cardMyPlant: View{
     }
     
 }
-
-

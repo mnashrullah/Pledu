@@ -19,8 +19,8 @@ struct ContentView: View {
             if show || UserDefaults.standard.bool(forKey: initialLaunchKey){
     
                 TabView (selection: $selected) {
-                        DiscoveryView().tabItem({
-                            Image(systemName: Constants.TabBarImageName.tabBar0)
+                    DiscoveryView().tabItem({
+                            Image(systemName: Constants.TabBarImageName.tabBar1)
                                 .font(.body)
                             Text("\(Constants.TabBarText.tabBar0)")
                         }).tag(0)
