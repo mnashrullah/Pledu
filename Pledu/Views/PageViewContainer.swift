@@ -45,7 +45,7 @@ struct PageViewContainer<Page: View>  : View {
                 }
             }.padding(.vertical)
         }
-        .background(Image("onboarding1"))
+        .background(Color("clearColor"))
         .edgesIgnoringSafeArea(.all)
     }
 }

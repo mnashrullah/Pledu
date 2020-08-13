@@ -15,9 +15,14 @@ struct DiscoveryView: View {
     
     @State var show = false
     
+    @State var showContent = false
+    @State var selectedPlant: Int = 0
+    
+    
     //search
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
+    
    
     var settingButton: some View {
         Button(action: { self.showingSetting.toggle() }) {
@@ -27,421 +32,221 @@ struct DiscoveryView: View {
                 .padding()
         }
     }
+    
     var body: some View {
         NavigationView{
-//            VStack(alignment: .leading,spacing: 12){
-            VStack{
-//              Text("love")
-                List{
-                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
-                        cardDiscover(data: self.mData.dataDiscover[i])
-                    }
-                }
+            VStack {
+                //search
+                VStack(alignment: .leading, spacing: 5){
+                    Text("Ingin Menanam?").fontWeight(.heavy)
+                        Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                        // Search view
+                        HStack {
+                            HStack() {
+                                Image(systemName: "magnifyingglass")
+                                TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                                    self.showCancelButton = true
+                                }, onCommit: {
+                                    print("onCommit")
+                                }).foregroundColor(.primary)
 
+                                Button(action: {
+                                    self.searchText = ""
+                                }) {
+                                    Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                                }
+                            }
+                            .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                            .foregroundColor(.secondary)
+                            .background(Color(.secondarySystemBackground))
+                            .cornerRadius(10.0)
+
+                            if showCancelButton  {
+                                Button("Cancel") {
+                                    self.searchText = ""
+                                    self.showCancelButton = false
+                                }
+                                .foregroundColor(Color(.systemBlue))
+                            }
+                        }
+                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+                }//end Vstack Search
+                .padding(.horizontal, 16)
                 
-            }.onAppear(){
-                print(self.mData)
-            }
-//            VStack {
-//                //search
-//                VStack(alignment: .leading, spacing: 5){
-//
-//                    Text("Ingin Menanam?").fontWeight(.heavy)
-//                                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
-//
-//                //
-//                                    // Search view
-//                                    HStack {
-//                                        HStack() {
-//                                            Image(systemName: "magnifyingglass")
-//
-//                                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
-//                                                self.showCancelButton = true
-//                                            }, onCommit: {
-//                                                print("onCommit")
-//                                            }).foregroundColor(.primary)
-//
-//                                            Button(action: {
-//                                                self.searchText = ""
-//                                            }) {
-//                                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
-//                                            }
-//                                        }
-//                                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-//                                        .foregroundColor(.secondary)
-//                                        .background(Color(.secondarySystemBackground))
-//                                        .cornerRadius(10.0)
-//
-//                                        if showCancelButton  {
-//                                            Button("Cancel") {
-//                                                self.searchText = ""
-//                                                self.showCancelButton = false
-//                                            }
-//                                            .foregroundColor(Color(.systemBlue))
-//                                        }
-//                                    }
-//
-//                                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
-//                }.padding(.horizontal, 16)
-//
-//                //content
+                //content
 //                ScrollView(showsIndicators: false){
-//
-//                    VStack{
-//                        HStack{
-//
-//                            Text("Bunga").fontWeight(.heavy)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//
-//
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//
-//
-//                            HStack(spacing: 20){
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//                                        self.show.toggle()
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }.sheet(isPresented: $show){
-//                                    Detail()
-//                                }
-//
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
+                    List{
+                        
+                        VStack{
+                            
+                            HStack(){
+                                Text("Sayur")
+                                    .fontWeight(.bold)
+                                Spacer()
+                                
+                                Text("View all")
+                                    .foregroundColor(.gray)
+                                    .padding(.leading, 200)
+                                
+                            }.padding([.top], 15)
+                        }
+                        ScrollView(.horizontal, showsIndicators: false) {
+                        //content here
+                            HStack(){
+                                ForEach(0..<self.mData.dataDiscover.count, id: \.self){ item in
+                                    cardDiscover(data: self.mData.dataDiscover[item])
+                                    .onTapGesture {
+                                        self.selectedPlant = item
+                                    }
+                                    .listRowInsets(EdgeInsets())
+
+                                }
+                                .listRowInsets(EdgeInsets())
+                                .onAppear(){
+                                print(self.mData)
+                                    print(self.mData)
+                                }
+                            }.frame(height: 185)
+                            .padding([.leading], 3)
+                            
+                        }
+                    Spacer()
+                    }
+                    .navigationBarTitle(Text("Menjelajah"))
+                    .navigationBarItems(trailing: settingButton)
+                    .sheet(isPresented: $showingSetting) {
+                        SettingView()
+//                       .environmentObject(self.userData)
+                    }
+                
+//                List{
+//                    ForEach(categories.keys.sorted(), id: \.self){ key in
+//                        Text(key)
 //                    }
-//                    VStack{
-//                        HStack{
+//                }
+//                }
+            }
+        }
+    }
+}
+
+//struct Detail: View {
+//    var body : some View{
 //
-//                            Text("Bunga").fontWeight(.heavy)
+//        VStack{
+//            VStack{
 //
-//                            Spacer()
+//                Image("onboarding2").resizable().aspectRatio(1.35, contentMode: .fill).frame(width:UIScreen.main.bounds.width,height: 500).offset(y: -200).padding(.bottom, -200)
 //
-//                            Button(action: {
+//                GeometryReader{geo in
 //
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//
-//
-//                            HStack(spacing: 20){
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
+//                    ScrollView(showsIndicators: false){
+//                        detailTop()
+//                        detailBottom()
 //                    }
-//                    VStack{
-//                        HStack{
 //
-//                            Text("Bunga").fontWeight(.heavy)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
+//                }.background(Color.white)
+//                .clipShape(Rounded())
+//                .padding(.top, -75)
 //
 //
-//                            HStack(spacing: 20){
+//            }
+//        }.padding()
+//    }
 //
-//                                VStack(alignment: .leading,spacing: 5){
+//}
+//struct detailTop : View {
+//    var body : some View{
+//        VStack(alignment: .leading, spacing: 10){
 //
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
+//            HStack{
+//                VStack(alignment: .leading){
+//                    NavigationLink(destination: CameraView()){
+//                        Text("Tutorial").fontWeight(.heavy).font(.subheadline)
 //                    }
-//                    Spacer()
+//                    Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
+//                }
+//                Spacer()
+//                }.padding(.top, 20).padding()
 //
-//
-//
-//                }.padding()
-//                    .navigationBarTitle(Text("Menjelajah"))
-//                    .navigationBarItems(trailing: settingButton)
-//                    .sheet(isPresented: $showingSetting) {
-//                        SettingView()
-//                        //                    .environmentObject(self.userData)
+//            VStack(){
+//                Text("Mawar")
+//                Text("Rosa")
+//            }
+//            .frame(width:UIScreen.main.bounds.width)
+//            HStack{
+//                VStack{
+//                    Text("Jenis")
+//                    Text("Bunga")
+//                }
+//                Spacer()
+//                VStack{
+//                    Text("Jenis")
+//                    Text("Bunga")
 //                }
 //            }
-        }
-    }
-}
+//        }
+//    }
+//}
+//struct detailBottom : View {
+//
+//    var body : some View{
+//
+//        VStack(alignment: .leading, spacing: 10){
+//
+//            Text("Description").fontWeight(.heavy)
+//            Text("").foregroundColor(.gray)
+//
+//            HStack(spacing: 8){
+//
+//                Button(action: {
+//
+//                }) {
+//
+//                    Image("Save").renderingMode(.original)
+//                }
+//
+//                Button(action: {
+//
+//                }) {
+//
+//                    HStack(spacing: 6){
+//
+//                        Text("Book Your Experience")
+//                        Image("arrow").renderingMode(.original)
+//
+//                    }.foregroundColor(.white)
+//                    .padding()
+//
+//                }
+//                .cornerRadius(8)
+//
+//            }.padding(.top, 6)
+//
+//        }.padding()
+//    }
+//}
+//struct Rounded : Shape {
+//
+//    func path(in rect: CGRect) -> Path {
+//
+//        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 40, height: 40))
+//        return Path(path.cgPath)
+//    }
+//}
 
-struct Detail: View {
-    var body : some View{
-        
-        VStack{
-            VStack{
-                
-                Image("onboarding2").resizable().aspectRatio(1.35, contentMode: .fill).frame(width:UIScreen.main.bounds.width,height: 500).offset(y: -200).padding(.bottom, -200)
-                
-                GeometryReader{geo in
-                    
-                    ScrollView(showsIndicators: false){
-                        detailTop()
-                        detailBottom()
-                        
-                    }
-                    
-                }.background(Color.white)
-                .clipShape(Rounded())
-                .padding(.top, -75)
-                
-                
-            }
-        }.padding()
-    }
-    
-}
+struct ShelterDetailedView: View {
+    var image: String
 
-
-struct detailTop : View {
-    
-    var body : some View{
-        
-        VStack(alignment: .leading, spacing: 10){
-            
-            HStack{
-                
-                VStack(alignment: .leading){
-                    NavigationLink(destination: CameraView()){
-                        Text("Tutorial").fontWeight(.heavy).font(.subheadline)
-                    }
-                    Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
-                }
+    var body: some View {
+        ZStack {
+            VStack {
+                Image(image)
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width, height: 300)
                 Spacer()
-                }.padding(.top, 20).padding()
-
-            VStack(){
-                Text("Mawar")
-                Text("Rosa")
-            }
-            .frame(width:UIScreen.main.bounds.width)
-            HStack{
-                VStack{
-                    Text("Jenis")
-                    Text("Bunga")
-                }
-                Spacer()
-                VStack{
-                    Text("Jenis")
-                    Text("Bunga")
-                }
-                
             }
         }
-    }
-}
-
-struct detailBottom : View {
-    
-    var body : some View{
-        
-        VStack(alignment: .leading, spacing: 10){
-            
-            Text("Description").fontWeight(.heavy)
-            Text("loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem").foregroundColor(.gray)
-            
-            HStack(spacing: 8){
-                
-                Button(action: {
-                    
-                }) {
-                    
-                    Image("Save").renderingMode(.original)
-                }
-                
-                Button(action: {
-                    
-                }) {
-                    
-                    HStack(spacing: 6){
-                        
-                        Text("Book Your Experience")
-                        Image("arrow").renderingMode(.original)
-                        
-                    }.foregroundColor(.white)
-                    .padding()
-                    
-                }.background(Color("bg"))
-                .cornerRadius(8)
-                
-            }.padding(.top, 6)
-            
-        }.padding()
-    }
-}
-
-
-
-struct Rounded : Shape {
-    
-    func path(in rect: CGRect) -> Path {
-        
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 40, height: 40))
-        return Path(path.cgPath)
     }
 }
 
@@ -449,6 +254,7 @@ struct Rounded : Shape {
 class getDataDiscover: ObservableObject{
     //    @Published var data: MyPlant!
     @Published var dataDiscover = [Discover]()
+    
     init (){
         updateData()
     }
@@ -463,7 +269,7 @@ class getDataDiscover: ObservableObject{
             //            https://www.avanderlee.com/swift/json-parsing-decoding/
             let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
             DispatchQueue.main.async {self.dataDiscover = json}
-//            DispatchQueue.main.sync {self.dataDiscover = json}
+            DispatchQueue.main.sync {self.dataDiscover = json}
                 print(self.dataDiscover)
         }.resume()
     }
@@ -473,22 +279,32 @@ class getDataDiscover: ObservableObject{
 
 struct cardDiscover: View{
     @Environment(\.imageCache) var cache: ImageCache
-    var data: Discover
     
+    var data: Discover
+    @State var show = false
     
     var body: some View{
-        HStack(){
-            AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
-                .frame(width: 120, height: 120)
+        VStack(alignment: .leading,spacing: 5){
+            AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable()})
+                
+            .frame(width: 115, height: 115)
                 .cornerRadius(10)
-                VStack(alignment: .leading, spacing: 10){
-                    Text(data.deskripsi).fontWeight(.heavy)
-                    Text("Ditambahkan pada").foregroundColor(.gray)
+                
+            Text(data.nama)
+                .fontWeight(.regular)
+                .font(Font.system(size:14, design: .default))
+
+            HStack(spacing: 5){
+                Text(data.tempat).foregroundColor(.gray)
+                .font(Font.system(size:14, design: .default))
             }
-            Spacer()
-        }
-        
+        }.frame(width: 133, height: 175)
+        .background(Color.white)
+        .cornerRadius(9)
+            .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
+//        .sheet(isPresented: $show){
+//            Detail()
+//        }
     }
     
 }
-

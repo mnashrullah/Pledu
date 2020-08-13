@@ -17,7 +17,8 @@ class UserSetting: ObservableObject, Codable{
 
     @Published var type = 0
     @Published var mNotification = false
-
+    
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 

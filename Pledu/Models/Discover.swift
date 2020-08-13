@@ -10,10 +10,17 @@ import SwiftUI
 
 struct Discover: Decodable {
     var idTanaman: Int
-    var nama, jenis, tipe, tempat: String
+    var nama: String
+    var jenis: String
+    var tipe, tempat: String
     var durasi: Int
     var video: String
     var img: String
     var deskripsi, tools: String
     
+//    enum Category: String, CaseIterable, Codable, Hashable {
+//        case sayur = "sayur"
+//        case buah = "buah"
+//        case bunga = "bunga"
+//    }
 }

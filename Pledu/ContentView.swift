@@ -25,7 +25,7 @@ struct ContentView: View {
                             Text("\(Constants.TabBarText.tabBar0)")
                         }).tag(0)
                         
-                    MyPlantView().tabItem({
+                        MyPlantView().tabItem({
                             Image(systemName: Constants.TabBarImageName.tabBar1)
                                 .font(.body)
                             Text("\(Constants.TabBarText.tabBar1)")

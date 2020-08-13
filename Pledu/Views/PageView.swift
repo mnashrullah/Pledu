@@ -14,13 +14,13 @@ struct PageView: View {
     var body: some View {
             VStack{
                 VStack{
+                    Image(page.image)
                     Text(page.heading).font(.largeTitle).bold().layoutPriority(1).multilineTextAlignment(.center)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color.black)
                     Text(page.subSubheading)
                         .multilineTextAlignment(.center)
-                        .foregroundColor(Color.white)
-                    
-                }.padding(.top, 100)
+                        .foregroundColor(Color.black)
+                }.padding(.top, -45)
                 Spacer()
                 
             }
