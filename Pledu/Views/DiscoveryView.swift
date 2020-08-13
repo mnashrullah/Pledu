@@ -16,8 +16,9 @@ struct DiscoveryView: View {
     @State var show = false
     
     @State var showContent = false
-    @State var selectedPlant: Int = 0
+//    @State var selectedPlant: Int = 0
     
+    @Environment(\.presentationMode) var presentationMode
     
     //search
     @State private var searchText = ""
@@ -93,18 +94,37 @@ struct DiscoveryView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                         //content here
                             HStack(){
-                                ForEach(0..<self.mData.dataDiscover.count, id: \.self){ item in
-                                    cardDiscover(data: self.mData.dataDiscover[item])
-                                    .onTapGesture {
-                                        self.selectedPlant = item
-                                    }
-                                    .listRowInsets(EdgeInsets())
 
-                                }
-                                .listRowInsets(EdgeInsets())
-                                .onAppear(){
-                                print(self.mData)
-                                    print(self.mData)
+                                VStack(alignment: .leading,spacing: 5){
+                                        Button(action: {
+                                            self.show.toggle()
+                                        }) {
+    
+                                            Image("mawar")
+                                                .resizable()
+                                                .renderingMode(.original)
+                                                .cornerRadius(10)
+                                            
+                                        }
+                                            
+                                        .frame(width: 115, height: 115)
+                                            .cornerRadius(10)
+                                            
+                                        Text("Touge")
+                                            .fontWeight(.regular)
+                                            .font(Font.system(size:14, design: .default))
+
+                                        HStack(spacing: 5){
+                                            Text("Indoor").foregroundColor(.gray)
+                                            .font(Font.system(size:14, design: .default))
+                                        }
+                                    }.frame(width: 133, height: 175)
+                                    .background(Color.white)
+                                    .cornerRadius(9)
+                                    .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
+                                    .sheet(isPresented: $show){
+                                        Detail()
+                                    }
                                 }
                             }.frame(height: 185)
                             .padding([.leading], 3)
@@ -128,104 +148,152 @@ struct DiscoveryView: View {
             }
         }
     }
+
+
+struct Detail: View {
+    @Environment(\.presentationMode) private var presentationMode
+    
+    var body : some View{
+
+        VStack{
+            VStack{
+                Button(action: {
+                   self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(Color.black)
+                        .background(Color.white
+                            .frame(width: 30,height: 30)
+                            .cornerRadius(20, antialiased: true)
+                        )
+                    Text(" ")
+                }.offset(x: 330/2, y:8).zIndex(1)
+                
+                GeometryReader{ geo in
+                    ScrollView(showsIndicators: false){
+                        Image("onboarding2")
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fill)
+                            .frame(width:UIScreen.main.bounds.width, height: 300)
+                        
+                        detailTop()
+                        detailBottom()
+                        
+                    }.background(Color("clearColor"))
+
+
+                }.background(Color.white)
+                .padding(.top, -75)
+                HStack{
+//                    Button(action: {
+//
+//                    }) {
+//
+//                        Image("Save").renderingMode(.original)
+//                    }
+                    Button(action: {
+
+                    }) {
+                        HStack(spacing: 6){
+
+                            Text("Tambah ke Tanamanku")
+                                .fontWeight(.regular)
+                                .foregroundColor(.white)
+                                .padding(.leading, 0)
+                            
+                            Text("Pilih")
+                                .foregroundColor(.blue)
+                                .fontWeight(.semibold)
+                                .background(Color.white
+                                    .cornerRadius(10)
+                                    .frame(width: 50)
+                                )
+                                .offset(x: UIScreen.main.bounds.width/13)
+
+                        }.foregroundColor(.red)
+                        .padding()
+                    }
+                    .background(Color("offColor")
+                        .opacity(0.3)
+                        .frame(width:UIScreen.main.bounds.width-40, height: 40.0)
+                        .cornerRadius(10)
+                    )
+                }
+            }
+        }.padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
+
+
+    }
+}
+struct detailTop : View {
+    var body : some View{
+        VStack(alignment: .leading, spacing: 10){
+
+            HStack{
+                VStack(alignment: .leading){
+                    NavigationLink(destination: CameraView()){
+                        
+                        Text("Tutorial")
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.white)
+                            .font(.subheadline)
+                            .padding(.top, 0)
+                            .padding()
+                    }
+                    Text("Cara menanam bunga Mawar")
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                        .font(.title)
+                        .padding(.top, -30)
+                        .padding()
+                    
+                        
+                }
+                Spacer()
+            }
+            .background(Image("onboarding2")
+                .resizable()
+                .frame(width:UIScreen.main.bounds.width, height: 100.0)
+                .blur(radius: 40, opaque: true)
+            )
+            .padding(.top, -80)
+            
+            VStack(){
+                Text("Mawar")
+                Text("Rosa")
+            }.padding(.top, 10)
+            .frame(width:UIScreen.main.bounds.width)
+            
+            HStack{
+                VStack{
+                    Text("Jenis")
+                    Text("Bunga")
+                }
+                Spacer()
+                VStack{
+                    Text("Jenis")
+                    Text("Bunga")
+                }
+            }.padding(40)
+                .padding(.top, -40)
+                .padding(.bottom, -40)
+        }
+    }
+}
+struct detailBottom : View {
+
+    var body : some View{
+
+        VStack(alignment: .center, spacing: 10){
+
+            Text("         Bunga mawar merupakan tanaman tertua di dunia. Fosil bunga mawar ditemukan sekitar 35 juta tahun yang lalu di Florissant, Colorado, AS. Mawar liar terdiri dari 100 spesies lebih, kebanyakan tumbuh di belahan bumi utara yang berudara sejuk.").foregroundColor(.gray)
+            Text("         Manfaat bunga mawar pun cukup beragam, mulai dari produk kecantikan hingga dikonsumsi sebagai minuman atau makanan.").foregroundColor(.gray)
+
+        }.padding()
+    }
 }
 
-//struct Detail: View {
-//    var body : some View{
-//
-//        VStack{
-//            VStack{
-//
-//                Image("onboarding2").resizable().aspectRatio(1.35, contentMode: .fill).frame(width:UIScreen.main.bounds.width,height: 500).offset(y: -200).padding(.bottom, -200)
-//
-//                GeometryReader{geo in
-//
-//                    ScrollView(showsIndicators: false){
-//                        detailTop()
-//                        detailBottom()
-//                    }
-//
-//                }.background(Color.white)
-//                .clipShape(Rounded())
-//                .padding(.top, -75)
-//
-//
-//            }
-//        }.padding()
-//    }
-//
-//}
-//struct detailTop : View {
-//    var body : some View{
-//        VStack(alignment: .leading, spacing: 10){
-//
-//            HStack{
-//                VStack(alignment: .leading){
-//                    NavigationLink(destination: CameraView()){
-//                        Text("Tutorial").fontWeight(.heavy).font(.subheadline)
-//                    }
-//                    Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
-//                }
-//                Spacer()
-//                }.padding(.top, 20).padding()
-//
-//            VStack(){
-//                Text("Mawar")
-//                Text("Rosa")
-//            }
-//            .frame(width:UIScreen.main.bounds.width)
-//            HStack{
-//                VStack{
-//                    Text("Jenis")
-//                    Text("Bunga")
-//                }
-//                Spacer()
-//                VStack{
-//                    Text("Jenis")
-//                    Text("Bunga")
-//                }
-//            }
-//        }
-//    }
-//}
-//struct detailBottom : View {
-//
-//    var body : some View{
-//
-//        VStack(alignment: .leading, spacing: 10){
-//
-//            Text("Description").fontWeight(.heavy)
-//            Text("").foregroundColor(.gray)
-//
-//            HStack(spacing: 8){
-//
-//                Button(action: {
-//
-//                }) {
-//
-//                    Image("Save").renderingMode(.original)
-//                }
-//
-//                Button(action: {
-//
-//                }) {
-//
-//                    HStack(spacing: 6){
-//
-//                        Text("Book Your Experience")
-//                        Image("arrow").renderingMode(.original)
-//
-//                    }.foregroundColor(.white)
-//                    .padding()
-//
-//                }
-//                .cornerRadius(8)
-//
-//            }.padding(.top, 6)
-//
-//        }.padding()
-//    }
-//}
 //struct Rounded : Shape {
 //
 //    func path(in rect: CGRect) -> Path {
