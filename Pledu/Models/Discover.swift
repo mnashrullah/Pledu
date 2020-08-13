@@ -9,11 +9,10 @@
 import SwiftUI
 
 struct Discover: Decodable {
-    var idTanaman: Int
-    var nama, jenis, tipe, tempat: String
-    var durasi: Int
+    var idPlant: Int
+    var name, category, type, location: String
+    var duration: Int
     var video: String
     var img: String
-    var deskripsi, tools: String
-    
+    var tools: String
 }

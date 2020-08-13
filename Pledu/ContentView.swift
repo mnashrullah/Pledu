@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var show = false
     private let initialLaunchKey = "isInitialLaunch"
     @State var selected = 0
+    private let userId = "userId"
     
     var body: some View {
         VStack {
@@ -43,6 +44,17 @@ struct ContentView: View {
                     UserDefaults.standard.set(true, forKey: self.initialLaunchKey)
                 }).transition(.scale)
             }
+        }.onAppear(){
+
+            if UserDefaults.standard.integer(forKey: self.userId) == 0{
+                print("no user id")
+                //nash emulator user id 1954624632
+                let randomUserId = generateUserID(length: 10)
+                UserDefaults.standard.set(randomUserId, forKey: self.userId)
+                
+            } else{
+                print("has user id ", UserDefaults.standard.integer(forKey: self.userId))
+            }
         }
 //        .frame(maxHeight: .infinity)
 //            .background(Color.backgroundColor)
@@ -51,6 +63,12 @@ struct ContentView: View {
 //                UIApplication.shared.endEditing()
 //        }
     }
+}
+func generateUserID(length: Int) -> Int {
+  let letters = "123456789"
+  let value = String((0..<length).map{ _ in letters.randomElement()! })
+    print("userID",value)
+    return Int(value)!
 }
 
 struct ContentView_Previews: PreviewProvider {

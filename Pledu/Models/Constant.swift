@@ -17,15 +17,15 @@ struct Constants {
         static let tabBar1 = "Tanamanku"
     }
     struct Api{
-//        static let viewMyPlant = "http://localhost:8081/api/myplant"
-//        static let viewProgress = "http://localhost:8081/api/progress"
-        static let viewMyPlant = "http://pledu.aplikasibmn.com/api/myplant"
-        static let viewProgress = "http://pledu.aplikasibmn.com/api/progress"
-//        static let addProgress = "http://pledu.aplikasibmn.com/api/progress/add"
-        static let addProgress = "http://localhost:8081/api/progress/add"
-//        static let uploadProgress = "http://localhost:8081/api/progress/upload"
-        static let uploadProgress = "http://localhost:3000/contact/upload"
-        static let discoverPlant = "http://inventariscdn.xyz/api/api/pledu/read"
+//        static let mainLink = "http://pledu.aplikasibmn.com/"
+        static let mainLink = "http://localhost:8081/"
+        static let viewPlant = Constants.Api.mainLink + "api/plant"
+        static let viewMyPlant =  Constants.Api.mainLink + "api/myplant"
+        static let viewProgress = Constants.Api.mainLink + "api/progress"
+        static let addProgress = Constants.Api.mainLink + "api/progress/add"
+        static let uploadProgress = Constants.Api.mainLink + "api/progress/upload"
+        
+//        static let discoverPlant = "http://inventariscdn.xyz/api/api/pledu/read"
         
     }
     struct Phase{

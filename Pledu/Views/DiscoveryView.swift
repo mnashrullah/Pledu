@@ -10,6 +10,14 @@ import SwiftUI
 
 struct DiscoveryView: View {
     @ObservedObject var mData = getDataDiscover()
+    //    var mData = landmark
+    //    @ObservedObject var mData = getDataDiscover()
+    //    var categories: [String: [Landmark]] {
+    //        Dictionary(
+    //            grouping: landmarkData,
+    //            by: { $0.category.rawValue }
+    //        )
+    //    }
     
     @State var showingSetting = false
     
@@ -18,7 +26,7 @@ struct DiscoveryView: View {
     //search
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
-   
+    
     var settingButton: some View {
         Button(action: { self.showingSetting.toggle() }) {
             Image(systemName: "gear")
@@ -29,301 +37,392 @@ struct DiscoveryView: View {
     }
     var body: some View {
         NavigationView{
-//            VStack(alignment: .leading,spacing: 12){
             VStack{
-//              Text("love")
                 List{
-                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
-                        cardDiscover(data: self.mData.dataDiscover[i])
+                    //contoh
+                    //                    ForEach(categories.keys.sorted(), id: \.self) { key in
+                    //                        CategoryRow(categoryName: key, items: self.categories[key]!)
+                    //                    }
+                    ForEach(self.mData.categories.keys.sorted(), id: \.self) {key in
+                        CategoryRow(categoryName: key, items: self.mData.categories[key]!)
                     }
+                    .listRowInsets(EdgeInsets())
+                    
+                    //ok
+                    //                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
+                    //                        cardDiscover(data: self.mData.dataDiscover[i])
+                    //                    }
+                    //                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
+                    //                        cardDiscover(data: self.mData.dataDiscover[i])
+                    //                    }
+                    //                    Text("love")
+                    
                 }
-
-                
             }.onAppear(){
-                print(self.mData)
-            }
-//            VStack {
-//                //search
-//                VStack(alignment: .leading, spacing: 5){
+//                ForEach(self.mData.categories.keys.sorted(), id: \.self) {key in
+////                    CategoryRow(categoryName: key, items: self.mData.categories[key]!)
+//                    print(key)
 //
-//                    Text("Ingin Menanam?").fontWeight(.heavy)
-//                                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
-//
-//                //
-//                                    // Search view
-//                                    HStack {
-//                                        HStack() {
-//                                            Image(systemName: "magnifyingglass")
-//
-//                                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
-//                                                self.showCancelButton = true
-//                                            }, onCommit: {
-//                                                print("onCommit")
-//                                            }).foregroundColor(.primary)
-//
-//                                            Button(action: {
-//                                                self.searchText = ""
-//                                            }) {
-//                                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
-//                                            }
-//                                        }
-//                                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-//                                        .foregroundColor(.secondary)
-//                                        .background(Color(.secondarySystemBackground))
-//                                        .cornerRadius(10.0)
-//
-//                                        if showCancelButton  {
-//                                            Button("Cancel") {
-//                                                self.searchText = ""
-//                                                self.showCancelButton = false
-//                                            }
-//                                            .foregroundColor(Color(.systemBlue))
-//                                        }
-//                                    }
-//
-//                                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
-//                }.padding(.horizontal, 16)
-//
-//                //content
-//                ScrollView(showsIndicators: false){
-//
-//                    VStack{
-//                        HStack{
-//
-//                            Text("Bunga").fontWeight(.heavy)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//
-//
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//
-//
-//                            HStack(spacing: 20){
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//                                        self.show.toggle()
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }.sheet(isPresented: $show){
-//                                    Detail()
-//                                }
-//
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
-//                    }
-//                    VStack{
-//                        HStack{
-//
-//                            Text("Bunga").fontWeight(.heavy)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//
-//
-//                            HStack(spacing: 20){
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
-//                    }
-//                    VStack{
-//                        HStack{
-//
-//                            Text("Bunga").fontWeight(.heavy)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//
-//                            }) {
-//
-//                                Text("View all").foregroundColor(.gray)
-//                            }
-//
-//                        }.padding([.top], 15)
-//                        //end hstack bunga
-//
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//
-//
-//                            HStack(spacing: 20){
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }
-//                                VStack(alignment: .leading,spacing: 5){
-//
-//                                    Button(action: {
-//
-//                                    }) {
-//
-//                                        Image("scale").renderingMode(.original).cornerRadius(10)
-//                                    }
-//
-//                                    Text("Mawar").fontWeight(.heavy)
-//
-//                                    HStack(spacing: 5){
-//
-//                                        Text("Rosella").foregroundColor(.gray)
-//                                    }
-//                                }//end vstack
-//                            }//end hstack
-//                        }//end scrollview
-//                    }
-//                    Spacer()
-//
-//
-//
-//                }.padding()
-//                    .navigationBarTitle(Text("Menjelajah"))
-//                    .navigationBarItems(trailing: settingButton)
-//                    .sheet(isPresented: $showingSetting) {
-//                        SettingView()
-//                        //                    .environmentObject(self.userData)
 //                }
+                
+                //                print(self.mData)
+                //                let students = ["Kofi", "Abena", "Efua", "Kweku", "Akosua"]
+                //                let studentsByLetter = Dictionary(grouping: students, by: { $0.first! })
+                //                print(studentsByLetter)
+                //                print(students)
+                //                var categories: [String: [Discover]] {
+                //                       Dictionary(
+                //                        grouping: self.mData,
+                //                           by: { $0.category.rawValue }
+                //                       )
+                //                   }
+                //                print(self.categories)
+                
+                
+            }
+            //            VStack {
+            //                //search
+            //                VStack(alignment: .leading, spacing: 5){
+            //
+            //                    Text("Ingin Menanam?").fontWeight(.heavy)
+            //                                    Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+            //
+            //                //
+            //                                    // Search view
+            //                                    HStack {
+            //                                        HStack() {
+            //                                            Image(systemName: "magnifyingglass")
+            //
+            //                                            TextField("search", text: $searchText, onEditingChanged: { isEditing in
+            //                                                self.showCancelButton = true
+            //                                            }, onCommit: {
+            //                                                print("onCommit")
+            //                                            }).foregroundColor(.primary)
+            //
+            //                                            Button(action: {
+            //                                                self.searchText = ""
+            //                                            }) {
+            //                                                Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+            //                                            }
+            //                                        }
+            //                                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+            //                                        .foregroundColor(.secondary)
+            //                                        .background(Color(.secondarySystemBackground))
+            //                                        .cornerRadius(10.0)
+            //
+            //                                        if showCancelButton  {
+            //                                            Button("Cancel") {
+            //                                                self.searchText = ""
+            //                                                self.showCancelButton = false
+            //                                            }
+            //                                            .foregroundColor(Color(.systemBlue))
+            //                                        }
+            //                                    }
+            //
+            //                                        .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+            //                }.padding(.horizontal, 16)
+            //
+            //                //content
+            //                ScrollView(showsIndicators: false){
+            //
+            //                    VStack{
+            //                        HStack{
+            //
+            //                            Text("Bunga").fontWeight(.heavy)
+            //
+            //                            Spacer()
+            //
+            //                            Button(action: {
+            //
+            //
+            //                            }) {
+            //
+            //                                Text("View all").foregroundColor(.gray)
+            //                            }
+            //
+            //                        }.padding([.top], 15)
+            //                        //end hstack bunga
+            //
+            //                        ScrollView(.horizontal, showsIndicators: false) {
+            //
+            //
+            //                            HStack(spacing: 20){
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //                                        self.show.toggle()
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }.sheet(isPresented: $show){
+            //                                    Detail()
+            //                                }
+            //
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }//end vstack
+            //                            }//end hstack
+            //                        }//end scrollview
+            //                    }
+            //                    VStack{
+            //                        HStack{
+            //
+            //                            Text("Bunga").fontWeight(.heavy)
+            //
+            //                            Spacer()
+            //
+            //                            Button(action: {
+            //
+            //                            }) {
+            //
+            //                                Text("View all").foregroundColor(.gray)
+            //                            }
+            //
+            //                        }.padding([.top], 15)
+            //                        //end hstack bunga
+            //
+            //                        ScrollView(.horizontal, showsIndicators: false) {
+            //
+            //
+            //                            HStack(spacing: 20){
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }//end vstack
+            //                            }//end hstack
+            //                        }//end scrollview
+            //                    }
+            //                    VStack{
+            //                        HStack{
+            //
+            //                            Text("Bunga").fontWeight(.heavy)
+            //
+            //                            Spacer()
+            //
+            //                            Button(action: {
+            //
+            //                            }) {
+            //
+            //                                Text("View all").foregroundColor(.gray)
+            //                            }
+            //
+            //                        }.padding([.top], 15)
+            //                        //end hstack bunga
+            //
+            //                        ScrollView(.horizontal, showsIndicators: false) {
+            //
+            //
+            //                            HStack(spacing: 20){
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }
+            //
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }
+            //                                VStack(alignment: .leading,spacing: 5){
+            //
+            //                                    Button(action: {
+            //
+            //                                    }) {
+            //
+            //                                        Image("scale").renderingMode(.original).cornerRadius(10)
+            //                                    }
+            //
+            //                                    Text("Mawar").fontWeight(.heavy)
+            //
+            //                                    HStack(spacing: 5){
+            //
+            //                                        Text("Rosella").foregroundColor(.gray)
+            //                                    }
+            //                                }//end vstack
+            //                            }//end hstack
+            //                        }//end scrollview
+            //                    }
+            //                    Spacer()
+            //
+            //
+            //
+            //                }.padding()
+            //                    .navigationBarTitle(Text("Menjelajah"))
+            //                    .navigationBarItems(trailing: settingButton)
+            //                    .sheet(isPresented: $showingSetting) {
+            //                        SettingView()
+            //                        //                    .environmentObject(self.userData)
+            //                }
+            //            }
+        }
+    }
+}
+struct CategoryRow: View{
+    var categoryName: String
+    var items: [Discover]
+    
+    var body: some View{
+        VStack(alignment: .leading){
+            HStack{
+                
+                Text(categoryName).fontWeight(.heavy).autocapitalization(.allCharacters)
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                    
+                }) {
+                    
+                    Text("View all").foregroundColor(.gray)
+                }
+                
+            }.padding([.top], 15)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                
+                
+                HStack(spacing: 20){
+//                    Text("love")
+//                    ForEach(self.items){item in
+//                        cardPlant(item: item)
+//                    }
+                    ForEach(0..<self.items.count){item in
+                        cardPlant(item: self.items[item])
+                    }
+                }//end hstack
+            }//end scrollview
+        
+    }
+    }
+}
+
+struct cardPlant: View{
+    @State var item : Discover
+    @Environment(\.imageCache) var cache: ImageCache
+    
+    var body: some View{
+        VStack(alignment: .leading,spacing: 5){
+                                
+            Button(action: {
+    //                            self.show.toggle()
+            }) {
+               AsyncImage(url: URL(string: item.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                .frame(width: 120, height: 120)
+                .cornerRadius(10)
+            }.buttonStyle(PlainButtonStyle())
+            Text(item.name).fontWeight(.heavy)
+//            HStack(spacing: 5){
+//                Text(item.category).foregroundColor(.gray)
 //            }
         }
     }
@@ -346,8 +445,8 @@ struct Detail: View {
                     }
                     
                 }.background(Color.white)
-                .clipShape(Rounded())
-                .padding(.top, -75)
+                    .clipShape(Rounded())
+                    .padding(.top, -75)
                 
                 
             }
@@ -372,8 +471,8 @@ struct detailTop : View {
                     Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
                 }
                 Spacer()
-                }.padding(.top, 20).padding()
-
+            }.padding(.top, 20).padding()
+            
             VStack(){
                 Text("Mawar")
                 Text("Rosa")
@@ -423,10 +522,10 @@ struct detailBottom : View {
                         Image("arrow").renderingMode(.original)
                         
                     }.foregroundColor(.white)
-                    .padding()
+                        .padding()
                     
                 }.background(Color("bg"))
-                .cornerRadius(8)
+                    .cornerRadius(8)
                 
             }.padding(.top, 6)
             
@@ -448,23 +547,51 @@ struct Rounded : Shape {
 
 class getDataDiscover: ObservableObject{
     //    @Published var data: MyPlant!
-    @Published var dataDiscover = [Discover]()
+    //    @Published var dataDiscover = [Discover]()
+    @Published var categories = [String: [Discover]]()
+    //      @Published var categories
+    
+    //    var categories: [String: [Discover]] {
+    //                           Dictionary(
+    //                            grouping: dataDiscover,
+    //                            by: { $0.category }
+    //                           )
+    //   }
     init (){
         updateData()
     }
     func updateData(){
-        let url = Constants.Api.discoverPlant
+        let url = Constants.Api.viewPlant
         let session = URLSession(configuration: .default)
         session.dataTask(with: URL(string: url)!){(data,_,err) in
             if err != nil{
                 print((err?.localizedDescription)!)
                 return
             }
-            //            https://www.avanderlee.com/swift/json-parsing-decoding/
             let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
-            DispatchQueue.main.async {self.dataDiscover = json}
-//            DispatchQueue.main.sync {self.dataDiscover = json}
-                print(self.dataDiscover)
+            DispatchQueue.main.async {
+                //                self.dataDiscover = json
+                //                print("async",self.dataDiscover)
+                self.categories = Dictionary(grouping: json, by: {$0.category})
+                print(self.categories)
+                
+                //                let students = ["Kofi", "Abena", "Efua", "Kweku", "Akosua"]
+                //                let studentsByLetter = Dictionary(grouping: students, by: { $0.first! })
+                //
+                
+                //                self.categories = Dictionary(grouping: json, by: { $0.category })
+                //                print(studentsByLetter)
+                //                print(students)
+                //                print(self.categories)
+                //                return json
+                //bisa
+                //                var categories: [String: [Discover]] {
+                //                Dictionary(grouping: json,by: { $0.category })}
+                //                print(categories)
+                
+            }
+            
+            //
         }.resume()
     }
     
@@ -481,9 +608,9 @@ struct cardDiscover: View{
             AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
                 .frame(width: 120, height: 120)
                 .cornerRadius(10)
-                VStack(alignment: .leading, spacing: 10){
-                    Text(data.deskripsi).fontWeight(.heavy)
-                    Text("Ditambahkan pada").foregroundColor(.gray)
+            VStack(alignment: .leading, spacing: 10){
+                Text(data.name).fontWeight(.heavy)
+                Text(data.category).foregroundColor(.gray)
             }
             Spacer()
         }

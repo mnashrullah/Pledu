@@ -26,7 +26,7 @@ class ProgressUpload: ObservableObject, Codable{
     @Published var idPlant: Int = 1
     @Published var img: String = "new image.jpg"
     @Published var dayDifferent: Int = 1
-    @Published var dateCreated: String = "2020-08-08"
+    @Published var dateCreated: String = "2020-08-12"
     
     
     func getTodayDate()->String{
@@ -86,7 +86,8 @@ struct CameraView: View {
                             self.showingAlert = true
                         }){
                             Text("Save")
-                        }
+                        }.disabled(
+                                !(image != nil))
                         .alert(isPresented: $showingAlert) {
                             Alert(title: Text("Success!"), message: Text("Progress succesfully saved"),
                                   dismissButton: .default(Text("Back to My Plant"), action: {
@@ -226,22 +227,26 @@ func saveProgress(data: ProgressUpload, pic: UIImage){
 
 
 func saveProgress2(data: ProgressUpload, pic: UIImage){
-   // the image in UIImage type
-//    guard let image = pic else { return  }
 
     let filename = "avatar.png"
 
     // generate boundary string using a unique per-app string
     let boundary = UUID().uuidString
 
-//    let fieldName = "reqtype"
-//    let fieldValue = "fileupload"
+    let fieldName = "idUser"
+    let fieldValue = UserDefaults.standard.integer(forKey: "userId")
 
-    let fieldName = "photo"
-    let fieldValue = "fileupload"
+    let fieldName2 = "idPlant"
+    let fieldValue2 = data.idPlant
 
-//    let fieldName2 = "userhash"
-//    let fieldValue2 = "caa3dce4fcb36cfdf9258ad9c"
+    let fieldName3 = "description"
+    let fieldValue3 = data.description
+
+    let fieldName4 = "phase"
+    let fieldValue4 = data.phase
+    
+    let fieldName5 = "dateCreated"
+    let fieldValue5 = data.dateCreated
 
     let config = URLSessionConfiguration.default
     let session = URLSession(configuration: config)
@@ -262,9 +267,25 @@ func saveProgress2(data: ProgressUpload, pic: UIImage){
     data.append("\(fieldValue)".data(using: .utf8)!)
 
     // Add the userhash field and its value to the raw http reqyest data
-//    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-//    data.append("Content-Disposition: form-data; name=\"\(fieldName2)\"\r\n\r\n".data(using: .utf8)!)
-//    data.append("\(fieldValue2)".data(using: .utf8)!)
+    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+    data.append("Content-Disposition: form-data; name=\"\(fieldName2)\"\r\n\r\n".data(using: .utf8)!)
+    data.append("\(fieldValue2)".data(using: .utf8)!)
+    
+    // Add the userhash field and its value to the raw http reqyest data
+    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+    data.append("Content-Disposition: form-data; name=\"\(fieldName3)\"\r\n\r\n".data(using: .utf8)!)
+    data.append("\(fieldValue3)".data(using: .utf8)!)
+    
+    // Add the userhash field and its value to the raw http reqyest data
+    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+    data.append("Content-Disposition: form-data; name=\"\(fieldName4)\"\r\n\r\n".data(using: .utf8)!)
+    data.append("\(fieldValue4)".data(using: .utf8)!)
+    
+    // Add the userhash field and its value to the raw http reqyest data
+    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+    data.append("Content-Disposition: form-data; name=\"\(fieldName5)\"\r\n\r\n".data(using: .utf8)!)
+    data.append("\(fieldValue5)".data(using: .utf8)!)
+  
 
     // Add the image data to the raw http request data
     data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)

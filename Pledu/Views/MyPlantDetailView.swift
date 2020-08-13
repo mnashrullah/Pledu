@@ -10,11 +10,8 @@ import SwiftUI
 
 struct MyPlantDetailView: View {
     @State var data: MyPlant
-    
     @ObservedObject var dataProgress = getProgress()
-    
     @State var showCamera = false
-    
     var cameraButton: some View {
         Button(action: { self.showCamera.toggle() }) {
             Image(systemName: "camera")
@@ -42,7 +39,6 @@ struct MyPlantDetailView: View {
                     Spacer()
                     Button(action: {
                     }) {
-                        
                         Text("View all").foregroundColor(.gray)
                     }
                 }.padding([.top], 15)
@@ -60,16 +56,12 @@ struct MyPlantDetailView: View {
                         .padding(.top, 20)
                 }
             }
-                
-                
-                
             .navigationBarTitle(Text(data.name))
             .navigationBarItems(trailing: cameraButton)
             .sheet(isPresented: $showCamera) {
                 CameraView()
             }
         }
-        
     }
 }
 
@@ -90,15 +82,12 @@ struct cardPhase: View{
                     }
             )
                 .frame(width: 200, height: 150)
-        }.buttonStyle(PlainButtonStyle())  /*Here, is what you need*/
+        }.buttonStyle(PlainButtonStyle())
     }
 }
-
-
 struct cardProgress: View{
     @Environment(\.imageCache) var cache: ImageCache
     var data: MyProgress
-    
     var body: some View{
         VStack(alignment: .leading,spacing: 5){
             Button(action: {}) {
@@ -106,7 +95,7 @@ struct cardProgress: View{
                 AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
                     .frame(width: 120, height: 120)
                     .cornerRadius(10)
-            }.buttonStyle(PlainButtonStyle()) 
+            }.buttonStyle(PlainButtonStyle())
             Text("Hari ke - ").fontWeight(.heavy) +
             Text(String(data.dayDifferent)).fontWeight(.heavy)
             HStack(spacing: 5){
@@ -115,10 +104,7 @@ struct cardProgress: View{
         }
     }
 }
-
-
 class getProgress: ObservableObject{
-    //    @Published var data: MyPlant!
     @Published var dataProgress = [MyProgress]()
     init (){
         updateData()
@@ -127,7 +113,7 @@ class getProgress: ObservableObject{
         let url = Constants.Api.viewProgress
         let parameters = [
             "idUser": 1,
-            "idPlant": 1]
+            "idPlant": UserDefaults.standard.integer(forKey: "userId")]
 
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = "POST"
@@ -146,5 +132,3 @@ class getProgress: ObservableObject{
         }.resume()
     }
 }
-
-
