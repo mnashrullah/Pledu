@@ -317,7 +317,7 @@ struct ShelterDetailedView: View {
         }
     }
 }
-
+// asdasd
 
 class getDataDiscover: ObservableObject{
     //    @Published var data: MyPlant!
