@@ -5,7 +5,6 @@
 //  Created by Muhammad Nashrullah on 04/08/20.
 //  Copyright © 2020 Kepiting Bakau. All rights reserved.
 //
-
 import SwiftUI
 
 struct PageViewContainer<Page: View>  : View {
@@ -45,7 +44,7 @@ struct PageViewContainer<Page: View>  : View {
                 }
             }.padding(.vertical)
         }
-        .background(Image("onboarding1"))
+        .background(Color("clearColor"))
         .edgesIgnoringSafeArea(.all)
     }
 }

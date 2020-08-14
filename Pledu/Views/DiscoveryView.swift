@@ -39,23 +39,11 @@ struct DiscoveryView: View {
         NavigationView{
             VStack{
                 List{
-                    //contoh
-                    //                    ForEach(categories.keys.sorted(), id: \.self) { key in
-                    //                        CategoryRow(categoryName: key, items: self.categories[key]!)
-                    //                    }
+                    
                     ForEach(self.mData.categories.keys.sorted(), id: \.self) {key in
                         CategoryRow(categoryName: key, items: self.mData.categories[key]!)
                     }
                     .listRowInsets(EdgeInsets())
-                    
-                    //ok
-                    //                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
-                    //                        cardDiscover(data: self.mData.dataDiscover[i])
-                    //                    }
-                    //                    ForEach(0..<self.mData.dataDiscover.count, id: \.self){i in
-                    //                        cardDiscover(data: self.mData.dataDiscover[i])
-                    //                    }
-                    //                    Text("love")
                     
                 }
             }.onAppear(){
@@ -316,5 +304,3 @@ struct cardDiscover: View{
     }
     
 }
-
-// test
