@@ -61,8 +61,7 @@ class ProgressUpload: ObservableObject, Codable{
 }
 
 
-struct CameraView: View {
-    
+struct CameraView: View {    
     @State var image: Image? = nil
     @State var rawimage: UIImage? = nil
     @State var showCaptureImageView: Bool = true
@@ -184,49 +183,52 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 }
 
 
-
-func saveProgress(data: ProgressUpload, pic: UIImage){
-    print(data.dateCreated)
-    print(data.dayDifferent)
-    print(data.description)
-    print(data.idPlant)
-    print(data.idUser)
-    print(data.phase)
-    print(data.img)
-    print(pic)
-    let imageData:NSData = pic.pngData()! as NSData
-       // convert the NSData to base64 encoding
-    let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-    data.img = strBase64
-    
-    
-    let url = Constants.Api.addProgress
-    var urlRequest = URLRequest(url: URL(string: url)!)
-    urlRequest.httpMethod = "POST"
-    urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    urlRequest.httpBody = try? JSONEncoder().encode(data)
-
-    
-    
-    
-    
-    URLSession.shared.dataTask(with: urlRequest)
-    {(data,response,err) in
-        if err != nil{
-            print((err?.localizedDescription)!)
-            return
-        }
-        print("data",data as Any)
-        print("res",response as Any)
-        print("err",err as Any)
-//        let json: [ProgressUpload] = try! JSONDecoder().decode([ProgressUpload].self, from: data!)
-//        print(json)
-    }.resume()
-    
-}
+//
+//func saveProgress(data: ProgressUpload, pic: UIImage){
+//    print(data.dateCreated)
+//    print(data.dayDifferent)
+//    print(data.description)
+//    print(data.idPlant)
+//    print(data.idUser)
+//    print(data.phase)
+//    print(data.img)
+//    print(pic)
+//    let imageData:NSData = pic.pngData()! as NSData
+//       // convert the NSData to base64 encoding
+//    let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//    data.img = strBase64
+//
+//
+//    let url = Constants.Api.addProgress
+//    var urlRequest = URLRequest(url: URL(string: url)!)
+//    urlRequest.httpMethod = "POST"
+//    urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//    urlRequest.httpBody = try? JSONEncoder().encode(data)
+//
+//
+//
+//
+//
+//    URLSession.shared.dataTask(with: urlRequest)
+//    {(data,response,err) in
+//        if err != nil{
+//            print((err?.localizedDescription)!)
+//            return
+//        }
+//        print("data",data as Any)
+//        print("res",response as Any)
+//        print("err",err as Any)
+////        let json: [ProgressUpload] = try! JSONDecoder().decode([ProgressUpload].self, from: data!)
+////        print(json)
+//    }.resume()
+//
+//}
 
 
 func saveProgress2(data: ProgressUpload, pic: UIImage){
+    print(data)
+    
+    print("upload imagw with data", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser), "idPlant", data.idPlant, "idplant2", Constants.dataUserDefault.idPlant)
 
     let filename = "avatar.png"
 
@@ -234,10 +236,10 @@ func saveProgress2(data: ProgressUpload, pic: UIImage){
     let boundary = UUID().uuidString
 
     let fieldName = "idUser"
-    let fieldValue = UserDefaults.standard.integer(forKey: "userId")
+    let fieldValue = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser)
 
     let fieldName2 = "idPlant"
-    let fieldValue2 = data.idPlant
+    let fieldValue2 = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idPlant)
 
     let fieldName3 = "description"
     let fieldValue3 = data.description

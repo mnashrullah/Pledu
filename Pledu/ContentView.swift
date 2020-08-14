@@ -13,7 +13,6 @@ struct ContentView: View {
     @State var show = false
     private let initialLaunchKey = "isInitialLaunch"
     @State var selected = 0
-    private let userId = "userId"
     
     var body: some View {
         VStack {
@@ -45,15 +44,15 @@ struct ContentView: View {
                 }).transition(.scale)
             }
         }.onAppear(){
-
-            if UserDefaults.standard.integer(forKey: self.userId) == 0{
+            
+            if UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser) == 0{
                 print("no user id")
                 //nash emulator user id 1954624632
-                let randomUserId = generateUserID(length: 10)
-                UserDefaults.standard.set(randomUserId, forKey: self.userId)
+                let randomUserId = generateUserID(length: 6)
+                UserDefaults.standard.set(randomUserId, forKey: Constants.dataUserDefault.idUser)
                 
             } else{
-                print("has user id ", UserDefaults.standard.integer(forKey: self.userId))
+                print("has user id ", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser))
             }
         }
 //        .frame(maxHeight: .infinity)

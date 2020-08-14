@@ -60,8 +60,7 @@ class getData: ObservableObject{
     func updateData(){
         let url = Constants.Api.viewMyPlant
         let parameters = [
-            "idUser": 1,
-            "idPlant": 1954624632]
+            "idUser": UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser)]
 
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = "POST"
@@ -88,20 +87,33 @@ struct cardMyPlant: View{
             AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
                 .frame(width: 120, height: 120)
                 .cornerRadius(10)
-            
-            NavigationLink(destination: MyPlantDetailView(data:data)
+            NavigationLink(destination: MyPlantDetailView(data:data)){
+            VStack(alignment: .leading, spacing: 10){
+                Text(data.name).fontWeight(.heavy)
+                Text("Ditambahkan pada").foregroundColor(.gray)
+                Text(getDate(time: data.dateCreated)).foregroundColor(.gray)
+            }
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(false)
-            ){
-                VStack(alignment: .leading, spacing: 10){
-                    Text(data.name).fontWeight(.heavy)
-                    Text("Ditambahkan pada").foregroundColor(.gray)
-                    Text(getDate(time: data.dateCreated)).foregroundColor(.gray)
-                }
-            }
+            
+//            NavigationLink(destination:
+//                MyPlantDetailView(data:data)
+//                .onAppear(){
+//                UserDefaults.standard.set(self.data.idPlant, forKey: Constants.dataUserDefault.idPlant)
+//                print("93 plantview save default idplant ", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idPlant))
+//            }
+//                .navigationBarHidden(true)
+//                .navigationBarBackButtonHidden(false)
+//            ){
+//                VStack(alignment: .leading, spacing: 10){
+//                    Text(data.name).fontWeight(.heavy)
+//                    Text("Ditambahkan pada").foregroundColor(.gray)
+//                    Text(getDate(time: data.dateCreated)).foregroundColor(.gray)
+//                }
+//            }
             Spacer()
         }
         
     }
     
-}
+    }}

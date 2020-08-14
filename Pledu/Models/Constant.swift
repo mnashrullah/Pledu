@@ -17,16 +17,24 @@ struct Constants {
         static let tabBar1 = "Tanamanku"
     }
     struct Api{
-//        static let mainLink = "http://pledu.aplikasibmn.com/"
-        static let mainLink = "http://localhost:8081/"
+        static let mainLink = "http://pledu.aplikasibmn.com/"
+//        static let mainLink = "http://localhost:8081/"
         static let viewPlant = Constants.Api.mainLink + "api/plant"
+        
         static let viewMyPlant =  Constants.Api.mainLink + "api/myplant"
+        static let addMyPlant = Constants.Api.mainLink + "api/myplant/add"
+        
         static let viewProgress = Constants.Api.mainLink + "api/progress"
-        static let addProgress = Constants.Api.mainLink + "api/progress/add"
+//        static let addProgress = Constants.Api.mainLink + "api/progress/add"
         static let uploadProgress = Constants.Api.mainLink + "api/progress/upload"
+        static let viewSinglePhase = Constants.Api.mainLink + "api/progress/single"
         
 //        static let discoverPlant = "http://inventariscdn.xyz/api/api/pledu/read"
         
+    }
+    struct dataUserDefault{
+        static let idUser = "idUser"
+        static let idPlant = "idPlant"
     }
     struct Phase{
         static let tahapan1 = "Penyemaian"
@@ -34,5 +42,10 @@ struct Constants {
         static let tahapan3 = "Perawatan"
         static let tahapan4 = "Lanjutan"
     }
-    static let tahapan = ["Penyemaian","Penanaman","Perawatan","Lanjutan"]
+    static let tahapan = [
+        "Pemilihan Biji",
+        "Penyemaian",
+        "Penanaman",
+        "Perawatan",
+        "Panen"]
 }

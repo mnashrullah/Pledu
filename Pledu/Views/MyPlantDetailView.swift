@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MyPlantDetailView: View {
     @State var data: MyPlant
-    @ObservedObject var dataProgress = getProgress()
+    @State var dataProgress = [MyProgress]()
     @State var showCamera = false
     var cameraButton: some View {
         Button(action: { self.showCamera.toggle() }) {
@@ -20,6 +20,7 @@ struct MyPlantDetailView: View {
                 .padding()
         }
     }
+    
     var body: some View {
         List(){
             VStack(alignment: .leading, spacing: 0){
@@ -28,8 +29,8 @@ struct MyPlantDetailView: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20){
-                    ForEach(0..<4){i in
-                        cardPhase(i: i)
+                    ForEach(0..<Constants.tahapan.count){i in
+                        cardPhase(i: i, dataMyPlant: self.data)
                     }
                 }
             }
@@ -42,15 +43,16 @@ struct MyPlantDetailView: View {
                         Text("View all").foregroundColor(.gray)
                     }
                 }.padding([.top], 15)
-                if self.dataProgress.dataProgress.count != 0{
+                
+                if self.dataProgress.count != 0{
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20){
-                            ForEach(0..<self.dataProgress.dataProgress.count){i in
-                                cardProgress(data: self.dataProgress.dataProgress[i])
+                            ForEach(0..<self.dataProgress.count){i in
+                                cardProgress(dataProgress: self.dataProgress[i], dataMyPlant: self.data)
                             }
-                            
                         }
                     }
+
                 }else{
                     Text("Kamu belum berikan progress")
                         .padding(.top, 20)
@@ -61,14 +63,46 @@ struct MyPlantDetailView: View {
             .sheet(isPresented: $showCamera) {
                 CameraView()
             }
+            
         }
+        .onAppear(){
+            //self.data sudah mengandung nilai tanaman yang di klik
+            self.loadData()
+        }
+       
     }
+    func loadData(){
+            let url = Constants.Api.viewProgress
+            let parameters = [
+                "idUser": UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser),
+                "idPlant": data.idPlant]
+            var urlRequest = URLRequest(url: URL(string: url)!)
+            urlRequest.httpMethod = "POST"
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.httpBody = try? JSONEncoder().encode(parameters)
+
+            URLSession.shared.dataTask(with: urlRequest)
+            {(data,response,err) in
+                if err != nil{
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                let json: [MyProgress] = try! JSONDecoder().decode([MyProgress].self, from: data!)
+                DispatchQueue.main.async {
+                    self.dataProgress = json
+                }
+                print("Fetch failed: \(err?.localizedDescription ?? "Unknown error")")
+            }.resume()
+               
+       }
 }
 
 struct cardPhase: View{
     var i: Int
+    var dataMyPlant: MyPlant
+    
     var body: some View{
-        NavigationLink(destination:PhaseView(i: i)){
+        NavigationLink(destination:PhaseView(phaseId: i, dataMyPLant: dataMyPlant)){
             Image("onboarding2").resizable().cornerRadius(10)
                 .overlay(
                     VStack(alignment: .center, spacing: 5){
@@ -87,39 +121,46 @@ struct cardPhase: View{
 }
 struct cardProgress: View{
     @Environment(\.imageCache) var cache: ImageCache
-    var data: MyProgress
+    var dataProgress: MyProgress
+    var dataMyPlant: MyPlant
+    
     var body: some View{
         VStack(alignment: .leading,spacing: 5){
             Button(action: {}) {
-                Image(data.img).renderingMode(.original).cornerRadius(10)
-                AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                Image(dataProgress.img).renderingMode(.original).cornerRadius(10)
+                AsyncImage(url: URL(string: dataProgress.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
                     .frame(width: 120, height: 120)
                     .cornerRadius(10)
             }.buttonStyle(PlainButtonStyle())
             Text("Hari ke - ").fontWeight(.heavy) +
-            Text(String(data.dayDifferent)).fontWeight(.heavy)
+            Text(String(dataProgress.dayDifferent)).fontWeight(.heavy)
             HStack(spacing: 5){
-                Text(Constants.tahapan[data.phase]).foregroundColor(.gray)
+                Text(Constants.tahapan[dataProgress.phase]).foregroundColor(.gray)
             }
         }
     }
 }
-class getProgress: ObservableObject{
+
+class getProgress: ObservableObject {
     @Published var dataProgress = [MyProgress]()
+
     init (){
         updateData()
     }
     func updateData(){
+        print("115 idPlant: ",UserDefaults.standard.integer(forKey: "idPlant"))
+        print("116 idUser: ",UserDefaults.standard.integer(forKey: "idUser"))
+
         let url = Constants.Api.viewProgress
         let parameters = [
-            "idUser": 1,
-            "idPlant": UserDefaults.standard.integer(forKey: "userId")]
+            "idUser": UserDefaults.standard.integer(forKey: "userId"),
+            "idPlant": UserDefaults.standard.integer(forKey: "idPlant")]
 
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = try? JSONEncoder().encode(parameters)
-        
+
         URLSession.shared.dataTask(with: urlRequest)
         {(data,response,err) in
             if err != nil{
@@ -128,7 +169,7 @@ class getProgress: ObservableObject{
             }
             let json: [MyProgress] = try! JSONDecoder().decode([MyProgress].self, from: data!)
             DispatchQueue.main.async {self.dataProgress = json}
-            print("json ",self.dataProgress)
+//            print("json ",self.dataProgress)
         }.resume()
     }
 }
