@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A7CAA7924E6946F0005EC72 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7CAA7824E6946F0005EC72 /* test.swift */; };
 		D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D774833124DD6828009126E7 /* MyPlantDetailView.swift */; };
 		D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589F824D9B543003D648F /* AppDelegate.swift */; };
 		D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FA24D9B543003D648F /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A7CAA7824E6946F0005EC72 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		D774833124DD6828009126E7 /* MyPlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantDetailView.swift; sourceTree = "<group>"; };
 		D7C589F524D9B543003D648F /* Pledu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pledu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C589F824D9B543003D648F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */,
 				D7CAAABF24E08DB70069DF69 /* MyProgress.swift */,
 				D7EB16EC24E2D31900C60A5F /* Discover.swift */,
+				0A7CAA7824E6946F0005EC72 /* test.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				D7C58A2724D9E0E5003D648F /* MyPlantView.swift in Sources */,
 				D7C589FE24D9B543003D648F /* Pledu.xcdatamodeld in Sources */,
 				D7C58A2324D9B9A3003D648F /* DiscoveryView.swift in Sources */,
+				0A7CAA7924E6946F0005EC72 /* test.swift in Sources */,
 				D7C58A1D24D9B821003D648F /* PageViewController.swift in Sources */,
 				D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */,
 				D7C58A1924D9B7A7003D648F /* PageView.swift in Sources */,
