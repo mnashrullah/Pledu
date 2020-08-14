@@ -63,5 +63,8 @@
     </dict>
     <key>NSCameraUsageDescription</key>
     <string>Need to access your camera to capture a picture for progress  planting</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Save image progress to your album or share to your social media</string>
+    
 </dict>
 </plist>

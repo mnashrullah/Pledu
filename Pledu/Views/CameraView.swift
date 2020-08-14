@@ -61,7 +61,9 @@ class ProgressUpload: ObservableObject, Codable{
 }
 
 
-struct CameraView: View {    
+struct CameraView: View {
+    var idPLant: Int
+    var dateCreated: String
     @State var image: Image? = nil
     @State var rawimage: UIImage? = nil
     @State var showCaptureImageView: Bool = true
@@ -81,7 +83,7 @@ struct CameraView: View {
                         Spacer()
                         Button(action: {
 //                            saveProgress(data: self.dataprogress, pic: self.rawimage!)
-                            saveProgress2(data: self.dataprogress, pic: self.rawimage!)
+                            saveProgress2(data: self.dataprogress, pic: self.rawimage!, idPlant: self.idPLant, dateCreated: self.dateCreated)
                             self.showingAlert = true
                         }){
                             Text("Save")
@@ -125,12 +127,6 @@ struct CameraView: View {
             }
             
         }
-    }
-}
-
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
     }
 }
 
@@ -225,8 +221,8 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 //}
 
 
-func saveProgress2(data: ProgressUpload, pic: UIImage){
-    print(data)
+func saveProgress2(data: ProgressUpload, pic: UIImage, idPlant: Int, dateCreated: String){
+    print("saveProgress2 ",data, "idplant ")
     
     print("upload imagw with data", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser), "idPlant", data.idPlant, "idplant2", Constants.dataUserDefault.idPlant)
 
@@ -239,7 +235,7 @@ func saveProgress2(data: ProgressUpload, pic: UIImage){
     let fieldValue = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser)
 
     let fieldName2 = "idPlant"
-    let fieldValue2 = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idPlant)
+    let fieldValue2 = idPlant
 
     let fieldName3 = "description"
     let fieldValue3 = data.description
@@ -248,7 +244,7 @@ func saveProgress2(data: ProgressUpload, pic: UIImage){
     let fieldValue4 = data.phase
     
     let fieldName5 = "dateCreated"
-    let fieldValue5 = data.dateCreated
+    let fieldValue5 = dateCreated
 
     let config = URLSessionConfiguration.default
     let session = URLSession(configuration: config)

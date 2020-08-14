@@ -16,6 +16,7 @@ struct MyProgress: Decodable {
     var dayDifferent: Int
     var phase: Int
     var dateCreated: String
+    var description: String
 }
 
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D7027CFF24E5685100C3A737 /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7027CFE24E5685100C3A737 /* PlantData.swift */; };
+		D7027D0324E6EAFC00C3A737 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7027D0224E6EAFC00C3A737 /* ShimmerView.swift */; };
 		D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D774833124DD6828009126E7 /* MyPlantDetailView.swift */; };
 		D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589F824D9B543003D648F /* AppDelegate.swift */; };
 		D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FA24D9B543003D648F /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		D7027CFE24E5685100C3A737 /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
+		D7027D0224E6EAFC00C3A737 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		D774833124DD6828009126E7 /* MyPlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantDetailView.swift; sourceTree = "<group>"; };
 		D7C589F524D9B543003D648F /* Pledu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pledu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C589F824D9B543003D648F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				D7CAAAAD24E04E3F0069DF69 /* ImageCache.swift */,
 				D7CAAAAF24E04E7E0069DF69 /* AsyncImage.swift */,
 				D7CAAAB124E04EA00069DF69 /* EnvironmentValues+ImageCache.swift */,
+				D7027D0224E6EAFC00C3A737 /* ShimmerView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */,
 				D7EB16ED24E2D31900C60A5F /* Discover.swift in Sources */,
 				D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */,
+				D7027D0324E6EAFC00C3A737 /* ShimmerView.swift in Sources */,
 				D7C58A1B24D9B7B6003D648F /* PageIndicator.swift in Sources */,
 				D7C58A1324D9B75D003D648F /* UIApplicationExt.swift in Sources */,
 			);

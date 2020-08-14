@@ -38,9 +38,11 @@ struct MyPlantDetailView: View {
                 HStack{
                     Text("Progress").fontWeight(.heavy)
                     Spacer()
-                    Button(action: {
-                    }) {
-                        Text("View all").foregroundColor(.gray)
+                    if self.dataProgress.count != 0{
+                        Button(action: {
+                        }) {
+                            Text("View all").foregroundColor(.gray)
+                        }
                     }
                 }.padding([.top], 15)
                 
@@ -54,21 +56,23 @@ struct MyPlantDetailView: View {
                     }
 
                 }else{
-                    Text("Kamu belum berikan progress")
+                    Text("Kamu belum mempunyai progress")
                         .padding(.top, 20)
                 }
             }
             .navigationBarTitle(Text(data.name))
             .navigationBarItems(trailing: cameraButton)
             .sheet(isPresented: $showCamera) {
-                CameraView()
+                CameraView(idPLant: self.data.idPlant, dateCreated: self.data.dateCreated)
             }
             
         }
         .onAppear(){
             //self.data sudah mengandung nilai tanaman yang di klik
+            print("appear")
             self.loadData()
         }
+    
        
     }
     func loadData(){
@@ -128,7 +132,7 @@ struct cardProgress: View{
         VStack(alignment: .leading,spacing: 5){
             Button(action: {}) {
                 Image(dataProgress.img).renderingMode(.original).cornerRadius(10)
-                AsyncImage(url: URL(string: dataProgress.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                AsyncImage(url: URL(string: dataProgress.img)!, cache: self.cache, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
                     .frame(width: 120, height: 120)
                     .cornerRadius(10)
             }.buttonStyle(PlainButtonStyle())
