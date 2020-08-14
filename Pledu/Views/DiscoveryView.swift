@@ -10,14 +10,6 @@ import SwiftUI
 
 struct DiscoveryView: View {
     @ObservedObject var mData = getDataDiscover()
-    //    var mData = landmark
-    //    @ObservedObject var mData = getDataDiscover()
-    //    var categories: [String: [Landmark]] {
-    //        Dictionary(
-    //            grouping: landmarkData,
-    //            by: { $0.category.rawValue }
-    //        )
-    //    }
     
     @State var showingSetting = false
     
@@ -38,20 +30,88 @@ struct DiscoveryView: View {
     var body: some View {
         NavigationView{
             VStack{
+                VStack(alignment: .leading, spacing: 5){
+                   Text("Ingin Menanam?").fontWeight(.heavy)
+                       Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                       // Search view
+                       HStack {
+                           HStack() {
+                               Image(systemName: "magnifyingglass")
+                               TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                                   self.showCancelButton = true
+                               }, onCommit: {
+                                   print("onCommit")
+                               }).foregroundColor(.primary)
+
+                               Button(action: {
+                                   self.searchText = ""
+                               }) {
+                                   Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                               }
+                           }
+                           .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                           .foregroundColor(.secondary)
+                           .background(Color(.secondarySystemBackground))
+                           .cornerRadius(10.0)
+
+                           if showCancelButton  {
+                               Button("Cancel") {
+                                   UIApplication.shared.endEditing(true)
+                                   self.searchText = ""
+                                   self.showCancelButton = false
+                               }
+                               .foregroundColor(Color(.systemBlue))
+                           }
+                       }
+                       .animation(.default) // animation does not work properly
+               }//end Vstack Search
+               .padding(.horizontal, 16)
                 List{
                     
-                    ForEach(self.mData.categories.keys.sorted(), id: \.self) {key in
-                        CategoryRow(categoryName: key, items: self.mData.categories[key]!)
-                    }
-                    .listRowInsets(EdgeInsets())
-                    
+                    ForEach(self.mData.categories.keys.sorted().filter{$0.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {
+                        searchText in
+//                        NavigationLink(destination: ShowcontentView(isNavigationBarHidden: self.$isNavigationBarHidden, landmark: searchText)) {
+                           CategoryRow(categoryName: searchText, items: self.mData.categories[searchText]!)
+//                        }
+                    }.listRowInsets(EdgeInsets())
+                    .resignKeyboardOnDragGesture()
+                }.onAppear(){
                 }
-            }.onAppear(){
-                
+            }
+            .navigationBarTitle(Text("Menjelajah"))
+                .navigationBarItems(trailing: settingButton)
+                .sheet(isPresented: $showingSetting) {
+                    SettingView()
+//                    .environmentObject(self.userData)
             }
         }
     }
 }
+
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        self.windows
+            .filter{$0.isKeyWindow}
+            .first?
+            .endEditing(force)
+    }
+}
+struct ResignKeyboardOnDragGesture: ViewModifier {
+    var gesture = DragGesture().onChanged{_ in
+        UIApplication.shared.endEditing(true)
+    }
+    func body(content: Content) -> some View {
+        content.gesture(gesture)
+    }
+}
+extension View {
+    func resignKeyboardOnDragGesture() -> some View {
+        return modifier(ResignKeyboardOnDragGesture())
+    }
+}
+
+
+
 struct CategoryRow: View{
     var categoryName: String
     var items: [Discover]
@@ -59,177 +119,177 @@ struct CategoryRow: View{
     var body: some View{
         VStack(alignment: .leading){
             HStack{
-                
-                Text(categoryName).fontWeight(.heavy).autocapitalization(.allCharacters)
-                
+                Text(categoryName.capitalized).fontWeight(.heavy).padding(.leading, 10)
                 Spacer()
-                
                 Button(action: {
-                    
-                    
                 }) {
-                    
-                    Text("View all").foregroundColor(.gray)
+                    Text("View all").foregroundColor(.gray).padding(.trailing, 10)
                 }
                 
             }.padding([.top], 15)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                
-                
                 HStack(spacing: 20){
-//                    Text("love")
-//                    ForEach(self.items){item in
-//                        cardPlant(item: item)
-//                    }
                     ForEach(0..<self.items.count){item in
                         cardPlant(item: self.items[item])
-                    }
-                }//end hstack
-            }//end scrollview
-        
-    }
+                        }.frame(height: 185)
+                }.padding(.leading, 10)
+            }
+        }
     }
 }
 
 struct cardPlant: View{
     @State var item : Discover
     @Environment(\.imageCache) var cache: ImageCache
+    @State var show = false
     
     var body: some View{
-        VStack(alignment: .leading,spacing: 5){
-                                
+        
+        VStack(alignment: .leading, spacing: 5){
             Button(action: {
-    //                            self.show.toggle()
+                self.show.toggle()
             }) {
                AsyncImage(url: URL(string: item.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
-                .frame(width: 120, height: 120)
+                .frame(width: 115, height: 115)
                 .cornerRadius(10)
             }.buttonStyle(PlainButtonStyle())
-            Text(item.name).fontWeight(.heavy)
-//            HStack(spacing: 5){
-//                Text(item.category).foregroundColor(.gray)
-//            }
-        }
-    }
-}
-
-struct Detail: View {
-    var body : some View{
+            
+            Text(item.name).fontWeight(.semibold).font(Font.system(size:14, design: .default))
+            
+            HStack(spacing: 5){
+                Text(item.location).foregroundColor(.gray)
+                .font(Font.system(size:14, design: .default))
+            }
+        }.frame(width: 133, height: 175)
         
-        VStack{
+        
+        .background(Color.white)
+        .cornerRadius(9)
+        .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
+        .sheet(isPresented: $show){
+
             VStack{
-                
-                Image("onboarding2").resizable().aspectRatio(1.35, contentMode: .fill).frame(width:UIScreen.main.bounds.width,height: 500).offset(y: -200).padding(.bottom, -200)
-                
-                GeometryReader{geo in
+                VStack{
+                    closeModalButton()
                     
-                    ScrollView(showsIndicators: false){
-                        detailTop()
-                        detailBottom()
-                        
-                    }
-                    
-                }.background(Color.white)
-                    .clipShape(Rounded())
+                    GeometryReader{ geo in
+                        ScrollView(showsIndicators: false){
+                            AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+                                .aspectRatio(1, contentMode: .fill)
+                                .frame(width:UIScreen.main.bounds.width, height: 300)
+                            
+                            VStack(alignment: .leading, spacing: 10){
+                                HStack{
+                                    VStack(alignment: .leading){
+                                        NavigationLink(destination: CameraView()){
+                                            
+                                            Text("Tutorial")
+                                                .fontWeight(.semibold)
+                                                .foregroundColor(Color.white)
+                                                .font(.subheadline)
+                                                .padding(.top, 0)
+                                                .padding()
+                                        }
+                                        HStack{
+                                            Text("Cara menanam " + String(self.item.category.capitalized) + " " + String(self.item.name.capitalized)).fontWeight(.heavy).foregroundColor(Color.white).font(.title)
+                                        }
+                                            .padding(.top, -30)
+                                            .padding()
+                                        
+                                            
+                                    }
+                                    Spacer()
+                                }
+                                .background(AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: Text("Loading ..."), configuration: { $0.resizable() })
+
+                                    .frame(width:UIScreen.main.bounds.width, height: 100.0)
+                                    .blur(radius: 40, opaque: true)
+                                )
+                                .padding(.top, -80)
+                                
+                                VStack(){
+                                    Text(self.item.name.capitalized).fontWeight(.semibold)
+                                    Text("Durasi tumbuh " + String(self.item.duration) + " Hari")
+                                }
+                                .frame(width:UIScreen.main.bounds.width)
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 10){
+                                
+                                Text(self.item.description.capitalized).foregroundColor(.gray).font(Font.system(size:14, design: .default))
+                                
+                                Text("Alat dan Bahan").fontWeight(.semibold)
+                                Text(self.item.tools).foregroundColor(.gray).font(Font.system(size:14, design: .default))
+                                
+                            }.padding()
+                            
+                        }.background(Color("clearColor"))
+
+
+                    }.background(Color.white)
                     .padding(.top, -75)
-                
-                
-            }
-        }.padding()
-    }
-    
-}
+                    HStack{
+    //                    Button(action: {
+    //
+    //                    }) {
+    //
+    //                        Image("Save").renderingMode(.original)
+    //                    }
+                        Button(action: {
 
+                        }) {
+                            HStack(spacing: 6){
 
-struct detailTop : View {
-    
-    var body : some View{
-        
-        VStack(alignment: .leading, spacing: 10){
-            
-            HStack{
-                
-                VStack(alignment: .leading){
-                    NavigationLink(destination: CameraView()){
-                        Text("Tutorial").fontWeight(.heavy).font(.subheadline)
+                                Text("Tambah ke Tanamanku")
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 0)
+                                
+                                Text("Pilih")
+                                    .foregroundColor(.blue)
+                                    .fontWeight(.semibold)
+                                    .background(Color.white
+                                        .cornerRadius(10)
+                                        .frame(width: 50)
+                                    )
+                                    .offset(x: UIScreen.main.bounds.width/13)
+
+                            }.foregroundColor(.red)
+                            .padding()
+                        }
+                        .background(Color("offColor")
+                            .opacity(0.3)
+                            .frame(width:UIScreen.main.bounds.width-40, height: 40.0)
+                            .cornerRadius(10)
+                        )
                     }
-                    Text("Cara menanam bunga Mawar").fontWeight(.heavy).font(.title)
                 }
-                Spacer()
-            }.padding(.top, 20).padding()
-            
-            VStack(){
-                Text("Mawar")
-                Text("Rosa")
-            }
-            .frame(width:UIScreen.main.bounds.width)
-            HStack{
-                VStack{
-                    Text("Jenis")
-                    Text("Bunga")
-                }
-                Spacer()
-                VStack{
-                    Text("Jenis")
-                    Text("Bunga")
-                }
-                
-            }
+            }.padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
+     
         }
     }
 }
 
-struct detailBottom : View {
+struct closeModalButton: View {
+    @Environment(\.presentationMode) private var presentationMode
     
     var body : some View{
+      Button(action: {
         
-        VStack(alignment: .leading, spacing: 10){
-            
-            Text("Description").fontWeight(.heavy)
-            Text("loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem").foregroundColor(.gray)
-            
-            HStack(spacing: 8){
-                
-                Button(action: {
-                    
-                }) {
-                    
-                    Image("Save").renderingMode(.original)
-                }
-                
-                Button(action: {
-                    
-                }) {
-                    
-                    HStack(spacing: 6){
-                        
-                        Text("Book Your Experience")
-                        Image("arrow").renderingMode(.original)
-                        
-                    }.foregroundColor(.white)
-                        .padding()
-                    
-                }.background(Color("bg"))
-                    .cornerRadius(8)
-                
-            }.padding(.top, 6)
-            
-        }.padding()
+           self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "xmark")
+                .foregroundColor(Color.black)
+                .background(Color.white
+                    .frame(width: 30,height: 30)
+                    .cornerRadius(20, antialiased: true)
+                )
+            Text(" ")
+        }.offset(x: 330/2, y:8).zIndex(1)
     }
 }
-
-
-
-struct Rounded : Shape {
-    
-    func path(in rect: CGRect) -> Path {
-        
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: 40, height: 40))
-        return Path(path.cgPath)
-    }
-}
-
 
 class getDataDiscover: ObservableObject{
     //    @Published var data: MyPlant!

@@ -14,5 +14,6 @@ struct Discover: Decodable {
     var duration: Int
     var video: String
     var img: String
+    var description: String
     var tools: String
 }
