@@ -18,7 +18,7 @@ struct Constants {
     }
     struct Api{
 //        static let mainLink = "http://pledu.aplikasibmn.com/"
-        static let mainLink = "http://localhost:8081/"
+        static let mainLink = "http://pledu.aplikasibmn.com/"
         static let viewPlant = Constants.Api.mainLink + "api/plant"
         static let viewMyPlant =  Constants.Api.mainLink + "api/myplant"
         static let viewProgress = Constants.Api.mainLink + "api/progress"
