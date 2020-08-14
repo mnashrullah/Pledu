@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		D7027CFF24E5685100C3A737 /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7027CFE24E5685100C3A737 /* PlantData.swift */; };
 		D7027D0324E6EAFC00C3A737 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7027D0224E6EAFC00C3A737 /* ShimmerView.swift */; };
+		D7027D0724E7028000C3A737 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7027D0624E7028000C3A737 /* Default-568h@2x.png */; };
 		D774833224DD6828009126E7 /* MyPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D774833124DD6828009126E7 /* MyPlantDetailView.swift */; };
 		D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589F824D9B543003D648F /* AppDelegate.swift */; };
 		D7C589FB24D9B543003D648F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FA24D9B543003D648F /* SceneDelegate.swift */; };
-		D7C589FE24D9B543003D648F /* Pledu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FC24D9B543003D648F /* Pledu.xcdatamodeld */; };
 		D7C58A0024D9B543003D648F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C589FF24D9B543003D648F /* ContentView.swift */; };
 		D7C58A0224D9B543003D648F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C58A0124D9B543003D648F /* Assets.xcassets */; };
 		D7C58A0524D9B543003D648F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C58A0424D9B543003D648F /* Preview Assets.xcassets */; };
@@ -42,11 +42,11 @@
 /* Begin PBXFileReference section */
 		D7027CFE24E5685100C3A737 /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
 		D7027D0224E6EAFC00C3A737 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
+		D7027D0624E7028000C3A737 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D774833124DD6828009126E7 /* MyPlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlantDetailView.swift; sourceTree = "<group>"; };
 		D7C589F524D9B543003D648F /* GoTanam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoTanam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C589F824D9B543003D648F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7C589FA24D9B543003D648F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D7C589FD24D9B543003D648F /* Pledu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pledu.xcdatamodel; sourceTree = "<group>"; };
 		D7C589FF24D9B543003D648F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7C58A0124D9B543003D648F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7C58A0424D9B543003D648F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -88,7 +88,8 @@
 		D7C589EC24D9B542003D648F = {
 			isa = PBXGroup;
 			children = (
-				D7C589F724D9B543003D648F /* Pledu */,
+				D7027D0624E7028000C3A737 /* Default-568h@2x.png */,
+				D7C589F724D9B543003D648F /* GoTanam */,
 				D7C589F624D9B543003D648F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,7 +102,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D7C589F724D9B543003D648F /* Pledu */ = {
+		D7C589F724D9B543003D648F /* GoTanam */ = {
 			isa = PBXGroup;
 			children = (
 				D7C589F824D9B543003D648F /* AppDelegate.swift */,
@@ -113,10 +114,9 @@
 				D7C58A1124D9B73D003D648F /* Views */,
 				D7C58A0624D9B543003D648F /* LaunchScreen.storyboard */,
 				D7C58A0924D9B543003D648F /* Info.plist */,
-				D7C589FC24D9B543003D648F /* Pledu.xcdatamodeld */,
 				D7C58A0324D9B543003D648F /* Preview Content */,
 			);
-			path = Pledu;
+			path = GoTanam;
 			sourceTree = "<group>";
 		};
 		D7C58A0324D9B543003D648F /* Preview Content */ = {
@@ -174,9 +174,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D7C589F424D9B543003D648F /* Pledu */ = {
+		D7C589F424D9B543003D648F /* GoTanam */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D7C58A0C24D9B543003D648F /* Build configuration list for PBXNativeTarget "Pledu" */;
+			buildConfigurationList = D7C58A0C24D9B543003D648F /* Build configuration list for PBXNativeTarget "GoTanam" */;
 			buildPhases = (
 				D7C589F124D9B543003D648F /* Sources */,
 				D7C589F224D9B543003D648F /* Frameworks */,
@@ -186,7 +186,7 @@
 			);
 			dependencies = (
 			);
-			name = Pledu;
+			name = GoTanam;
 			productName = Pledu;
 			productReference = D7C589F524D9B543003D648F /* GoTanam.app */;
 			productType = "com.apple.product-type.application";
@@ -206,7 +206,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D7C589F024D9B542003D648F /* Build configuration list for PBXProject "Pledu" */;
+			buildConfigurationList = D7C589F024D9B542003D648F /* Build configuration list for PBXProject "GoTanam" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -219,7 +219,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D7C589F424D9B543003D648F /* Pledu */,
+				D7C589F424D9B543003D648F /* GoTanam */,
 			);
 		};
 /* End PBXProject section */
@@ -230,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C58A0824D9B543003D648F /* LaunchScreen.storyboard in Resources */,
+				D7027D0724E7028000C3A737 /* Default-568h@2x.png in Resources */,
 				D7C58A0524D9B543003D648F /* Preview Assets.xcassets in Resources */,
 				D7C58A0224D9B543003D648F /* Assets.xcassets in Resources */,
 			);
@@ -243,7 +244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C58A2724D9E0E5003D648F /* MyPlantView.swift in Sources */,
-				D7C589FE24D9B543003D648F /* Pledu.xcdatamodeld in Sources */,
 				D7C58A2324D9B9A3003D648F /* DiscoveryView.swift in Sources */,
 				D7C58A1D24D9B821003D648F /* PageViewController.swift in Sources */,
 				D7CAAAB224E04EA00069DF69 /* EnvironmentValues+ImageCache.swift in Sources */,
@@ -403,17 +403,17 @@
 		D7C58A0D24D9B543003D648F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Pledu/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"GoTanam/Preview Content\"";
 				DEVELOPMENT_TEAM = TTWVZH63FB;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Pledu/Info.plist;
+				INFOPLIST_FILE = GoTanam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kepitingbakau.Pledu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gotanam;
 				PRODUCT_NAME = GoTanam;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -423,17 +423,17 @@
 		D7C58A0E24D9B543003D648F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Pledu/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"GoTanam/Preview Content\"";
 				DEVELOPMENT_TEAM = TTWVZH63FB;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Pledu/Info.plist;
+				INFOPLIST_FILE = GoTanam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kepitingbakau.Pledu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gotanam;
 				PRODUCT_NAME = GoTanam;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -443,7 +443,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D7C589F024D9B542003D648F /* Build configuration list for PBXProject "Pledu" */ = {
+		D7C589F024D9B542003D648F /* Build configuration list for PBXProject "GoTanam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7C58A0A24D9B543003D648F /* Debug */,
@@ -452,7 +452,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D7C58A0C24D9B543003D648F /* Build configuration list for PBXNativeTarget "Pledu" */ = {
+		D7C58A0C24D9B543003D648F /* Build configuration list for PBXNativeTarget "GoTanam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7C58A0D24D9B543003D648F /* Debug */,
@@ -462,19 +462,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D7C589FC24D9B543003D648F /* Pledu.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D7C589FD24D9B543003D648F /* Pledu.xcdatamodel */,
-			);
-			currentVersion = D7C589FD24D9B543003D648F /* Pledu.xcdatamodel */;
-			path = Pledu.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D7C589ED24D9B542003D648F /* Project object */;
 }
