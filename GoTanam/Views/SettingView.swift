@@ -47,11 +47,11 @@ struct SettingView: View {
                 Toggle(isOn: $userSetting.mNotification.animation()) {
                     Text("Notification")
                 }
-                Picker("Language", selection: $userSetting.type) {
-                    ForEach(0..<UserSetting.types.count) {
-                        Text(UserSetting.types[$0])
-                    }
-                }
+//                Picker("Language", selection: $userSetting.type) {
+//                    ForEach(0..<UserSetting.types.count) {
+//                        Text(UserSetting.types[$0])
+//                    }
+//                }
                 
             }.navigationBarTitle("Settings")
         }

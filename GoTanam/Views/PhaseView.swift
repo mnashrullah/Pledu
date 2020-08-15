@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct PhaseView: View {
+    @State private var isShareViewPresented: Bool = false
+       
     var phaseId: Int
     var phase: Phase
     var dataMyPLant: MyPlant
@@ -37,6 +39,14 @@ struct PhaseView: View {
     }
     var body: some View {
         List{
+//            Button("Share") {
+//                       self.isShareViewPresented = true
+//                   }
+//                   .sheet(isPresented: $isShareViewPresented, onDismiss: {
+//                       print("Dismiss")
+//                   }, content: {
+//                       ActivityViewController(activityItems: [URL(string: "https://www.swifttom.com")!])
+//                   })
             VStack(alignment: .leading, spacing: 0){
                 Text("step").font(.headline)
                 Text(self.phase.description).fontWeight(.regular)
@@ -107,6 +117,7 @@ struct cardSingleProgress: View{
     @State private var showShareSheet = false
 
     var data: MyProgress
+
     var body: some View{
 
             VStack(alignment: .leading,spacing: 5){
@@ -115,7 +126,9 @@ struct cardSingleProgress: View{
                        Spacer()
                     Button(action: {
                         self.uiImage = UIApplication.shared.windows[0].rootViewController?.view!.getImage(rect: self.rect)
-                        self.showShareSheet.toggle()
+//Z                        self.showShareSheet.toggle()
+//                        self.shareImage()
+                        
                     }){
                         Image(systemName: "square.and.arrow.up").renderingMode(.original)
                     }
@@ -273,4 +286,18 @@ class ShareActivityItemSource: NSObject, UIActivityItemSource {
     func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
         return linkMetaData
     }
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+ 
+    var itemsToShare: [Any]
+    var servicesToShareItem: [UIActivity]? = nil
+ 
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: itemsToShare, applicationActivities: servicesToShareItem)
+        return controller
+    }
+ 
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
+ 
 }
