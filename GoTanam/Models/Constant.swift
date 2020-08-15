@@ -23,6 +23,7 @@ struct Constants {
         
         static let viewMyPlant =  Constants.Api.mainLink + "api/myplant"
         static let addMyPlant = Constants.Api.mainLink + "api/myplant/add"
+        static let deleteMyPlant = Constants.Api.mainLink + "api/myplant"
         
         static let viewProgress = Constants.Api.mainLink + "api/progress"
         static let uploadProgress = Constants.Api.mainLink + "api/progress/upload"

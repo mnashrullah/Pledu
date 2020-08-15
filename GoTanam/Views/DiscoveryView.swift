@@ -83,8 +83,9 @@ struct DiscoveryView: View {
                             ForEach(self.categories.keys.sorted(), id:\.self) {
                                 item in
                                    CategoryRow(categoryName: item, items: self.categories[item]!)
-                            }.listRowInsets(EdgeInsets())
-                            .resignKeyboardOnDragGesture()
+                            }
+//                            .listRowInsets(EdgeInsets())
+//                            .resignKeyboardOnDragGesture()
                         
                         }else{
                               ForEach(self.dataPlant.filter{$0.name.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {searchText in
