@@ -203,13 +203,13 @@ struct cardPlant: View{
             Text(item.name).fontWeight(.semibold).font(Font.system(size:14, design: .default))
             
             HStack(spacing: 5){
-                Text(item.location).foregroundColor(.gray)
+                Text(item.location).foregroundColor(Color.gray)
                 .font(Font.system(size:14, design: .default))
             }
         }.frame(width: 133, height: 175)
         
         
-        .background(Color.white)
+        .background(Color("bgColor"))
         .cornerRadius(9)
         .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
         .sheet(isPresented: $show){
