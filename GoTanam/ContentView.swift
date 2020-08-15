@@ -13,6 +13,10 @@ struct ContentView: View {
     @State var show = false
     private let initialLaunchKey = "isInitialLaunch"
     @State var selected = 0
+    init(){
+           UITableView.appearance().tableFooterView = UIView()
+           UITableView.appearance().separatorStyle = .none
+       }
     
     var body: some View {
         VStack {
@@ -25,14 +29,14 @@ struct ContentView: View {
                             Text("\(Constants.TabBarText.tabBar0)")
                         }).tag(0)
                         
-                    MyPlantView().tabItem({
+                    MyPlantView(tabSelected: $selected).tabItem({
                             Image(systemName: Constants.TabBarImageName.tabBar1)
                                 .font(.body)
                             Text("\(Constants.TabBarText.tabBar1)")
                         }).tag(1)
                         
                         
-                }.accentColor(Color.black)
+                }
                 
                 
             } else {

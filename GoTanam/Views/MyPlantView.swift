@@ -10,12 +10,10 @@ import SwiftUI
 
 struct MyPlantView: View {
     @State var dataMyPlant = [MyPlant]()
+    @Binding var tabSelected: Int
 //    @ObservedObject var data = getData()
     
-    init(){
-        UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().separatorStyle = .none
-    }
+   
     var body: some View {
         NavigationView{
             VStack{
@@ -31,9 +29,14 @@ struct MyPlantView: View {
                         
                     }
                 }else{
-                    VStack{
+                    VStack(alignment: .center, spacing: 10){
                         Text("No plants yet?")
-                        Text("Go to discovery tab to discover plants you want to plant, or plant you need to plant.")
+                        Text("Go to discovery tab to discover plants you want to plant, or plant you need to plant.").foregroundColor(.gray).multilineTextAlignment(.center)
+                        Button(action: {
+                            self.tabSelected = 0
+                        }){
+                            Text("Search for a Plant")
+                        }
                     }
                 }
             }
