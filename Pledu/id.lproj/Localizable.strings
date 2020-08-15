@@ -12,7 +12,7 @@
 "obTitle2" = "Tahapan";
 "obDesc2" = "Belajar menanam secara bertahap agar dapat lebih fokus";
 "obTitle3" = "Ambil Gambar";
-"obDesc3" = "Simpan gambar dari pertumbuhan tanamanmu”;
+"obDesc3" = "Simpan gambar dari pertumbuhan tanamanmu";
 "obTitle4" = "Bagikan";
 "obDesc4" = "Simpan gambar dari pertumbuhan tanamanmu";
 
@@ -37,7 +37,7 @@
 "mpdDesc" = "Pilih tanaman yang ingin kamu tanam";
 
 "Progress" = "Perkembangan";
-"Day" = "Hari"
+"Day" = "Hari";
 
 /* Stage */
 "you have no progress yet" = "Kamu belum menambahkan apapun disini";
