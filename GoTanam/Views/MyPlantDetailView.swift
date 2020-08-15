@@ -11,6 +11,7 @@ import SwiftUI
 struct MyPlantDetailView: View {
     @State var data: MyPlant
     @State var dataProgress = [MyProgress]()
+    @State var dataPhase = [Phase]()
     @State var showCamera = false
     var cameraButton: some View {
         Button(action: { self.showCamera.toggle() }) {
@@ -26,14 +27,19 @@ struct MyPlantDetailView: View {
             VStack(alignment: .leading, spacing: 0){
                 Text("Phase").fontWeight(.heavy)
                 Text("Phase desc").foregroundColor(.gray)
-            }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20){
-                    ForEach(0..<Constants.tahapan.count){i in
-                        cardPhase(i: i, dataMyPlant: self.data)
+                if self.dataPhase.count != 0 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20){
+                        ForEach(0..<self.dataPhase.count, id: \.self){i in
+                            cardPhase(i: i, dataMyPlant: self.data, dataPhase: self.dataPhase[i])
+                        }
                     }
+                    }
+                }else{
+                    Text("Not yet available")
                 }
             }
+            
             VStack{
                 HStack{
                     Text("Progress").fontWeight(.heavy)
@@ -71,6 +77,7 @@ struct MyPlantDetailView: View {
             //self.data sudah mengandung nilai tanaman yang di klik
             print("appear")
             self.loadData()
+            self.loadDataPhase()
         }
     
        
@@ -99,23 +106,47 @@ struct MyPlantDetailView: View {
             }.resume()
                
        }
+    func loadDataPhase(){
+        let url = Constants.Api.viewPhase
+         let parameters = ["idPlant": data.idPlant]
+         var urlRequest = URLRequest(url: URL(string: url)!)
+         urlRequest.httpMethod = "POST"
+         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         urlRequest.httpBody = try? JSONEncoder().encode(parameters)
+
+         URLSession.shared.dataTask(with: urlRequest)
+         {(data,response,err) in
+             if err != nil{
+                 print((err?.localizedDescription)!)
+                 return
+             }
+             let json: [Phase] = try! JSONDecoder().decode([Phase].self, from: data!)
+             DispatchQueue.main.async {
+                 self.dataPhase = json
+                print("phase", json)
+             }
+             print("Fetch failed: \(err?.localizedDescription ?? "Unknown error")")
+         }.resume()
+            
+    }
 }
 
 struct cardPhase: View{
     var i: Int
     var dataMyPlant: MyPlant
+    var dataPhase: Phase
     
     var body: some View{
-        NavigationLink(destination:PhaseView(phaseId: i, dataMyPLant: dataMyPlant)){
+        NavigationLink(destination:PhaseView(phaseId: i, phase: dataPhase, dataMyPLant: dataMyPlant)){
             Image("onboarding2").resizable().cornerRadius(10)
                 .overlay(
                     VStack(alignment: .center, spacing: 5){
                         HStack{
                             Image(systemName: "lock.open.fill").foregroundColor(.white)
-                            Text(Constants.tahapan[i])
-                                .font(.subheadline)
+                            Text(NSLocalizedString(Constants.tahapan[i], comment: "Tahapan"))                              .font(.title)
                                 .foregroundColor(.white)
                                 .fontWeight(.heavy)
+                                .multilineTextAlignment(.center)
                         }
                     }
             )

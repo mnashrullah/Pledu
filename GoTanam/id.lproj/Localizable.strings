@@ -41,12 +41,20 @@
 "Phase" = "Tahapan";
 "Phase desc" = "Ikuti panduan dan pantau progress tanaman kamu";
 "Progress" = "Perkembangan";
-"Day" = "Hari";
+"Day" = "Hari ";
+"Not yet available" = "Tahapan belum tersedia";
 
 /* Stage */
 "you have no progress yet" = "Kamu belum menambahkan apapun disini";
+"step" = "Langkah langkah: ";
 
 /* Camera = cmr*/
 "cmrTitle" = "Unggah Perkembangan Tanaman";
 "Description" = "Deskripsi";
 "Select a phase" = "Pilih Tahapan";
+
+"Pemilihan Biji" = "Pemilihan Biji";
+"Penyemaian" = "Penyemaian";
+"Penanaman" = "Penanaman";
+"Perawatan" = "Perawatan";
+"Panen" = "Panen";

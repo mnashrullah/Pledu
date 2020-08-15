@@ -20,6 +20,7 @@ struct Constants {
         static let mainLink = "http://pledu.aplikasibmn.com/"
 
         static let viewPlant = Constants.Api.mainLink + "api/plant"
+        static let viewPhase = Constants.Api.mainLink + "api/plant/phase"
         
         static let viewMyPlant =  Constants.Api.mainLink + "api/myplant"
         static let addMyPlant = Constants.Api.mainLink + "api/myplant/add"

@@ -37,6 +37,7 @@
 		D7CAAABE24E08D8C0069DF69 /* MyPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */; };
 		D7CAAAC024E08DB70069DF69 /* MyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CAAABF24E08DB70069DF69 /* MyProgress.swift */; };
 		D7E5BD3424E850A500DCC2E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7E5BD3624E850A500DCC2E6 /* Localizable.strings */; };
+		D7E5BD3924E8744700DCC2E6 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5BD3824E8744700DCC2E6 /* Phase.swift */; };
 		D7EB16ED24E2D31900C60A5F /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EB16EC24E2D31900C60A5F /* Discover.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		D7CAAABF24E08DB70069DF69 /* MyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgress.swift; sourceTree = "<group>"; };
 		D7E5BD3524E850A500DCC2E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D7E5BD3724E850C300DCC2E6 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D7E5BD3824E8744700DCC2E6 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		D7EB16EC24E2D31900C60A5F /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 				D7CAAABD24E08D8C0069DF69 /* MyPlant.swift */,
 				D7CAAABF24E08DB70069DF69 /* MyProgress.swift */,
 				D7EB16EC24E2D31900C60A5F /* Discover.swift */,
+				D7E5BD3824E8744700DCC2E6 /* Phase.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				D7CAAAC024E08DB70069DF69 /* MyProgress.swift in Sources */,
 				D7C58A1724D9B79B003D648F /* PageViewContainer.swift in Sources */,
 				D7CAAAB624E06FDF0069DF69 /* CameraView.swift in Sources */,
+				D7E5BD3924E8744700DCC2E6 /* Phase.swift in Sources */,
 				D7C58A2D24DA940D003D648F /* SettingView.swift in Sources */,
 				D7C589F924D9B543003D648F /* AppDelegate.swift in Sources */,
 				D7C58A2924D9E120003D648F /* Constant.swift in Sources */,

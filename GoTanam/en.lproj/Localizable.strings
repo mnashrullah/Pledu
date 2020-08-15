@@ -42,12 +42,21 @@
 "Phase desc" = "Follow the tutorial and check your progress";
 
 "Progress" = "Progress";
-"Day" = "Day";
+"Day" = "Day ";
+"Not yet available" =" Phase not yet available";
 
 /* Stage */
 "you have no progress yet" = "You have no progress yet";
+"step" = "Step: ";
 
 /* Camera = cmr*/
 "cmrTitle" = "Upload Progress";
 "Select a phase" = "Select a stage";
 "Description" = "Description";
+
+
+"Pemilihan Biji" = "Seed Selection";
+"Penyemaian" = "Seeding";
+"Penanaman" = "Planting";
+"Perawatan" = "Caring for the plants";
+"Panen" = "Harvest";

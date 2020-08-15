@@ -14,12 +14,19 @@ class ProgressUpload: ObservableObject, Codable{
     }
     
     static let types = [
-        "Tahapan 1",
-        "Tahapan 2",
-        "Tahapan 3",
-        "Tahapan 4",
-        "Tahapan 5"]
-    
+        NSLocalizedString(Constants.tahapan[0], comment: ""),
+        Constants.tahapan[1],
+        Constants.tahapan[2],
+        Constants.tahapan[3],
+        Constants.tahapan[4]
+    ]
+//    static let types = [
+//        NSLocalizedString(Constants.tahapan[0], comment: ""),
+//        Constants.tahapan[1],
+//        Constants.tahapan[2],
+//        Constants.tahapan[3],
+//        Constants.tahapan[4]
+//    ]
     @Published var phase: Int = 0
     @Published var description = ""
     @Published var idUser: Int = 1

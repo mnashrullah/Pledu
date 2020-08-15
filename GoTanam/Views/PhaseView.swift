@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PhaseView: View {
     var phaseId: Int
+    var phase: Phase
     var dataMyPLant: MyPlant
     @State var dataProgress = [MyProgress]()
 
@@ -27,39 +28,37 @@ struct PhaseView: View {
     var cameraBtn: some View {
         Button(action: { self.mCamera.toggle() }) {
             Image(systemName: "camera")
+                .background(Color.white)
                 .imageScale(.large)
                 .accessibility(label: Text("Camera"))
                 .padding()
+                
         }
     }
     var body: some View {
-        VStack{
-//            NavigationLink(destination: CameraView()){
-             
+        List{
+            VStack(alignment: .leading, spacing: 0){
+                Text("step").font(.headline)
+                Text(self.phase.description).fontWeight(.regular)
+            }
+               HStack{
+                    Text("Progress").fontWeight(.heavy)
+                    Spacer()
+                    
+                }.padding([.top], 15)
                 if self.dataProgress.count != 0 {
-                    List{
                         ForEach(0..<self.dataProgress.count, id:\.self){i in
                         cardSingleProgress(data: self.dataProgress[i])
                         }
-                        
-                    }
-                    Spacer()
                 }else{
                     Text("you have no progress yet")
                 }
-                
-//                Spacer()
-//                .sheet(isPresented: $mCamera) {
-//                        CameraView()
-//
-//                }
+                Spacer()
             }
-            
-            .padding(.horizontal, 12)
             .navigationBarTitle(Text(Constants.tahapan[phaseId]))
-            .navigationBarItems(trailing: cameraBtn)
             
         .onAppear(){
+            print("phaseview phase",self.phase)
             self.loadData()
             print("phaseView i ",self.phaseId)
             print("phaseView datamyplant ", self.dataMyPLant)
@@ -112,7 +111,7 @@ struct cardSingleProgress: View{
 
             VStack(alignment: .leading,spacing: 5){
                 HStack{
-                       Text("Day" + String(data.dayDifferent)).fontWeight(.heavy)
+                    Text("Day" + String(data.dayDifferent)).fontWeight(.medium)
                        Spacer()
                     Button(action: {
                         self.uiImage = UIApplication.shared.windows[0].rootViewController?.view!.getImage(rect: self.rect)
@@ -134,6 +133,7 @@ struct cardSingleProgress: View{
                         .aspectRatio(3/2, contentMode: .fit)
                         .cornerRadius(10)
                 }.buttonStyle(PlainButtonStyle())
+                Text("Description").font(.body) +
                 Text(data.description).font(.body)
                 
             }
