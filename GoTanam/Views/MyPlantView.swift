@@ -67,7 +67,7 @@ struct MyPlantView: View {
 
         for offset in offsets {
            let item = self.dataMyPlant[offset]
-           let url = Constants.Api.viewMyPlant
+           let url = Constants.Api.deleteMyPlant
            let parameters = [
                "idUser": UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser),
                "idPlant": item.idPlant]
