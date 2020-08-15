@@ -1,0 +1,53 @@
+/*
+  Localizable.strings
+  Pledu
+
+  Created by hilmy ghozy on 15/08/20.
+  Copyright © 2020 Kepiting Bakau. All rights reserved.
+*/
+
+/* OnBoarding */
+"obTitle1" = "Welcome";
+"obDesc1" = "GoTanam allows you to learn how to plant gradually";
+"obTitle2" = "Stages";
+"obDesc2" = "Learn to plant gradually to be more focused";
+"obTitle3" = "Take a Picture";
+"obDesc3" = "Capture the process of growing your plant";
+"obTitle4" = "Share";
+"obDesc4" = "Capture the process of growing your plant";
+
+/* Discovery Screen = dcv*/
+"Settings" = "Settings";
+"Notification" = "Notification";
+"Language" = "Language";
+
+"dcvTitle" = "Discovery";
+"dcvHeadline" = "Want to Plant?";
+"dcvDesc" = "Find the plants you want to plant";
+"Search" = "Search";
+"View All" = "View All";
+
+/* MyPlant Screen = mp */
+"mpTitle" = "My Plant";
+"mpDesc" = "The plants you plant will appear here";
+"Created At" = "Created At";
+"no plants" = "No plants yet?";
+"no plants desc" = "Go to discovery tab to discover plants you want to plant, or plant you need to plant.";
+"no plants btn"= "Search for a Plant";
+
+/* MyPlant Detail = mpd*/
+"mpdTitle" = "Stages";
+"mpdDesc" = "Find the plants you want to grow";
+"Phase" = "Phase";
+"Phase desc" = "Follow the tutorial and check your progress";
+
+"Progress" = "Progress";
+"Day" = "Day";
+
+/* Stage */
+"you have no progress yet" = "You have no progress yet";
+
+/* Camera = cmr*/
+"cmrTitle" = "Upload Progress";
+"Select a phase" = "Select a stage";
+"Description" = "Description";

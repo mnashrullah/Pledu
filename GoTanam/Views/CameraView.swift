@@ -110,7 +110,7 @@ struct CameraView: View {
                         }
                         Form{
                             TextField("Description", text: $dataprogress.description)
-                            Picker("Pilih tahapan", selection: $dataprogress.phase) {
+                            Picker("Select a phase", selection: $dataprogress.phase) {
                                 ForEach(0..<ProgressUpload.types.count) {
                                     Text(ProgressUpload.types[$0])
                                 }

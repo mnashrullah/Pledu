@@ -20,7 +20,7 @@ struct MyPlantView: View {
                 if self.dataMyPlant.count != 0{
                     List(){
                         VStack(alignment: .leading){
-                            Text("Tanaman yang kamu tanam akan tampil disini").foregroundColor(.gray)
+                            Text("mpDesc").foregroundColor(.gray)
                         }
                         
                         ForEach(0..<self.dataMyPlant.count, id: \.self){i in
@@ -30,17 +30,17 @@ struct MyPlantView: View {
                     }
                 }else{
                     VStack(alignment: .center, spacing: 10){
-                        Text("No plants yet?")
-                        Text("Go to discovery tab to discover plants you want to plant, or plant you need to plant.").foregroundColor(.gray).multilineTextAlignment(.center)
+                        Text("no plants")
+                        Text("no plants desc").foregroundColor(.gray).multilineTextAlignment(.center)
                         Button(action: {
                             self.tabSelected = 0
                         }){
-                            Text("Search for a Plant")
+                            Text("no plants btn")
                         }
                     }
                 }
             }
-            .navigationBarTitle(Text("Tanamanku"))
+            .navigationBarTitle(Text("mpTitle"))
         }.onAppear(){
             self.loadData()
         }

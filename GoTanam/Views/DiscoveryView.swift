@@ -35,13 +35,13 @@ struct DiscoveryView: View {
         NavigationView{
             VStack{
                 VStack(alignment: .leading, spacing: 5){
-                   Text("Ingin Menanam?").fontWeight(.heavy)
-                       Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                   Text("dcvHeadline").fontWeight(.heavy)
+                       Text("dcvDesc").foregroundColor(.gray)
                        // Search view
                        HStack {
                            HStack() {
                                Image(systemName: "magnifyingglass")
-                               TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                               TextField("Search", text: $searchText, onEditingChanged: { isEditing in
                                    self.showCancelButton = true
                                }, onCommit: {
                                    print("onCommit")
@@ -100,7 +100,7 @@ struct DiscoveryView: View {
                
                 
             }
-            .navigationBarTitle(Text("Menjelajah"))
+            .navigationBarTitle(Text("dcvTitle"))
                 .navigationBarItems(trailing: settingButton)
                 .sheet(isPresented: $showingSetting) {
                     SettingView()
@@ -165,7 +165,7 @@ struct CategoryRow: View{
                 Spacer()
                 Button(action: {
                 }) {
-                    Text("View all").foregroundColor(.gray).padding(.trailing, 10)
+                    Text("View All").foregroundColor(.gray).padding(.trailing, 10)
                 }
                 
             }.padding([.top], 15)

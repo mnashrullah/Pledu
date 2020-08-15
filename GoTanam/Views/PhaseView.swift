@@ -45,7 +45,7 @@ struct PhaseView: View {
                     }
                     Spacer()
                 }else{
-                    Text("Kamu belum mempunyai progress")
+                    Text("you have no progress yet")
                 }
                 
 //                Spacer()
@@ -112,7 +112,7 @@ struct cardSingleProgress: View{
 
             VStack(alignment: .leading,spacing: 5){
                 HStack{
-                       Text("Hari ke - " + String(data.dayDifferent)).fontWeight(.heavy)
+                       Text("Day" + String(data.dayDifferent)).fontWeight(.heavy)
                        Spacer()
                     Button(action: {
                         self.uiImage = UIApplication.shared.windows[0].rootViewController?.view!.getImage(rect: self.rect)

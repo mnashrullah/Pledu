@@ -24,8 +24,8 @@ struct MyPlantDetailView: View {
     var body: some View {
         List(){
             VStack(alignment: .leading, spacing: 0){
-                Text("Tahapan").fontWeight(.heavy)
-                Text("Temukan tanaman yang ingin kamu tanam").foregroundColor(.gray)
+                Text("Phase").fontWeight(.heavy)
+                Text("Phase desc").foregroundColor(.gray)
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20){
@@ -56,7 +56,7 @@ struct MyPlantDetailView: View {
                     }
 
                 }else{
-                    Text("Kamu belum mempunyai progress")
+                    Text("you have no progress yet")
                         .padding(.top, 20)
                 }
             }
@@ -136,7 +136,7 @@ struct cardProgress: View{
                     .frame(width: 120, height: 120)
                     .cornerRadius(10)
             }.buttonStyle(PlainButtonStyle())
-            Text("Hari ke - ").fontWeight(.heavy) +
+            Text("Day").fontWeight(.heavy) +
             Text(String(dataProgress.dayDifferent)).fontWeight(.heavy)
             HStack(spacing: 5){
                 Text(Constants.tahapan[dataProgress.phase]).foregroundColor(.gray)

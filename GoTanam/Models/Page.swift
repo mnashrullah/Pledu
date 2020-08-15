@@ -19,20 +19,20 @@ struct Page: Identifiable {
         [
             Page(id: UUID(),
                  image: "onboarding1",
-                 heading: "Selamat Datang",
-                 subSubheading: "Pledu memungkinkan anda belajar cara menanam secara bertahap"),
+                 heading: "obTitle1",
+                 subSubheading: "obDesc1"),
             Page(id: UUID(),
                  image: "onboarding2",
-                 heading: "Tahapan",
-                 subSubheading: "Belajar menanam secara bertahap agar lebih terarah"),
+                 heading: "obTitle2",
+                 subSubheading: "obDesc2"),
             Page(id: UUID(),
                  image: "onboarding3",
-                 heading: "Ambil Gambar",
-                 subSubheading: "Abadikan proses perkembangan tanamanmu"),
+                 heading: "obTitle3",
+                 subSubheading: "obDesc3"),
             Page(id: UUID(),
                  image: "onboarding4",
-                 heading: "Bagikan",
-                 subSubheading: "Tunjukkan kebanggaan atas proses dan hasil kerja keras, keindahan tanaman kamu, layak untuk diketahui dunia"),
+                 heading: "obTitle4",
+                 subSubheading: "obDesc4"),
             
         ]
     }

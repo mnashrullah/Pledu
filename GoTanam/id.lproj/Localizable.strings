@@ -1,0 +1,52 @@
+/*
+  Localizable.strings
+  Pledu
+
+  Created by hilmy ghozy on 15/08/20.
+  Copyright © 2020 Kepiting Bakau. All rights reserved.
+*/
+
+/* OnBoarding */
+"obTitle1" = "Selamat Datang";
+"obDesc1" = "GoTanam mengizinkanmu untuk dapat belajar menanam secara bertahap";
+"obTitle2" = "Tahapan";
+"obDesc2" = "Belajar menanam secara bertahap agar dapat lebih fokus";
+"obTitle3" = "Ambil Gambar";
+"obDesc3" = "Simpan gambar dari pertumbuhan tanamanmu";
+"obTitle4" = "Bagikan";
+"obDesc4" = "Simpan gambar dari pertumbuhan tanamanmu";
+
+/* Discovery Screen = dcv*/
+"Settings" = "Pengaturan";
+"Notification" = "Pemberitahuan";
+"Language" = "Bahasa";
+
+"dcvTitle" = "Penjelajahan";
+"dcvHeadline" = "Ingin menanam?";
+"dcvDesc" = "Temukan tanaman yang ingin kamu tanam";
+"Search" = "Pencarian";
+"View All" = "Tampilkan Semua";
+
+/* MyPlant Screen = mp */
+"mpTitle" = "Tanamanku";
+"mpDesc" = "Tanaman yang kamu tanam akan tampil disini";
+"Created At" = "Dibuat Di";
+"no plants" = "Belum memulai menanam ?";
+"no plants desc" = "Silahkan jelajahi tanaman yang kamu inginkan";
+"no plants btn"= "Mulai menjelajah";
+
+/* MyPlant Detail = mpd*/
+"mpdTitle" = "Tahapan";
+"mpdDesc" = "Pilih tanaman yang ingin kamu tanam";
+"Phase" = "Tahapan";
+"Phase desc" = "Ikuti panduan dan pantau progress tanaman kamu";
+"Progress" = "Perkembangan";
+"Day" = "Hari";
+
+/* Stage */
+"you have no progress yet" = "Kamu belum menambahkan apapun disini";
+
+/* Camera = cmr*/
+"cmrTitle" = "Unggah Perkembangan Tanaman";
+"Description" = "Deskripsi";
+"Select a phase" = "Pilih Tahapan";

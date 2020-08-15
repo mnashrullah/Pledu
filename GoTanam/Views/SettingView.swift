@@ -45,15 +45,15 @@ struct SettingView: View {
         NavigationView{
             Form{
                 Toggle(isOn: $userSetting.mNotification.animation()) {
-                    Text("Notifikasi")
+                    Text("Notification")
                 }
-                Picker("Bahasa", selection: $userSetting.type) {
+                Picker("Language", selection: $userSetting.type) {
                     ForEach(0..<UserSetting.types.count) {
                         Text(UserSetting.types[$0])
                     }
                 }
                 
-            }.navigationBarTitle("Pengaturan")
+            }.navigationBarTitle("Settings")
         }
     }
 }

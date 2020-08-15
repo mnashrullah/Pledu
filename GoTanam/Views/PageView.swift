@@ -15,11 +15,10 @@ struct PageView: View {
             VStack{
                 VStack{
                     Image(page.image)
-                    Text(page.heading).font(.largeTitle).bold().layoutPriority(1).multilineTextAlignment(.center)
-                        .foregroundColor(Color.black)
-                    Text(page.subSubheading)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color.black)
+                    Text(NSLocalizedString(page.heading, comment: "heading")).font(.largeTitle).bold().layoutPriority(1).multilineTextAlignment(.center)
+//                        .foregroundColor(Color()
+                    Text(NSLocalizedString(page.subSubheading, comment: "subheading")).multilineTextAlignment(.center)
+//                        .foregroundColor(Color.black)
                     
                 }.padding(.top, -45)
                 Spacer()
