@@ -52,7 +52,6 @@ struct SettingView: View {
                         Text(UserSetting.types[$0])
                     }
                 }
-                
             }.navigationBarTitle("Pengaturan")
         }
     }

@@ -196,8 +196,6 @@ struct cardPlant: View{
                                         }
                                             .padding(.top, -30)
                                             .padding()
-                                        
-                                            
                                     }
                                     Spacer()
                                 }
@@ -316,28 +314,8 @@ class getDataDiscover: ObservableObject{
             }
             let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
             DispatchQueue.main.async {
-                //                self.dataDiscover = json
-                //                print("async",self.dataDiscover)
                 self.categories = Dictionary(grouping: json, by: {$0.category})
-                print(self.categories)
-                
-                //                let students = ["Kofi", "Abena", "Efua", "Kweku", "Akosua"]
-                //                let studentsByLetter = Dictionary(grouping: students, by: { $0.first! })
-                //
-                
-                //                self.categories = Dictionary(grouping: json, by: { $0.category })
-                //                print(studentsByLetter)
-                //                print(students)
-                //                print(self.categories)
-                //                return json
-                //bisa
-                //                var categories: [String: [Discover]] {
-                //                Dictionary(grouping: json,by: { $0.category })}
-                //                print(categories)
-                
             }
-            
-            //
         }.resume()
     }
     

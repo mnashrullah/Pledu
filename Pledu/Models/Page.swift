@@ -33,7 +33,6 @@ struct Page: Identifiable {
                  image: "onboarding4",
                  heading: "Bagikan",
                  subSubheading: "Tunjukkan kebanggaan atas proses dan hasil kerja keras, keindahan tanaman kamu, layak untuk diketahui dunia"),
-            
         ]
     }
 }
