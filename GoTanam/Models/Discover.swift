@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Discover: Decodable {
+struct Discover: Decodable, Hashable {
     var idPlant: Int
     var name, category, type, location: String
     var duration: Int

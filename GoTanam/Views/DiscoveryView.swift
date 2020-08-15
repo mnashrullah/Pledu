@@ -9,7 +9,10 @@
 import SwiftUI
 
 struct DiscoveryView: View {
-    @ObservedObject var mData = getDataDiscover()
+//    @ObservedObject var mData = getDataDiscover()
+    @State var categories = [String: [Discover]]()
+    @State var dataPlant = [Discover]()
+    
     
     @State var showingSetting = false
     
@@ -66,23 +69,60 @@ struct DiscoveryView: View {
                        .animation(.default) // animation does not work properly
                }//end Vstack Search
                .padding(.horizontal, 16)
-                List{ForEach(self.mData.categories.keys.sorted().filter{$0.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {
-                        searchText in
-//                        NavigationLink(destination: ShowcontentView(isNavigationBarHidden: self.$isNavigationBarHidden, landmark: searchText)) {
-                           CategoryRow(categoryName: searchText, items: self.mData.categories[searchText]!)
-//                        }
-                    }.listRowInsets(EdgeInsets())
-                    .resignKeyboardOnDragGesture()
-                }.onAppear(){
-                }
+//                List{ForEach(self.categories.keys.sorted().filter{$0.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {
+//                        searchText in
+//                           CategoryRow(categoryName: searchText, items: self.categories[searchText]!)
+////                        }
+//                    }.listRowInsets(EdgeInsets())
+//                    .resignKeyboardOnDragGesture()
+//                }
+                //tidak ada kata pencarian
+                
+                    List{
+                        if self.searchText == ""{
+                            ForEach(self.categories.keys.sorted(), id:\.self) {
+                                item in
+                                   CategoryRow(categoryName: item, items: self.categories[item]!)
+                            }.listRowInsets(EdgeInsets())
+                            .resignKeyboardOnDragGesture()
+                        
+                        }else{
+                              ForEach(self.dataPlant.filter{$0.name.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {searchText in
+                            //                        NavigationLink(destination: ShowcontentView(isNavigationBarHidden: self.$isNavigationBarHidden, landmark: searchText)) {
+                                cardPlant(item: searchText)
+                            //
+                                                    }
+                            //                    }
+                        }
+                    }
+               
+                
             }
             .navigationBarTitle(Text("Menjelajah"))
                 .navigationBarItems(trailing: settingButton)
                 .sheet(isPresented: $showingSetting) {
                     SettingView()
 //                    .environmentObject(self.userData)
+            }.onAppear(){
+                self.loadData()
             }
         }
+    }
+    func loadData(){
+        let url = Constants.Api.viewPlant
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: URL(string: url)!){(data,_,err) in
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+            let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
+            DispatchQueue.main.async {
+                self.dataPlant = json
+                self.categories = Dictionary(grouping: json, by: {$0.category})
+                print("dataplan",self.dataPlant)
+            }
+        }.resume()
     }
 }
 
@@ -115,6 +155,7 @@ struct CategoryRow: View{
     var items: [Discover]
     
     var body: some View{
+
         VStack(alignment: .leading){
             HStack{
                 Text(categoryName.capitalized).fontWeight(.heavy).padding(.leading, 10)
@@ -125,14 +166,16 @@ struct CategoryRow: View{
                 }
                 
             }.padding([.top], 15)
-            
+                    if self.items.count != 0 {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20){
-                    ForEach(0..<self.items.count){item in
+                    ForEach(0..<self.items.count, id: \.self){item in
                         cardPlant(item: self.items[item])
                         }.frame(height: 185)
                 }.padding(.leading, 10)
             }
+            }
+        
         }
     }
 }
@@ -325,57 +368,57 @@ struct closeModalButton: View {
     }
 }
 
-class getDataDiscover: ObservableObject{
-    //    @Published var data: MyPlant!
-    //    @Published var dataDiscover = [Discover]()
-    @Published var categories = [String: [Discover]]()
-    //      @Published var categories
-    
-    //    var categories: [String: [Discover]] {
-    //                           Dictionary(
-    //                            grouping: dataDiscover,
-    //                            by: { $0.category }
-    //                           )
-    //   }
-    init (){
-        updateData()
-    }
-    func updateData(){
-        let url = Constants.Api.viewPlant
-        let session = URLSession(configuration: .default)
-        session.dataTask(with: URL(string: url)!){(data,_,err) in
-            if err != nil{
-                print((err?.localizedDescription)!)
-                return
-            }
-            let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
-            DispatchQueue.main.async {
-                //                self.dataDiscover = json
-                //                print("async",self.dataDiscover)
-                self.categories = Dictionary(grouping: json, by: {$0.category})
-                print(self.categories)
-                
-                //                let students = ["Kofi", "Abena", "Efua", "Kweku", "Akosua"]
-                //                let studentsByLetter = Dictionary(grouping: students, by: { $0.first! })
-                //
-                
-                //                self.categories = Dictionary(grouping: json, by: { $0.category })
-                //                print(studentsByLetter)
-                //                print(students)
-                //                print(self.categories)
-                //                return json
-                //bisa
-                //                var categories: [String: [Discover]] {
-                //                Dictionary(grouping: json,by: { $0.category })}
-                //                print(categories)
-                
-            }
-            
-            //
-        }.resume()
-    }
-    
-}
+//class getDataDiscover: ObservableObject{
+//    //    @Published var data: MyPlant!
+//    //    @Published var dataDiscover = [Discover]()
+//    @Published var categories = [String: [Discover]]()
+//    //      @Published var categories
+//
+//    //    var categories: [String: [Discover]] {
+//    //                           Dictionary(
+//    //                            grouping: dataDiscover,
+//    //                            by: { $0.category }
+//    //                           )
+//    //   }
+//    init (){
+//        updateData()
+//    }
+//    func updateData(){
+//        let url = Constants.Api.viewPlant
+//        let session = URLSession(configuration: .default)
+//        session.dataTask(with: URL(string: url)!){(data,_,err) in
+//            if err != nil{
+//                print((err?.localizedDescription)!)
+//                return
+//            }
+//            let json: [Discover] = try! JSONDecoder().decode([Discover].self, from: data!)
+//            DispatchQueue.main.async {
+//                //                self.dataDiscover = json
+//                //                print("async",self.dataDiscover)
+//                self.categories = Dictionary(grouping: json, by: {$0.category})
+//                print(self.categories)
+//
+//                //                let students = ["Kofi", "Abena", "Efua", "Kweku", "Akosua"]
+//                //                let studentsByLetter = Dictionary(grouping: students, by: { $0.first! })
+//                //
+//
+//                //                self.categories = Dictionary(grouping: json, by: { $0.category })
+//                //                print(studentsByLetter)
+//                //                print(students)
+//                //                print(self.categories)
+//                //                return json
+//                //bisa
+//                //                var categories: [String: [Discover]] {
+//                //                Dictionary(grouping: json,by: { $0.category })}
+//                //                print(categories)
+//
+//            }
+//
+//            //
+//        }.resume()
+//    }
+//
+//}
 
 
 struct cardDiscover: View{

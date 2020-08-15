@@ -9,11 +9,11 @@
 import Combine
 import SwiftUI
 
-final class UserData: ObservableObject {
+//final class UserData: ObservableObject {
 //    @Published var plantData : [MyPlant] = getDataDiscover()
-     @Published var landmarks = getDataDiscover()
+//     @Published var landmarks = getDataDiscover()
     //    @ObservedObject var mData = getDataDiscover()
-}
+//}
 
 //contoh
 //final class UserData: ObservableObject {
