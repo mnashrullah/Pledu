@@ -14,11 +14,11 @@ class ProgressUpload: ObservableObject, Codable{
     }
     
     static let types = [
-        "Tahapan 1",
-        "Tahapan 2",
-        "Tahapan 3",
-        "Tahapan 4",
-        "Tahapan 5"]
+        "Tahapan "+Constants.tahapan[0],
+        "Tahapan "+Constants.tahapan[1],
+        "Tahapan "+Constants.tahapan[2],
+        "Tahapan "+Constants.tahapan[3],
+        "Tahapan "+Constants.tahapan[4]]
     
     @Published var phase: Int = 0
     @Published var description = ""

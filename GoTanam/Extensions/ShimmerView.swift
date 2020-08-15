@@ -23,7 +23,7 @@ public struct ShimmerView: View {
     
     public var body: some View {
         RoundedRectangle(cornerRadius: Constants.cornerRadius)
-            .fill(Color.pink)
+            .fill(Color.green)
             .opacity(opacity)
             .transition(.opacity)
             .onAppear {

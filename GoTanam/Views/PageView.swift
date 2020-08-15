@@ -21,7 +21,8 @@ struct PageView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color.black)
                     
-                }.padding(.top, -45)
+                }
+//                .padding(.top, -45)
                 Spacer()
                 
             }

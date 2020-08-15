@@ -27,7 +27,8 @@ struct MyPlantView: View {
                         
                         ForEach(0..<self.dataMyPlant.count, id: \.self){i in
                             cardMyPlant(data: self.dataMyPlant[i])
-                        }.onDelete(perform: removeCards)
+                        }.onDelete { self.deleteData(at: $0) }
+//                                .onDelete(perform: removeCards)
                         
                     }
                 }else{
@@ -63,14 +64,32 @@ struct MyPlantView: View {
         }.resume()
         
     }
-    func deleteData(){
-//        print("delete data")
-    }
-    func removeCards(at offsets: IndexSet) {
-//        cards.remove(atOffsets: offsets)
-//        saveData()
-        print(offsets)
-        print("delete")
+    func deleteData(at offsets: IndexSet){
+        for offset in offsets {
+            let item = self.dataMyPlant[offset]
+            let url = Constants.Api.viewMyPlant
+            let parameters = [
+                "idUser": UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser),
+                "idPlant": item.idPlant]
+            print(parameters)
+
+            var urlRequest = URLRequest(url: URL(string: url)!)
+            urlRequest.httpMethod = "DELETE"
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.httpBody = try? JSONEncoder().encode(parameters)
+            URLSession.shared.dataTask(with: urlRequest){(data,response,err) in
+                if err != nil{
+                    print((err?.localizedDescription)!)
+                    return
+                }
+                self.loadData()
+//                let json: [MyPlant] = try! JSONDecoder().decode([MyPlant].self, from: data!)
+//                DispatchQueue.main.async {self.dataMyPlant = json}
+//                DispatchQueue.main.sync {self.dataMyPlant = json}
+                //            print(self.dataMyPlant)
+            }.resume()
+            
+        }
     }
 }
 func getDate(time: String)->String{

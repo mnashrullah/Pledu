@@ -12,6 +12,7 @@ struct DiscoveryView: View {
 //    @ObservedObject var mData = getDataDiscover()
     @State var categories = [String: [Discover]]()
     @State var dataPlant = [Discover]()
+    @Binding var tabSelection: Int
     
     
     @State var showingSetting = false
@@ -82,14 +83,13 @@ struct DiscoveryView: View {
                         if self.searchText == ""{
                             ForEach(self.categories.keys.sorted(), id:\.self) {
                                 item in
-                                   CategoryRow(categoryName: item, items: self.categories[item]!)
-                            }.listRowInsets(EdgeInsets())
-                            .resignKeyboardOnDragGesture()
+                                CategoryRow(tabSelection: self.$tabSelection, categoryName: item, items: self.categories[item]!)
+                            }
                         
                         }else{
                               ForEach(self.dataPlant.filter{$0.name.lowercased().contains(searchText.lowercased()) || searchText == ""}, id:\.self) {searchText in
                             //                        NavigationLink(destination: ShowcontentView(isNavigationBarHidden: self.$isNavigationBarHidden, landmark: searchText)) {
-                                cardPlant(item: searchText)
+                                cardPlant(item: searchText, tabSelection: self.$tabSelection)
                             //
                                                     }
                             //                    }
@@ -151,6 +151,7 @@ extension View {
 
 
 struct CategoryRow: View{
+    @Binding var tabSelection: Int
     var categoryName: String
     var items: [Discover]
     
@@ -170,7 +171,7 @@ struct CategoryRow: View{
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20){
                     ForEach(0..<self.items.count, id: \.self){item in
-                        cardPlant(item: self.items[item])
+                        cardPlant(item: self.items[item], tabSelection: self.$tabSelection)
                         }.frame(height: 185)
                 }.padding(.leading, 10)
             }
@@ -183,7 +184,10 @@ struct CategoryRow: View{
 struct cardPlant: View{
     @State var item : Discover
     @Environment(\.imageCache) var cache: ImageCache
+    @Environment(\.presentationMode) var presentationMode
     @State var show = false
+    @State private var showingAlert = false
+    @Binding var tabSelection: Int
     
     var body: some View{
         
@@ -212,7 +216,7 @@ struct cardPlant: View{
 
             VStack{
                 VStack{
-                    closeModalButton()
+//                    closeModalButton()
                     
                     GeometryReader{ geo in
                         ScrollView(showsIndicators: false){
@@ -268,7 +272,7 @@ struct cardPlant: View{
                         }.background(Color("clearColor"))
 
 
-                    }.background(Color.white)
+                    }.background(Color("clearColor"))
                     .padding(.top, -75)
                     HStack{
     //                    Button(action: {
@@ -279,6 +283,8 @@ struct cardPlant: View{
     //                    }
                         Button(action: {
                             self.addToMyPlant(item: self.item)
+                            self.showingAlert = true
+                            self.show = false
 
                         }) {
                             HStack(spacing: 6){
@@ -305,13 +311,23 @@ struct cardPlant: View{
                             .frame(width:UIScreen.main.bounds.width-40, height: 40.0)
                             .cornerRadius(10)
                         )
+                            .alert(isPresented: self.$showingAlert) {
+                                Alert(title: Text("Success!"), message: Text("tanaman berhasil ditambahkan"),
+                                      dismissButton: .default(Text("Check My Plant"), action: {
+                                        self.show = false
+                                      }))
+                            }
+                            
+                            
+                        }
                     }
                 }
             }.padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
      
         }
-    }
+    
+
     func addToMyPlant(item: Discover){
 //        print("addToMyPlant ",item)
         let url = Constants.Api.addMyPlant
@@ -332,6 +348,9 @@ struct cardPlant: View{
                 print((err?.localizedDescription)!)
                 return
             }
+            //move tab
+            self.tabSelection = 1
+            
 //            print("addToMyPlant", response)
 //            print("addToMyPlant", data)
 //            print("addToMyPlant", err)
@@ -351,6 +370,7 @@ struct cardPlant: View{
 
 struct closeModalButton: View {
     @Environment(\.presentationMode) private var presentationMode
+    @State var showModal: Bool
     
     var body : some View{
       Button(action: {
