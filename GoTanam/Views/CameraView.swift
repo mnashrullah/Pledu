@@ -84,7 +84,7 @@ struct CameraView: View {
                         Spacer()
                         Button(action: {
 //                            saveProgress(data: self.dataprogress, pic: self.rawimage!)
-                            saveProgress2(data: self.dataprogress, pic: self.rawimage!, idPlant: self.idPLant, dateCreated: self.dateCreated)
+                            saveProgress2(data: self.dataprogress, pic:  resizeImage(image: self.rawimage!), idPlant: self.idPLant, dateCreated: self.dateCreated)
                             self.showingAlert = true
                         }){
                             Text("Save")
@@ -129,6 +129,44 @@ struct CameraView: View {
             
         }
     }
+    
+}
+func resizeImage(image: UIImage) -> UIImage {
+    var actualHeight: Float = Float(image.size.height)
+    var actualWidth: Float = Float(image.size.width)
+    let maxHeight: Float = 300.0
+    let maxWidth: Float = 400.0
+    var imgRatio: Float = actualWidth / actualHeight
+    let maxRatio: Float = maxWidth / maxHeight
+    let compressionQuality: Float = 0.5
+    //50 percent compression
+
+    if actualHeight > maxHeight || actualWidth > maxWidth {
+        if imgRatio < maxRatio {
+            //adjust width according to maxHeight
+            imgRatio = maxHeight / actualHeight
+            actualWidth = imgRatio * actualWidth
+            actualHeight = maxHeight
+        }
+        else if imgRatio > maxRatio {
+            //adjust height according to maxWidth
+            imgRatio = maxWidth / actualWidth
+            actualHeight = imgRatio * actualHeight
+            actualWidth = maxWidth
+        }
+        else {
+            actualHeight = maxHeight
+            actualWidth = maxWidth
+        }
+    }
+
+    let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(actualWidth), height: CGFloat(actualHeight))
+    UIGraphicsBeginImageContext(rect.size)
+    image.draw(in: rect)
+    let img = UIGraphicsGetImageFromCurrentImageContext()
+    let imageData = img!.jpegData(compressionQuality: CGFloat(compressionQuality))
+    UIGraphicsEndImageContext()
+    return UIImage(data: imageData!)!
 }
 
 struct CaptureImageView {
@@ -315,3 +353,40 @@ func saveProgress2(data: ProgressUpload, pic: UIImage, idPlant: Int, dateCreated
     
 }
 
+
+
+extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
+        return jpegData(compressionQuality: jpegQuality.rawValue)
+    }
+}
+
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+}
