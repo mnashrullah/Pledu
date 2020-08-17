@@ -189,7 +189,7 @@ struct cardPlant: View{
     @Environment(\.imageCache) var cache: ImageCache
     @State var show = false
     @Binding var tabSelected: Int
-    @Environment(\.presentationMode) var presentationMode
+//    @Environment(\.presentationMode) var presentationMode
     var body: some View{
         
         VStack(alignment: .leading, spacing: 5){
@@ -213,6 +213,7 @@ struct cardPlant: View{
         .background(Color("bgColor"))
         .cornerRadius(9)
         .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
+            
         .sheet(isPresented: $show){
             VStack{
                 VStack{
@@ -221,7 +222,7 @@ struct cardPlant: View{
                             AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
                                 .aspectRatio(1, contentMode: .fill)
                                 .frame(width:UIScreen.main.bounds.width, height: 300)
-                            
+
                             VStack(alignment: .leading, spacing: 10){
                                 HStack{
                                     VStack(alignment: .leading){
@@ -237,8 +238,8 @@ struct cardPlant: View{
                                         }
                                             .padding(.top, -30)
                                             .padding()
-                                        
-                                            
+
+
                                     }
                                     Spacer()
                                 }
@@ -248,23 +249,23 @@ struct cardPlant: View{
                                     .blur(radius: 40, opaque: true)
                                 )
                                 .padding(.top, -80)
-                                
+
                                 VStack(){
                                     Text(self.item.name.capitalized).fontWeight(.semibold)
                                     Text("Durasi tumbuh " + String(self.item.duration) + " Hari")
                                 }
                                 .frame(width:UIScreen.main.bounds.width)
                             }
-                            
+
                             VStack(alignment: .leading, spacing: 10){
-                                
+
                                 Text(self.item.description.capitalized).foregroundColor(.gray).font(Font.system(size:14, design: .default))
-                                
+
                                 Text("Alat dan Bahan").fontWeight(.semibold)
                                 Text(self.item.tools).foregroundColor(.gray).font(Font.system(size:14, design: .default))
-                                
+
                             }.padding()
-                            
+
                         }.background(Color("clearColor"))
 
 
@@ -281,7 +282,7 @@ struct cardPlant: View{
                                     .fontWeight(.regular)
                                     .foregroundColor(.white)
                                     .padding(.leading, 0)
-                                
+
                                 Text("Pilih")
                                     .foregroundColor(.blue)
                                     .fontWeight(.semibold)
@@ -304,7 +305,7 @@ struct cardPlant: View{
             }.padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
 
-            
+
         }
     }
     func addToMyPlant(item: Discover){
