@@ -75,12 +75,14 @@ struct MyPlantDetailView: View {
         }
         .onAppear(){
             //self.data sudah mengandung nilai tanaman yang di klik
-            print("appear")
+            print("MyPlantDetailView appear")
             self.loadData()
             self.loadDataPhase()
         }
-    
-       
+    .onDisappear()
+        {
+            print("MyPlantDetailView ddisappear")
+        }
     }
     func loadData(){
             let url = Constants.Api.viewProgress

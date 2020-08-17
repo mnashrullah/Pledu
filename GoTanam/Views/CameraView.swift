@@ -71,11 +71,17 @@ struct CameraView: View {
     @ObservedObject var dataprogress = ProgressUpload()
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAlert = false
-
-    
+    @State var loading = false
     var body: some View {
         ZStack {
             NavigationView {
+                if self.loading{
+                    GeometryReader{_ in
+                        loader()
+                    }.background(Color.black.opacity(0.45).edgesIgnoringSafeArea(.all)).onTapGesture {
+                        self.loading.toggle()
+                    }
+                }
                 VStack(alignment: .leading, spacing: 12){
                     HStack(){
                         Text("Upload Progress")
@@ -84,7 +90,8 @@ struct CameraView: View {
                         Spacer()
                         Button(action: {
 //                            saveProgress(data: self.dataprogress, pic: self.rawimage!)
-                            saveProgress2(data: self.dataprogress, pic:  resizeImage(image: self.rawimage!), idPlant: self.idPLant, dateCreated: self.dateCreated)
+                            self.loading.toggle()
+                            self.saveProgress2(data: self.dataprogress, pic:  resizeImage(image: self.rawimage!), idPlant: self.idPLant, dateCreated: self.dateCreated, loading: self.loading)
                             self.showingAlert = true
                         }){
                             Text("Save")
@@ -127,9 +134,137 @@ struct CameraView: View {
                 CaptureImageView(isShown: $showCaptureImageView, image: $image, rawimage: $rawimage )
             }
             
+            
         }
     }
     
+    func saveProgress2(data: ProgressUpload, pic: UIImage, idPlant: Int, dateCreated: String, loading: Bool){
+        print("saveProgress2 ",data, "idplant ")
+        
+        print("upload imagw with data", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser), "idPlant", data.idPlant, "idplant2", Constants.dataUserDefault.idPlant)
+
+        let filename = "avatar.png"
+
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let fieldName = "idUser"
+        let fieldValue = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser)
+
+        let fieldName2 = "idPlant"
+        let fieldValue2 = idPlant
+
+        let fieldName3 = "description"
+        let fieldValue3 = data.description
+
+        let fieldName4 = "phase"
+        let fieldValue4 = data.phase
+        
+        let fieldName5 = "dateCreated"
+        let fieldValue5 = dateCreated
+
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: URL(string: Constants.Api.uploadProgress)!)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+    //     Add the reqtype field and its value to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName)\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(fieldValue)".data(using: .utf8)!)
+
+        // Add the userhash field and its value to the raw http reqyest data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName2)\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(fieldValue2)".data(using: .utf8)!)
+        
+        // Add the userhash field and its value to the raw http reqyest data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName3)\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(fieldValue3)".data(using: .utf8)!)
+        
+        // Add the userhash field and its value to the raw http reqyest data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName4)\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(fieldValue4)".data(using: .utf8)!)
+        
+        // Add the userhash field and its value to the raw http reqyest data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName5)\"\r\n\r\n".data(using: .utf8)!)
+        data.append("\(fieldValue5)".data(using: .utf8)!)
+      
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"photo\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(pic.pngData()!)
+
+        // End the raw http request data, note that there is 2 extra dash ("-") at the end, this is to indicate the end of the data
+        // According to the HTTP 1.1 specification https://tools.ietf.org/html/rfc7230
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            
+            if(error != nil){
+                print("\(error!.localizedDescription)")
+            }
+            
+            guard let responseData = responseData else {
+                print("no response data")
+                return
+            }
+            
+            if let responseString = String(data: responseData, encoding: .utf8) {
+                print("uploaded to: \(responseString)")
+                self.loading.toggle()
+
+            }
+            
+            guard let response = response as? HTTPURLResponse,
+                (200...299).contains(response.statusCode) else {
+                print ("server error")
+                return
+            }
+            
+           
+            
+        }).resume()
+        
+    }
+
+    
+}
+
+struct loader: View{
+    @State var loading = false
+    var body: some View{
+            VStack  {
+                Circle()
+                .trim(from: 0, to: 0.8)
+                .stroke(AngularGradient(gradient: .init(colors: [.red, .orange]), center: .center), style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                .frame(width: 45, height: 45)
+                .rotationEffect(.init(degrees: self.loading ? 360 : 0))
+                .animation(Animation.linear(duration: 0.7).repeatForever(autoreverses: false))
+                Text("Please wait...").padding(.top, 20)
+            }
+            .padding(20)
+            .background(Color.white)
+            .cornerRadius(15)
+            .onAppear(){
+                self.loading.toggle()
+            
+        }
+    }
 }
 func resizeImage(image: UIImage) -> UIImage {
     var actualHeight: Float = Float(image.size.height)
@@ -260,98 +395,6 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 //}
 
 
-func saveProgress2(data: ProgressUpload, pic: UIImage, idPlant: Int, dateCreated: String){
-    print("saveProgress2 ",data, "idplant ")
-    
-    print("upload imagw with data", UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser), "idPlant", data.idPlant, "idplant2", Constants.dataUserDefault.idPlant)
-
-    let filename = "avatar.png"
-
-    // generate boundary string using a unique per-app string
-    let boundary = UUID().uuidString
-
-    let fieldName = "idUser"
-    let fieldValue = UserDefaults.standard.integer(forKey: Constants.dataUserDefault.idUser)
-
-    let fieldName2 = "idPlant"
-    let fieldValue2 = idPlant
-
-    let fieldName3 = "description"
-    let fieldValue3 = data.description
-
-    let fieldName4 = "phase"
-    let fieldValue4 = data.phase
-    
-    let fieldName5 = "dateCreated"
-    let fieldValue5 = dateCreated
-
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-
-    // Set the URLRequest to POST and to the specified URL
-    var urlRequest = URLRequest(url: URL(string: Constants.Api.uploadProgress)!)
-    urlRequest.httpMethod = "POST"
-
-    // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
-    // And the boundary is also set here
-    urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-    var data = Data()
-
-//     Add the reqtype field and its value to the raw http request data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"\(fieldName)\"\r\n\r\n".data(using: .utf8)!)
-    data.append("\(fieldValue)".data(using: .utf8)!)
-
-    // Add the userhash field and its value to the raw http reqyest data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"\(fieldName2)\"\r\n\r\n".data(using: .utf8)!)
-    data.append("\(fieldValue2)".data(using: .utf8)!)
-    
-    // Add the userhash field and its value to the raw http reqyest data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"\(fieldName3)\"\r\n\r\n".data(using: .utf8)!)
-    data.append("\(fieldValue3)".data(using: .utf8)!)
-    
-    // Add the userhash field and its value to the raw http reqyest data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"\(fieldName4)\"\r\n\r\n".data(using: .utf8)!)
-    data.append("\(fieldValue4)".data(using: .utf8)!)
-    
-    // Add the userhash field and its value to the raw http reqyest data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"\(fieldName5)\"\r\n\r\n".data(using: .utf8)!)
-    data.append("\(fieldValue5)".data(using: .utf8)!)
-  
-
-    // Add the image data to the raw http request data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=\"photo\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-    data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-    data.append(pic.pngData()!)
-
-    // End the raw http request data, note that there is 2 extra dash ("-") at the end, this is to indicate the end of the data
-    // According to the HTTP 1.1 specification https://tools.ietf.org/html/rfc7230
-    data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-
-    // Send a POST request to the URL, with the data we created earlier
-    session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
-        
-        if(error != nil){
-            print("\(error!.localizedDescription)")
-        }
-        
-        guard let responseData = responseData else {
-            print("no response data")
-            return
-        }
-        
-        if let responseString = String(data: responseData, encoding: .utf8) {
-            print("uploaded to: \(responseString)")
-        }
-    }).resume()
-    
-}
 
 
 

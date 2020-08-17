@@ -35,6 +35,7 @@ struct DiscoveryView: View {
         NavigationView{
             VStack{
                 VStack(alignment: .leading, spacing: 5){
+                    
                    Text("dcvHeadline").fontWeight(.heavy)
                        Text("dcvDesc").foregroundColor(.gray)
                        // Search view

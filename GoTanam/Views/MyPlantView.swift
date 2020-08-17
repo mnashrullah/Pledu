@@ -12,7 +12,6 @@ struct MyPlantView: View {
     @State var dataMyPlant = [MyPlant]()
     @Binding var tabSelected: Int
 //    @ObservedObject var data = getData()
-    
    
     var body: some View {
         NavigationView{
@@ -22,11 +21,11 @@ struct MyPlantView: View {
                         VStack(alignment: .leading){
                             Text("mpDesc").foregroundColor(.gray)
                         }
-                        
+
                         ForEach(0..<self.dataMyPlant.count, id: \.self){i in
                             cardMyPlant(data: self.dataMyPlant[i])
                         }.onDelete(perform: deleteData)
-                        
+
                     }
                 }else{
                     VStack(alignment: .center, spacing: 10){
