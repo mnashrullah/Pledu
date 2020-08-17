@@ -215,106 +215,94 @@ struct cardPlant: View{
         .shadow(color: Color.black.opacity(0.10), radius: 2, x: 2, y: 2)
         .sheet(isPresented: $show){
             VStack{
-                            VStack{
-            //                    closeModalButton()
-                                
-                                GeometryReader{ geo in
-                                    ScrollView(showsIndicators: false){
-                                        AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
-                                            .aspectRatio(1, contentMode: .fill)
-                                            .frame(width:UIScreen.main.bounds.width, height: 300)
-                                        
-                                        VStack(alignment: .leading, spacing: 10){
-                                            HStack{
-                                                VStack(alignment: .leading){
-            //                                        NavigationLink(destination:_){
-            //
-                                                        Text("Tutorial")
-                                                            .fontWeight(.semibold)
-                                                            .foregroundColor(Color.white)
-                                                            .font(.subheadline)
-                                                            .padding(.top, 0)
-                                                            .padding()
-            //                                        }
-                                                    HStack{
-                                                        Text("Cara menanam " + String(self.item.category.capitalized) + " " + String(self.item.name.capitalized)).fontWeight(.heavy).foregroundColor(Color.white).font(.title)
-                                                    }
-                                                        .padding(.top, -30)
-                                                        .padding()
-                                                    
-                                                        
-                                                }
-                                                Spacer()
-                                            }
-                                            .background(AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: ShimmerView().frame(width:UIScreen.main.bounds.width, height: 120), configuration: { $0.resizable() })
-
-                                                .frame(width:UIScreen.main.bounds.width, height: 100.0)
-                                                .blur(radius: 40, opaque: true)
-                                            )
-                                            .padding(.top, -80)
-                                            
-                                            VStack(){
-                                                Text(self.item.name.capitalized).fontWeight(.semibold)
-                                                Text("Durasi tumbuh " + String(self.item.duration) + " Hari")
-                                            }
-                                            .frame(width:UIScreen.main.bounds.width)
-                                        }
-                                        
-                                        VStack(alignment: .leading, spacing: 10){
-                                            
-                                            Text(self.item.description.capitalized).foregroundColor(.gray).font(Font.system(size:14, design: .default))
-                                            
-                                            Text("Alat dan Bahan").fontWeight(.semibold)
-                                            Text(self.item.tools).foregroundColor(.gray).font(Font.system(size:14, design: .default))
-                                            
-                                        }.padding()
-                                        
-                                    }.background(Color("clearColor"))
-
-
-                                }.background(Color.white)
-                                .padding(.top, -75)
+                VStack{
+                    GeometryReader{ geo in
+                        ScrollView(showsIndicators: false){
+                            AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
+                                .aspectRatio(1, contentMode: .fill)
+                                .frame(width:UIScreen.main.bounds.width, height: 300)
+                            
+                            VStack(alignment: .leading, spacing: 10){
                                 HStack{
-                //                    Button(action: {
-                //
-                //                    }) {
-                //
-                //                        Image("Save").renderingMode(.original)
-                //                    }
-                                    Button(action: {
-                                        self.addToMyPlant(item: self.item)
-                                        self.show = false
-                                        
+                                    VStack(alignment: .leading){
 
-                                    }) {
-                                        HStack(spacing: 6){
-
-                                            Text("Tambah ke Tanamanku")
-                                                .fontWeight(.regular)
-                                                .foregroundColor(.white)
-                                                .padding(.leading, 0)
-                                            
-                                            Text("Pilih")
-                                                .foregroundColor(.blue)
+                                            Text("Tutorial")
                                                 .fontWeight(.semibold)
-                                                .background(Color.white
-                                                    .cornerRadius(10)
-                                                    .frame(width: 50)
-                                                )
-                                                .offset(x: UIScreen.main.bounds.width/13)
-
-                                        }.foregroundColor(.red)
-                                        .padding()
+                                                .foregroundColor(Color.white)
+                                                .font(.subheadline)
+                                                .padding(.top, 0)
+                                                .padding()
+                                        HStack{
+                                            Text("Cara menanam " + String(self.item.category.capitalized) + " " + String(self.item.name.capitalized)).fontWeight(.heavy).foregroundColor(Color.white).font(.title)
+                                        }
+                                            .padding(.top, -30)
+                                            .padding()
+                                        
+                                            
                                     }
-                                    .background(Color("offColor")
-                                        .opacity(0.3)
-                                        .frame(width:UIScreen.main.bounds.width-40, height: 40.0)
-                                        .cornerRadius(10)
-                                    )
+                                    Spacer()
                                 }
+                                .background(AsyncImage(url: URL(string: self.item.img)!, cache: self.cache, placeholder: ShimmerView().frame(width:UIScreen.main.bounds.width, height: 120), configuration: { $0.resizable() })
+
+                                    .frame(width:UIScreen.main.bounds.width, height: 100.0)
+                                    .blur(radius: 40, opaque: true)
+                                )
+                                .padding(.top, -80)
+                                
+                                VStack(){
+                                    Text(self.item.name.capitalized).fontWeight(.semibold)
+                                    Text("Durasi tumbuh " + String(self.item.duration) + " Hari")
+                                }
+                                .frame(width:UIScreen.main.bounds.width)
                             }
-                        }.padding()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
+                            
+                            VStack(alignment: .leading, spacing: 10){
+                                
+                                Text(self.item.description.capitalized).foregroundColor(.gray).font(Font.system(size:14, design: .default))
+                                
+                                Text("Alat dan Bahan").fontWeight(.semibold)
+                                Text(self.item.tools).foregroundColor(.gray).font(Font.system(size:14, design: .default))
+                                
+                            }.padding()
+                            
+                        }.background(Color("clearColor"))
+
+
+                    }.background(Color.white)
+                    .padding(.top, -75)
+                    HStack{
+                        Button(action: {
+                            self.addToMyPlant(item: self.item)
+                            self.show = false
+                        }) {
+                            HStack(spacing: 6){
+
+                                Text("Tambah ke Tanamanku")
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.white)
+                                    .padding(.leading, 0)
+                                
+                                Text("Pilih")
+                                    .foregroundColor(.blue)
+                                    .fontWeight(.semibold)
+                                    .background(Color.white
+                                        .cornerRadius(10)
+                                        .frame(width: 50)
+                                    )
+                                    .offset(x: UIScreen.main.bounds.width/13)
+
+                            }.foregroundColor(.red)
+                            .padding()
+                        }
+                        .background(Color("offColor")
+                            .opacity(0.3)
+                            .frame(width:UIScreen.main.bounds.width-40, height: 40.0)
+                            .cornerRadius(10)
+                        )
+                    }
+                }
+            }.padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("clearColor"))
 
             
         }
@@ -433,11 +421,9 @@ struct closeModalButton: View {
 struct cardDiscover: View{
     @Environment(\.imageCache) var cache: ImageCache
     var data: Discover
-    
-    
     var body: some View{
         HStack(){
-            AsyncImage(url: URL(string: data.img)!, cache: self.cache, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
+            AsyncImage(url: URL(string: data.img)!, placeholder: ShimmerView().frame(width: 120, height: 120), configuration: { $0.resizable() })
                 .frame(width: 120, height: 120)
                 .cornerRadius(10)
             VStack(alignment: .leading, spacing: 10){
